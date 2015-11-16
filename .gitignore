@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io/api/java,bower,node,intellij
+# Created by https://www.gitignore.io/api/java,bower,node,intellij,maven
 
 ### Java ###
 *.class
@@ -101,4 +101,15 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
-*/node
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
