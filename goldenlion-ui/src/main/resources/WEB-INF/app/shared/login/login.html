@@ -1,0 +1,19 @@
+<div class="techs" layout-align="center">
+  <md-card class="md-whiteframe-24dp">
+    <form ng-submit="loginCtrl.login()">
+      <md-card-content>
+        <md-input-container class="md-block">
+          <label>Benutzername</label>
+          <input required name="username" ng-model="loginCtrl.credentials.username">
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Passwort</label>
+          <input required name="password" ng-model="loginCtrl.credentials.password">
+        </md-input-container>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end">
+        <md-button class="md-primary">Anmelden</md-button>
+      </md-card-actions>
+    </form>
+  </md-card>
+</div>

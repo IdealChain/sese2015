@@ -3,16 +3,16 @@
 
   angular
     .module('goldenlionUi')
-    .controller('MainController', MainController);
+    .controller('HomeController', HomeController);
 
   /** @ngInject */
-  function MainController() {
-    var thiz = this;
+  function HomeController() {
+    var vm = this;
 
     activate();
 
     function activate() {
     }
 
-    }
+  }
 })();

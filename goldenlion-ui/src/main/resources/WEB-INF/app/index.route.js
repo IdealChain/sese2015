@@ -8,14 +8,19 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('home', {
+      .state('main', {
         url: '/',
-        templateUrl: 'app/main/main.html',
+        templateUrl: 'app/components/main/main.html',
         controller: 'MainController',
-        controllerAs: 'main'
+        controllerAs: 'mainCtrl'
+      })
+      .state('home', {
+        url: '/home',
+        templateUrl: 'app/components/home/home.html',
+        controller: 'HomeController',
+        controllerAs: 'homeCtrl',
+        authenticate: true
       });
-
     $urlRouterProvider.otherwise('/');
   }
-
 })();
