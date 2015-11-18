@@ -45,3 +45,10 @@ java -jar h2-1.4.190.jar
 Wait a few second and watch a browser window popup. The connectionstring + creds. can be found in ```goldenlion-server/src/main/resources/application.properties```
 
 **Attention:** currently, H2 only allows one connection, so make sure to stop the goldenlion app before lanching the h2 viewer and vice versa.
+
+###Test data
+```bash
+# Register a user 
+curl -X POST "http://localhost:8080/register" -H "Content-Type: application/json" -d '{ "firstname": "Max", "lastname": "Muster", "email": "max@muster.com" }'
+# Returns {"password": "..." }
+```
