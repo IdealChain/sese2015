@@ -35,3 +35,13 @@ Import project from existing source. Run ```GoldenlionAppication```
 * If not present, create a run-configuration with the main class: ```sese2015.g3.goldenlion.GoldenlionApplication```).
 * If IntelliJ produces compilation errors, run ```mvn clean install``` in the project's root directory
 * If IntelliJ still produces compilation errors, go to *File > Settings > Build, Execution, Deployment > Build Tools > Maven > Importing* and set the checkmark "Import Maven projects automatically"
+
+###Debugging with H2
+If you want to have a look into goldenlion's h2 database, checkout the following:
+```bash
+cd ~/.m2/repository/com/h2database/h2/1.4.190/
+java -jar h2-1.4.190.jar
+```
+Wait a few second and watch a browser window popup. The connectionstring + creds. can be found in ```goldenlion-server/src/main/resources/application.properties```
+
+**Attention:** currently, H2 only allows one connection, so make sure to stop the goldenlion app before lanching the h2 viewer and vice versa.
