@@ -17,6 +17,7 @@ import sese2015.g3.goldenlion.security.rest.domain.request.RegistrationRequest;
 import sese2015.g3.goldenlion.security.service.AuthorizationService;
 import sese2015.g3.goldenlion.security.utils.RandomString;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,5 +71,23 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
         userRepository.save(newUser);
         return password;
+    }
+
+    @PostConstruct
+    private void initStandardUser() {
+        User standardUser = new User();
+        standardUser.setFirstName("test");
+        standardUser.setLastName("tester");
+        standardUser.setEmail("tester@goldenlion.tk");
+
+        List<UserRole> userRoleList = new ArrayList<>();
+        UserRole standardRole = new UserRole();
+        userRoleList.add(standardRole);
+        standardUser.setUserRoles(userRoleList);
+        standardRole.setUser(standardUser);
+        standardRole.setRole(Role.ADM);
+
+        standardUser.setPassword(saltedSHA256PasswordEncoder.encode("test"));
+        userRepository.save(standardUser);
     }
 }

@@ -9,14 +9,14 @@
     var directive = {
       restrict: 'E',
       templateUrl: 'app/shared/login/login.html',
-      controller: ['$scope', '$state', 'restService', LoginController],
+      controller: ['$rootScope','$scope', '$state', 'restService', LoginController],
       controllerAs: 'loginCtrl'
     };
 
     return directive;
 
     /** @ngInject */
-    function LoginController($scope, $state, restService) {
+    function LoginController($rootScope, $scope, $state, restService) {
       var vm = this;
 
       vm.credentials = {
@@ -28,7 +28,12 @@
         restService.login(vm.credentials).then(
           function successCallback(response) {
             $scope.$emit("loginSuccess", response.data);
-            $state.go("home");
+            if ($rootScope.returnToState != null) {
+              $state.go($rootScope.returnToState, $rootScope.returnToStateParams);
+            } else {
+              $state.go("home");
+            }
+            ;
           },
           function errorCallback() {
             alert("Error: login failed");

@@ -3,7 +3,10 @@
 
   angular
     .module('goldenlionUi')
-    .config(config);
+    .config(config)
+    .config(function ($httpProvider) {
+      $httpProvider.interceptors.push('authInterceptor');
+    });
 
   /** @ngInject */
   function config($logProvider) {

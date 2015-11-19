@@ -14,24 +14,23 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import sese2015.g3.goldenlion.security.utils.TokenUtils;
+import org.springframework.web.bind.annotation.RestController;
 import sese2015.g3.goldenlion.security.rest.domain.request.LoginRequest;
 import sese2015.g3.goldenlion.security.rest.domain.request.RegistrationRequest;
 import sese2015.g3.goldenlion.security.rest.domain.response.LoginResponse;
 import sese2015.g3.goldenlion.security.rest.domain.response.RegistrationResponse;
 import sese2015.g3.goldenlion.security.service.AuthorizationService;
+import sese2015.g3.goldenlion.security.utils.TokenUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
+@RequestMapping(value = "/api")
 public class AuthorizationResource {
-
     private Log log = LogFactory.getLog(getClass());
 
     @Autowired
@@ -48,7 +47,6 @@ public class AuthorizationResource {
             method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
     public LoginResponse login(@RequestBody LoginRequest toAuthenticate) {
         this.log.info("User " + toAuthenticate.getUsername() + " hits the Backend!");
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -65,7 +63,7 @@ public class AuthorizationResource {
                 this.log.info("Added role! " + authority.toString() + " to user " + userDetails.getUsername());
             }
         }
-        return new LoginResponse(userDetails.getUsername(), roles, TokenUtils.createToken(userDetails));
+        return new LoginResponse(TokenUtils.createToken(userDetails, roles));
     }
 
     @RequestMapping(
@@ -73,7 +71,6 @@ public class AuthorizationResource {
             method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
     public RegistrationResponse register(@RequestBody RegistrationRequest toRegister) {
         this.log.info("Someone wants to register! " + ToStringBuilder.reflectionToString(toRegister, ToStringStyle.JSON_STYLE));
         String generatedPassword = this.authorizationService.createNewUser(toRegister);
