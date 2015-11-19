@@ -20,6 +20,7 @@ If your development machine is setup nicely, the commando above should install a
 * If there are still python errors like ```gyp ERR! stack Error: spawn /usr/bin/python ENOEN```, ignore them for now. They don't seem to mess anything up.
 * Run ```bower install```
   * If ```bower: command not found```, run ```npm install -g bower```
+* Run ```npm install -g gulp``` 
 * Run ```mvn clean install```
 * In case of success: switch to ```/path/to/sese2015/``` and run ```mvn clean install```
 
