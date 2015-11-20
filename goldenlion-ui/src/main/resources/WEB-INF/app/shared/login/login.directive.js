@@ -33,7 +33,6 @@
             } else {
               $state.go("home");
             }
-            ;
           },
           function errorCallback() {
             alert("Error: login failed");
