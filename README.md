@@ -28,8 +28,11 @@ If your development machine is setup nicely, the commando above should install a
 ```bash
 cd /path/to/sese2015
 mvn clean install
-java -jar goldenlion-server/target/goldenlion-server-0.0.1-SNAPSHOT.jar
+java -jar goldenlion-server/target/goldenlion-server-0.0.1-SNAPSHOT.jar #this will run the server :8080
+cd goldenlion-ui 
+gulp serve #this will run the ui at :3000
 ```
+Run http://localhost:3000 in your browser.
 
 ###Start goldenlion (IntelliJ)
 Import project from existing source. Run ```GoldenlionAppication``` 
@@ -50,7 +53,7 @@ Wait a few second and watch a browser window popup. The connectionstring + creds
 ###Test data
 ```bash
 # Register a user 
-curl -X POST "http://localhost:8080/register" -H "Content-Type: application/json" -d '{ "firstname": "Max", "lastname": "Muster", "email": "max@muster.com" }'
+curl -X POST "http://localhost:8080/api/register" -H "Content-Type: application/json" -d '{ "firstname": "Max", "lastname": "Muster", "email": "max@muster.com" }'
 # Returns {"password": "..." }
 ```
 
