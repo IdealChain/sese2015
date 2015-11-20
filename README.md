@@ -32,7 +32,7 @@ java -jar goldenlion-server/target/goldenlion-server-0.0.1-SNAPSHOT.jar #this wi
 cd goldenlion-ui 
 gulp serve #this will run the ui at :3000
 ```
-Run http://localhost:3000 in your browser.
+Run [http://localhost:3000](http://localhost:3000) in your browser.
 
 ###Start goldenlion (IntelliJ)
 Import project from existing source. Run ```GoldenlionAppication``` 
