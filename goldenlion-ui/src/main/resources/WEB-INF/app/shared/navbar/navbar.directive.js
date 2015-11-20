@@ -21,6 +21,10 @@
       var vm = this;
 
       vm.username = authService.getUsername();
+
+      vm.logout = function () {
+        authService.logout();
+      }
     }
   }
 

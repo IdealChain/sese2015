@@ -5,18 +5,19 @@
     .module('goldenlionUi')
     .service('authService', authService);
 
-  function authService($cookies, $log, $rootScope) {
+  function authService($cookies, $location, $log, $rootScope) {
     var vm = this;
+    var AUTHTOKEN_KEY = 'authtoken';
     var user;
 
-    var tokenInfo = angular.fromJson($cookies.get('authtoken'));
+    var tokenInfo = angular.fromJson($cookies.get(AUTHTOKEN_KEY));
     if (tokenInfo != null) {
       user = getUserFromToken(tokenInfo);
     }
 
     var onLoginSuccess = $rootScope.$on('loginSuccess', function (event, data) {
       $log.log(data);
-      $cookies.put('authtoken', angular.toJson(data));
+      $cookies.put(AUTHTOKEN_KEY, angular.toJson(data));
       user = getUserFromToken(data);
     });
     $rootScope.$on('$destroy', onLoginSuccess);
@@ -38,6 +39,11 @@
       if (checkToken()) {
         return user.token;
       }
+    }
+
+    vm.logout = function () {
+      $cookies.remove(AUTHTOKEN_KEY);
+      $location.path('/');
     }
 
     function checkToken() {
