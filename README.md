@@ -53,3 +53,7 @@ Wait a few second and watch a browser window popup. The connectionstring + creds
 curl -X POST "http://localhost:8080/register" -H "Content-Type: application/json" -d '{ "firstname": "Max", "lastname": "Muster", "email": "max@muster.com" }'
 # Returns {"password": "..." }
 ```
+
+###Test User
+We create a test user on startup - tester@goldenlion.tk
+ask for the testuser password ;)
