@@ -1,0 +1,90 @@
+<div class="rootDiv">
+  <navbar></navbar>
+  <div ncy-breadcrumb></div>
+  <div layout="row" layout-align="center">
+    <md-card class="md-whiteframe-24dp" style="width: 50%">
+      <h2 class="md-headline">Kunde hinzufügen</h2>
+      <md-card-content layout="row">
+        <div layout="column" layout-align="top" class="customercolumn">
+          <md-input-container>
+            <label>Name</label>
+            <input ng-model="customer.name">
+          </md-input-container>
+          <md-input-container>
+            <label>Geburtsdatum</label>
+            <input type="date" ng-model="customer.birthday" placeholder="Geburtsdatum">
+          </md-input-container>
+          <md-input-container>
+            <label>Geschlecht</label>
+            <md-select ng-model="customer.gender">
+              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Straße</label>
+            <input ng-model="customer.address.street">
+          </md-input-container>
+          <md-input-container layout-align="end" md-no-float class="md-block">
+            <input ng-model="customer.address.streetext" placeholder="Hausnummer/Stiege/Tür">
+          </md-input-container>
+          <md-input-container>
+            <label>State</label>
+            <md-select ng-model="customer.address.state">
+              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <div layout layout-sm="column">
+            <md-input-container>
+              <label>Postal Code</label>
+              <input name="postalCode" ng-model="customer.address.postalCode" placeholder="1010"
+                     required ng-pattern="/^[0-9]{5}$/" md-maxlength="4">
+            </md-input-container>
+            <md-input-container>
+              <label>City</label>
+              <input ng-model="customer.address.city">
+            </md-input-container>
+          </div>
+        </div>
+
+        <div layout="column" layout-align="top" class="customercolumn">
+          <md-input-container class="md-block">
+            <label>Firmenname</label>
+            <input ng-model="customer.company">
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Rabatt</label>
+            <input ng-model="customer.discount">
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Telefonnummer</label>
+            <input ng-model="customer.telephone">
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Fax</label>
+            <input ng-model="customer.fax">
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>E-Mail</label>
+            <input ng-model="customer.mail">
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Web</label>
+            <input ng-model="customer.web">
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Notizen</label>
+            <textarea ng-model="customer.notes" columns="1" md-maxlength="150" rows="5"></textarea>
+          </md-input-container>
+        </div>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end">
+        <md-button class="md-primary">Speichern</md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</div>
