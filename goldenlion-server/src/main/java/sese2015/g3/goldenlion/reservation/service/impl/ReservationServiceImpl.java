@@ -13,6 +13,7 @@ import sese2015.g3.goldenlion.room.domain.Room;
 import sese2015.g3.goldenlion.room.repository.RoomRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,7 +30,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     //TODO: Transaction
     @Override
-    public long createReservation(CreateReservationRequest request) throws CreateReservationFailedException{
+    public long createReservation(CreateReservationRequest request) throws CreateReservationFailedException {
         Room room = roomRepository.findOne(request.getRoomId());
         List<Customer> customers = IteratorUtils.toList(customerRepository.findAll(request.getCustomerIds()).iterator());
 
@@ -40,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (customers == null || customers.size() != request.getCustomerIds().size())
             throw new CreateReservationFailedException(
                     String.format("Given number of customers (%s) does not match found number of customers (%s)",
-                    request.getCustomerIds().size(), customers.size()));
+                            request.getCustomerIds().size(), customers.size()));
         if (customers.size() == 0)
             throw new CreateReservationFailedException("Reservation must at least contain one customer");
         if (request.getStartDate() == null || request.getEndDate() == null)
@@ -51,8 +52,8 @@ public class ReservationServiceImpl implements ReservationService {
         //
         // check if the room free within the given timespan
         List<Reservation> conflictingReservations = IteratorUtils.toList(reservationRepository.findOverlappingReservations(
-                request.getStartDate(), 
-                request.getEndDate(), 
+                request.getStartDate(),
+                request.getEndDate(),
                 room.getId()).iterator());
         if (conflictingReservations.size() > 0)
             throw new CreateReservationFailedException(String.format("Found %s conflicting reservations between %s and %s with Room-Id %s",
@@ -63,9 +64,16 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation r = new Reservation();
         r.setStartDate(request.getStartDate());
         r.setEndDate(request.getEndDate());
-        r.setRooms(new ArrayList<Room>(){{ add(room); }});
+        r.setRooms(new ArrayList<Room>() {{
+            add(room);
+        }});
         r.setCustomers(customers);
 
         return reservationRepository.save(r).getId();
+    }
+
+    @Override
+    public boolean isAvailable(Long roomId, Date startDate, Date endDate) {
+        return (!reservationRepository.findOverlappingReservations(startDate, endDate, roomId).iterator().hasNext());
     }
 }
