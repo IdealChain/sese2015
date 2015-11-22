@@ -6,23 +6,23 @@ import java.util.List;
 
 public class CreateReservationRequest {
 
-    private int roomId;
+    private long roomId;
 
     private Date startDate;
 
     private Date endDate;
 
-    private List<Integer> customerIds;
+    private List<Long> customerIds;
 
     public CreateReservationRequest() {
         customerIds = new ArrayList<>();
     }
 
-    public int getRoomId() {
+    public long getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(long roomId) {
         this.roomId = roomId;
     }
 
@@ -42,11 +42,11 @@ public class CreateReservationRequest {
         this.endDate = endDate;
     }
 
-    public List<Integer> getCustomerIds() {
+    public List<Long> getCustomerIds() {
         return customerIds;
     }
 
-    public void setCustomerIds(List<Integer> customerIds) {
+    public void setCustomerIds(List<Long> customerIds) {
         this.customerIds = customerIds;
     }
 }

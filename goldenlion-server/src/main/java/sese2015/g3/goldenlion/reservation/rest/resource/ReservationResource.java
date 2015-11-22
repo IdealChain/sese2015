@@ -30,9 +30,9 @@ public class ReservationResource {
     public CreateReservationResponse createReservation(@RequestBody CreateReservationRequest request) {
         log.info("Incoming Create Reservation Request... ");
 
-        log.info(ToStringBuilder.reflectionToString(request, ToStringStyle.JSON_STYLE));
-        log.info(reservationService.createReservation(request));
+        long reservationId = reservationService.createReservation(request);
+        log.info("Success");
 
-        return new CreateReservationResponse();
+        return new CreateReservationResponse(reservationId);
     }
 }
