@@ -8,7 +8,5 @@ import sese2015.g3.goldenlion.room.domain.Room;
 @Repository
 public interface RoomRepository extends CrudRepository<Room, Long> {
 
-    Room findOne(Long id);
 
-    Iterable<Room> findAll();
 }
