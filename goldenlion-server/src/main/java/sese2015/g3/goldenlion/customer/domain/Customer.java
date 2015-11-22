@@ -3,6 +3,7 @@ package sese2015.g3.goldenlion.customer.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import sese2015.g3.goldenlion.commons.entity.PersistentObject;
 
 import javax.persistence.*;
@@ -14,11 +15,11 @@ import java.util.Date;
 @Table(name = "customers")
 public class Customer extends PersistentObject {
 
-    @NotNull
+    @NotBlank
     @Column
     private String firstName;
 
-    @NotNull
+    @NotBlank
     @Column
     private String lastName;
 
@@ -35,6 +36,7 @@ public class Customer extends PersistentObject {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
@@ -42,18 +44,23 @@ public class Customer extends PersistentObject {
     @JoinColumn(name = "billingaddress_id")
     private Address billingAddress;
 
+    @NotBlank
     @Column(length = 65535)
     private String note;
 
+    @NotNull
     @Column
     private Double discount;
 
+    @NotBlank
     @Column
     private String phoneNumber;
 
+    @NotBlank
     @Column
     private String faxNumber;
 
+    @NotBlank
     @Column
     private String website;
 

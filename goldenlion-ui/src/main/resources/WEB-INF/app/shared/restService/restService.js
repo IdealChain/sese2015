@@ -24,5 +24,13 @@
         url: backend + "/api/register"
       })
     };
+
+    vm.createCustomer = function (customer) {
+      return $http({
+        method: 'POST',
+        data: customer,
+        url: backend + "/api/customers"
+      })
+    }
   }
 })();
