@@ -1,3 +1,6 @@
+### Custom stuff ###
+lua/authtoken
+
 # Created by https://www.gitignore.io/api/java,bower,node,intellij,maven
 
 ### Java ###
