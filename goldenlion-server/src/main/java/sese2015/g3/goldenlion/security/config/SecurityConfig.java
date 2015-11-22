@@ -12,7 +12,7 @@ import sese2015.g3.goldenlion.security.service.AuthorizationService;
 
 
 @Configuration
-@EnableGlobalMethodSecurity()
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    private static final int HTTPS_PORT = 9090;
 
@@ -35,8 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/companyprofile/**").permitAll()
-                .antMatchers("/countries").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/index.html").permitAll()

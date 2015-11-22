@@ -5,8 +5,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,21 +30,20 @@ import java.util.Map;
 @RequestMapping(value = "/api")
 public class AuthorizationResource {
     private Log log = LogFactory.getLog(getClass());
-
-    @Autowired
     private UserDetailsService userService;
-    @Autowired
     private AuthorizationService authorizationService;
-    @Autowired
-    @Qualifier("authenticationManager")
     private AuthenticationManager authManager;
 
+    @Autowired
+    public AuthorizationResource(UserDetailsService userDetailsService, AuthorizationService authorizationService, AuthenticationManager authenticationManager) {
+        this.userService = userDetailsService;
+        this.authorizationService = authorizationService;
+        this.authManager = authenticationManager;
+    }
 
     @RequestMapping(
             value = "/login",
-            method = RequestMethod.POST,
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+            method = RequestMethod.POST)
     public LoginResponse login(@RequestBody LoginRequest toAuthenticate) {
         this.log.info("User " + toAuthenticate.getUsername() + " hits the Backend!");
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -68,9 +65,7 @@ public class AuthorizationResource {
 
     @RequestMapping(
             value = "/register",
-            method = RequestMethod.POST,
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+            method = RequestMethod.POST)
     public RegistrationResponse register(@RequestBody RegistrationRequest toRegister) {
         this.log.info("Someone wants to register! " + ToStringBuilder.reflectionToString(toRegister, ToStringStyle.JSON_STYLE));
         String generatedPassword = this.authorizationService.createNewUser(toRegister);

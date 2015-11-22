@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.crypto.codec.Hex;
+import sese2015.g3.goldenlion.security.dto.AuthToken;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -55,20 +56,29 @@ public class TokenUtils {
         if (authToken == null) {
             return null;
         }
-        String[] parts = authToken.split(":");
-        JSONObject userInfos = new JSONObject(parts[0]);
+        AuthToken token = getAuthTokenFromString(authToken);
+        JSONObject userInfos = token.getUserInfo();
         return userInfos.getString("username");
     }
 
     public static boolean validateToken(String authToken, UserDetails userDetails) {
-        String[] parts = authToken.split(":");
-        JSONObject userInfos = new JSONObject(parts[0]);
-        long expires = userInfos.getLong("expires");
-        String signature = parts[1];
+        AuthToken token = getAuthTokenFromString(authToken);
+        long expires = token.getUserInfo().getLong("expires");
+        String signature = token.getSignature();
 
         if (expires < System.currentTimeMillis()) {
             return false;
         }
         return signature.equals(TokenUtils.computeSignature(userDetails, expires));
+    }
+
+    private static AuthToken getAuthTokenFromString(String authTokenString) {
+        AuthToken authToken = new AuthToken();
+        String[] parts = authTokenString.split(":");
+        String userJson = new String(Base64.decode(parts[0].getBytes()));
+        JSONObject userInfos = new JSONObject(userJson);
+        authToken.setUserInfo(userInfos);
+        authToken.setSignature(parts[1]);
+        return authToken;
     }
 }

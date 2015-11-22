@@ -36,7 +36,7 @@ public class User extends PersistentObject implements UserDetails {
     @Column(length = 500)
     private String password;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private List<UserRole> userRoles;
 
     public User() {
@@ -75,10 +75,6 @@ public class User extends PersistentObject implements UserDetails {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public List<UserRole> getUserRoles() {
         return userRoles;
     }
@@ -112,6 +108,10 @@ public class User extends PersistentObject implements UserDetails {
     @Override
     public String getPassword() {
         return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
