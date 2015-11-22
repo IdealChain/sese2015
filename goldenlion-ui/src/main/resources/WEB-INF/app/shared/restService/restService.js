@@ -24,5 +24,12 @@
         url: backend + "/api/register"
       })
     };
+
+    vm.roomById = function (roomid) {
+      return $http({
+        method: 'GET',
+        url: backend + "api/room/" + roomid
+      })
+    };
   }
 })();

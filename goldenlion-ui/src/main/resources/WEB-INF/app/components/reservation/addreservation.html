@@ -4,6 +4,16 @@
   <div layout="row" layout-align="center">
     <md-card class="md-whiteframe-24dp" style="width: 50%">
       <h2 class="md-headline">Reservierung hinzufügen</h2>
+      <md-card-content layout="row">
+        <md-list>
+          <md-list-item class="md-1-line">
+            <md-chip><b>Raum-Nummer:</b> {{roomnr}}</md-chip>
+          </md-list-item>
+          <md-list-item class="md-1-line">
+            <md-chip><b>Zeitraum:</b> von <i>{{startdate}}</i> bis <i>{{enddate}}</i> ({{duration}})</md-chip>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
 
       <md-card-actions layout="row" layout-align="end">
         <md-button class="md-primary">Reservierung Speichern</md-button>
