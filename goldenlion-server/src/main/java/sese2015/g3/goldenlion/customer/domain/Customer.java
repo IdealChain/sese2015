@@ -44,23 +44,19 @@ public class Customer extends PersistentObject {
     @JoinColumn(name = "billingaddress_id")
     private Address billingAddress;
 
-    @NotBlank
     @Column(length = 65535)
     private String note;
 
     @NotNull
-    @Column
+    @Column(columnDefinition = "DOUBLE DEFAULT 0.0")
     private Double discount;
 
-    @NotBlank
     @Column
     private String phoneNumber;
 
-    @NotBlank
     @Column
     private String faxNumber;
 
-    @NotBlank
     @Column
     private String website;
 
