@@ -4,15 +4,42 @@
   <div layout="row" layout-align="center">
     <md-card class="md-whiteframe-24dp" style="width: 50%">
       <h2 class="md-headline">Reservierung hinzufügen</h2>
-      <md-card-content layout="row">
-        <md-list>
-          <md-list-item class="md-1-line">
-            <md-chip><b>Raum-Nummer:</b> {{roomnr}}</md-chip>
-          </md-list-item>
-          <md-list-item class="md-1-line">
-            <md-chip><b>Zeitraum:</b> von <i>{{startdate}}</i> bis <i>{{enddate}}</i> ({{duration}})</md-chip>
-          </md-list-item>
-        </md-list>
+      <md-card-content>
+        <md-content layout="row">
+          <md-input-container>
+            <label>Raum-Nummer</label>
+            <input readonly type="text" value="{{reservationCtrl.room.roomNumber}}"/>
+          </md-input-container>
+          <md-input-container>
+            <label>Von</label>
+            <input readonly type="text" value="{{reservationCtrl.startdate | date: 'dd.MM.yyyy'}}"/>
+          </md-input-container>
+          <md-input-container>
+            <label>Bis</label>
+            <input readonly type="text" value="{{reservationCtrl.enddate | date: 'dd.MM.yyyy'}}"/>
+          </md-input-container>
+        </md-content>
+        <md-content layout="row">
+          <form ng-submit="$event.preventDefault()">
+            <p>Geben Sie die Namen der Kunden ein und wählen Sie diese aus.</p>
+            <md-autocomplete
+              md-no-cache="true"
+              md-search-text="reservationCtrl.customerSearchText"
+              md-selected-item-change="reservationCtrl.selectedItemChange(customer)"
+              md-items="customer in reservationCtrl.customers | filter: reservationCtrl.customerSearchText"
+              md-items-text="customer.lastname + ' ' + customer.firstname"
+              placeholder="Vorname und/oder Nachname des Kunden">
+              <md-item-template>
+                <span md-highlight-text="reservationCtrl.customerSearchText" md-highlight-flags="^i">
+                  {{customer.lastname + " " + customer.firstname + " (" + (customer.birthday | date: 'dd.MM.yyyy') + ")"}}
+                </span>
+              </md-item-template>
+              <md-not-found>
+                Kein Kunde mit den Details "{{reservationCtrl.customerSearchText}}" gefunden.
+              </md-not-found>
+            </md-autocomplete>
+          </form>
+        </md-content>
       </md-card-content>
 
       <md-card-actions layout="row" layout-align="end">

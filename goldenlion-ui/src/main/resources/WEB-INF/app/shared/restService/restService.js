@@ -33,10 +33,17 @@
       })
     };
 
+    vm.allCustomer = function() {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/customers"
+      })
+    };
+
     vm.roomById = function (roomid) {
       return $http({
         method: 'GET',
-        url: backend + "api/room/" + roomid
+        url: backend + "/api/room/" + roomid
       })
     };
   }
