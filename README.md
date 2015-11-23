@@ -68,7 +68,9 @@ curl -X POST "http://localhost:8080/api/login" -H "Content-Type: application/jso
 
 The login.lua script will store a authtoken to ./lua/authtoken, which makes it easier to run the authenticated curl-commands
 ```bash
-./lua/login.lua [username password]    # uses default credentials, if no args given
+cd ./lua
+./login.lua [username password]    # uses default credentials, if no args given
+cd ..
 ```
 *Create a new Reservation*
 ```bash
