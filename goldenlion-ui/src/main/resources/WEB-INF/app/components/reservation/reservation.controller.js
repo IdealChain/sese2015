@@ -6,7 +6,7 @@
     .controller('ReservationController', ReservationController);
 
   /** @ngInject */
-  function ReservationController($scope, $state, $location, restService) {
+  function ReservationController($scope, $state, $location, $filter, restService) {
     var vm = this;
     var roomid = parseInt($location.search().roomid);
     var startdate = new Date($location.search().startdate);
@@ -25,14 +25,21 @@
     else
       vm.duration += " Tage";
     vm.customerSearchText = "";
+    vm.selectedCustomers = [];
+    vm.selectedCustomer = null;
 
     vm.selectedItemChange = function(item) {
+      if (item === undefined)
+        return;
       console.log("selectedItemChange(" + item + ")");
-      vm.customerSearchText = "";
+      //vm.customers = $filter('filter')(vm.customers, {id: '!' + item.id});
     };
-    vm.querySearch = function(customerSearchText) {
-      console.log("querySearch(" + customerSearchText + ")");
-      return vm.customers;
+
+    vm.onAppend = function(chip) {
+      console.log("transform " + chip);
+      if (angular.isObject(chip)) {
+        return chip;
+      }
     };
 
     vm.roomById = function() {

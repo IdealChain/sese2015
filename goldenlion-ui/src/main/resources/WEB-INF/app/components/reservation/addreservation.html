@@ -19,32 +19,36 @@
             <input readonly type="text" value="{{reservationCtrl.enddate | date: 'dd.MM.yyyy'}}"/>
           </md-input-container>
         </md-content>
-        <md-content layout="row">
+        <md-content layout-padding>
           <form ng-submit="$event.preventDefault()">
-            <p>Geben Sie die Namen der Kunden ein und wählen Sie diese aus.</p>
-            <md-autocomplete
-              md-no-cache="true"
-              md-search-text="reservationCtrl.customerSearchText"
-              md-selected-item-change="reservationCtrl.selectedItemChange(customer)"
-              md-items="customer in reservationCtrl.customers | filter: reservationCtrl.customerSearchText"
-              md-items-text="customer.lastname + ' ' + customer.firstname"
-              placeholder="Vorname und/oder Nachname des Kunden">
-              <md-item-template>
-                <span md-highlight-text="reservationCtrl.customerSearchText" md-highlight-flags="^i">
-                  {{customer.lastname + " " + customer.firstname + " (" + (customer.birthday | date: 'dd.MM.yyyy') + ")"}}
+            <p>Geben Sie die Namen der Kunden ein und wählen Sie diesen aus.</p>
+            <md-chips ng-model="reservationCtrl.selectedCustomers"
+                      md-on-append="reservationCtrl.onAppend($chip)"
+                      md-require-match="true"
+                      md-autocomplete-snap class="selectedCustomerEntry">
+              <md-autocomplete
+                md-no-cache="true"
+                md-selected-item="reservationCtrl.selectedCustomer"
+                md-selected-item-change="reservationCtrl.selectedItemChange(customer)"
+                md-search-text="reservationCtrl.customerSearchText"
+                md-items="customer in reservationCtrl.customers | filter: reservationCtrl.customerSearchText"
+                md-items-text="customer.lastname + ' ' + customer.firstname"
+                placeholder="Vorname und/oder Nachname des Kunden">
+                <span md-highlight-text="reservationCtrl.customerSearchText">
+                  {{customer.lastname + " " + customer.firstname}}
                 </span>
-              </md-item-template>
-              <md-not-found>
-                Kein Kunde mit den Details "{{reservationCtrl.customerSearchText}}" gefunden.
-              </md-not-found>
-            </md-autocomplete>
+              </md-autocomplete>
+              <md-chip-template>
+                <span>
+                  {{$chip.lastname + " " + $chip.firstname}}
+                </span>
+              </md-chip-template>
+            </md-chips>
           </form>
         </md-content>
-      </md-card-content>
-
-      <md-card-actions layout="row" layout-align="end">
-        <md-button class="md-primary">Reservierung Speichern</md-button>
-      </md-card-actions>
+        <md-card-actions layout="row" layout-align="end">
+          <md-button class="md-primary">Reservierung Speichern</md-button>
+        </md-card-actions>
     </md-card>
   </div>
 </div>
