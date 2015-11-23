@@ -40,7 +40,7 @@ public class Customer extends PersistentObject {
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "billingaddress_id")
     private Address billingAddress;
 

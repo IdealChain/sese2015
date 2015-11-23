@@ -1,5 +1,6 @@
 package sese2015.g3.goldenlion.customer.service.impl;
 
+import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import sese2015.g3.goldenlion.customer.service.CustomerService;
 
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -28,6 +30,11 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerServiceImpl(AddressRepository addressRepository, CustomerRepository customerRepository) {
         this.addressRepository = addressRepository;
         this.customerRepository = customerRepository;
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        return IteratorUtils.toList(customerRepository.findAll().iterator());
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import sese2015.g3.goldenlion.customer.domain.Customer;
 import sese2015.g3.goldenlion.customer.dto.CustomerDto;
 import sese2015.g3.goldenlion.customer.service.CustomerService;
 
@@ -29,8 +30,8 @@ public class CustomerResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<CustomerDto>> list() {
-        return null;
+    public ResponseEntity<List<Customer>> list() {
+        return new ResponseEntity<List<Customer>>(customerService.getAllCustomers(), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
