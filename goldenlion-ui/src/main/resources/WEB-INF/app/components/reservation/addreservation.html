@@ -33,7 +33,7 @@
                 md-search-text="reservationCtrl.customerSearchText"
                 md-items="customer in reservationCtrl.customers | filter: reservationCtrl.customerSearchText"
                 md-items-text="customer.lastname + ' ' + customer.firstname"
-                placeholder="Vorname und/oder Nachname des Kunden">
+                placeholder="<Vorname/Nachname>">
                 <span md-highlight-text="reservationCtrl.customerSearchText">
                   {{customer.lastname + " " + customer.firstname}}
                 </span>
@@ -47,7 +47,7 @@
           </form>
         </md-content>
         <md-card-actions layout="row" layout-align="end">
-          <md-button class="md-primary">Reservierung Speichern</md-button>
+          <md-button class="md-primary" ng-click="reservationCtrl.createReservation()" ng-disabled="reservationCtrl.selectedCustomers.length == 0">Reservierung Speichern</md-button>
         </md-card-actions>
     </md-card>
   </div>

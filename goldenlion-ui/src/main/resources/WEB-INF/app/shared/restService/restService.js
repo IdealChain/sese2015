@@ -46,5 +46,13 @@
         url: backend + "/api/room/" + roomid
       })
     };
+
+    vm.createReservation = function(reservation) {
+      return $http({
+        method: 'POST',
+        data: reservation,
+        url: backend + "/api/reservation/"
+      })
+    };
   }
 })();
