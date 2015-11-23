@@ -76,4 +76,9 @@ public class ReservationServiceImpl implements ReservationService {
     public boolean isAvailable(Long roomId, Date startDate, Date endDate) {
         return (!reservationRepository.findOverlappingReservations(startDate, endDate, roomId).iterator().hasNext());
     }
+
+    @Override
+    public List<Reservation> getAllReservations() {
+        return IteratorUtils.toList(reservationRepository.findAll().iterator());
+    }
 }

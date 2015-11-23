@@ -12,8 +12,6 @@ import java.util.Date;
 @Repository
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 
-    Reservation save(Reservation r);
-
     @Query("select r from Reservation as r " +
             "join r.rooms room where room.id = ?3 " +
             "and (" +

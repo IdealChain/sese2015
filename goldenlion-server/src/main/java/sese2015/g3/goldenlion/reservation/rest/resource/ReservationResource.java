@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import sese2015.g3.goldenlion.reservation.domain.Reservation;
 import sese2015.g3.goldenlion.reservation.rest.domain.request.CreateReservationRequest;
 import sese2015.g3.goldenlion.reservation.rest.domain.response.CreateReservationResponse;
 import sese2015.g3.goldenlion.reservation.service.ReservationService;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -48,5 +50,12 @@ public class ReservationResource {
         boolean available = reservationService.isAvailable(roomId, startDate, endDate);
 
         return BooleanUtils.toStringTrueFalse(available);
+    }
+    @RequestMapping(
+            value = "/reservation",
+            method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Reservation> getAllReservations() {
+        return reservationService.getAllReservations();
     }
 }
