@@ -25,6 +25,14 @@
       })
     };
 
+    vm.createCustomer = function (customer) {
+      return $http({
+        method: 'POST',
+        data: customer,
+        url: backend + "/api/customers"
+      })
+    };
+
     vm.roomById = function (roomid) {
       return $http({
         method: 'GET',

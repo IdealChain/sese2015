@@ -1,5 +1,5 @@
 # sese2015
-Practical unit of the course *Seminar aus Software Entwicklung*.
+Practical part of the course *Seminar aus Software Entwicklung*.
 
 ###Setup issues with development tools
 ```bash
@@ -51,10 +51,33 @@ Wait a few second and watch a browser window popup. The connectionstring + creds
 **Attention:** currently, H2 only allows one connection, so make sure to stop the goldenlion app before lanching the h2 viewer and vice versa.
 
 ###Test data
+`cd /path/to/sese2015`
+
+
+*Create a new user:*
 ```bash
 # Register a user 
 curl -X POST "http://localhost:8080/api/register" -H "Content-Type: application/json" -d '{ "firstname": "Max", "lastname": "Muster", "email": "max@muster.com" }'
 # Returns {"password": "..." }
+```
+*Login (using curl):*
+```bash
+curl -X POST "http://localhost:8080/api/login" -H "Content-Type: application/json" -d '{ "username": "tester@goldenlion.tk", "password": "test" }'
+```
+*Login (using lua script):*
+
+The login.lua script will store a authtoken to ./lua/authtoken, which makes it easier to run the authenticated curl-commands
+```bash
+./lua/login.lua [username password]    # uses default credentials, if no args given
+```
+*Create a new Reservation*
+```bash
+curl -X POST "http://localhost:8080/api/reservation" -H "Content-Type: application/json;" -H "X-Auth-Token: $(cat lua/authtoken)" -d '{ "roomId": 1, "startDate": "2015-12-26", "endDate": "2015-12-29", "customerIds": [1,2] }'
+```
+
+*Check if a given room is free*
+```bash
+curl -X GET "http://localhost:8080/api/reservation?roomid=1&startdate=2015-12-12&enddate=2015-12-15" -H "X-Auth-Token: $(cat lua/authtoken)"
 ```
 
 ###Test User

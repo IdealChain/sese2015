@@ -9,15 +9,17 @@
     var vm = this;
     var AUTHTOKEN_KEY = 'authtoken';
     var user;
+    var tokenInfo;
 
-    var tokenInfo = angular.fromJson($cookies.get(AUTHTOKEN_KEY));
+    tokenInfo = angular.fromJson($cookies.get(AUTHTOKEN_KEY));
     if (tokenInfo != null) {
       user = getUserFromToken(tokenInfo);
     }
 
     var onLoginSuccess = $rootScope.$on('loginSuccess', function (event, data) {
       $log.log(data);
-      $cookies.put(AUTHTOKEN_KEY, angular.toJson(data));
+      tokenInfo = angular.toJson(data);
+      $cookies.put(AUTHTOKEN_KEY, tokenInfo);
       user = getUserFromToken(data);
     });
     $rootScope.$on('$destroy', onLoginSuccess);
@@ -36,8 +38,8 @@
     }
 
     vm.getAuthToken = function () {
-      if (checkToken()) {
-        return user.token;
+      if (checkToken() && tokenInfo != null) {
+        return tokenInfo.token;
       }
     }
 
