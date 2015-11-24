@@ -4,7 +4,38 @@
   <div layout="row" layout-align="center">
     <md-card class="md-whiteframe-24dp" style="width: 50%">
       <h2 class="md-headline">Reservierungen</h2>
-      <p>#TODO: Tabelle</p>
+      <md-card-content>
+        <md-content layout="row" style="display:block">
+          <md-input-container style="float:right !important">
+            <label>Kunde(n)</label>
+            <input ng-model="searchTextCustomer"/>
+          </md-input-container>
+          <md-input-container style="float:right !important">
+            <label>Raum</label>
+            <input ng-model="searchTextRoom"/>
+          </md-input-container>
+        </md-content>
+        <md-content layout="row">
+          <table width="100%" role="grid" class="reservation">
+            <thead  style="background-color: #5890AD">
+            <tr>
+              <th width="18%">Von</th>
+              <th width="18%">Bis</th>
+              <th width="12%">Raum-<br/>Nummer</th>
+              <th width="52%">Kunde(n)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="r in reservationCtrl.reservations">
+              <td class="center">{{r.startdate | date : "dd. MMM. yyyy"}}</td>
+              <td class="center">{{r.enddate | date : "dd. MMM. yyyy"}}</td>
+              <td class="center">-</td>
+              <td><span ng-repeat="cid in r.customerIds">{{cid}}, </span></td>
+            </tr>
+            </tbody>
+          </table>
+        </md-content>
+      </md-card-content>
 
     </md-card>
   </div>

@@ -33,6 +33,13 @@
       })
     };
 
+    vm.customerByIds = function (customerids) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/customers/" + customerids.join(",")
+      })
+    };
+
     vm.allCustomer = function() {
       return $http({
         method: 'GET',
@@ -44,6 +51,20 @@
       return $http({
         method: 'GET',
         url: backend + "/api/room/" + roomid
+      })
+    };
+
+    vm.roomByIds = function (roomids) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/room/" + roomids.join(",")
+      })
+    };
+
+    vm.allReservation = function() {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/reservation/"
       })
     };
 

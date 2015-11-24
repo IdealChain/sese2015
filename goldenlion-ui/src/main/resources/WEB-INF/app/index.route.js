@@ -49,8 +49,8 @@
       .state('addreservation', {
         url: '/reservation/addreservation',
         templateUrl: 'app/components/reservation/addreservation.html',
-        controller: 'ReservationController',
-        controllerAs: 'reservationCtrl',
+        controller: 'AddReservationController',
+        controllerAs: 'addReservationCtrl',
         ncyBreadcrumb: {
           label: 'Reservierung hinzufügen',
           parent: 'reservation'

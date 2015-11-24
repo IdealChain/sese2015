@@ -3,10 +3,10 @@
 
   angular
     .module('goldenlionUi')
-    .controller('ReservationController', ReservationController);
+    .controller('AddReservationController', AddReservationController);
 
   /** @ngInject */
-  function ReservationController($scope, $state, $location, $filter, restService) {
+  function AddReservationController($scope, $state, $location, $filter, restService) {
     var vm = this;
     var roomid = parseInt($location.search().roomid);
     var startdate = new Date($location.search().startdate);
