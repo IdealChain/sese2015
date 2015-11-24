@@ -1,5 +1,6 @@
 package sese2015.g3.goldenlion.reservation.repository;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -20,4 +21,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
             "(r.startDate < ?1 and r.endDate > ?2)" +
             ")")
     Iterable<Reservation> findOverlappingReservations(Date startDate, Date endDate, long roomId);
+
+    Iterable<Reservation> findAll(Sort sort);
 }

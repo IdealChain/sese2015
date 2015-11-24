@@ -2,6 +2,7 @@ package sese2015.g3.goldenlion.reservation.service.impl;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sese2015.g3.goldenlion.customer.domain.Customer;
 import sese2015.g3.goldenlion.customer.repository.CustomerRepository;
@@ -79,6 +80,6 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Reservation> getAllReservations() {
-        return IteratorUtils.toList(reservationRepository.findAll().iterator());
+        return IteratorUtils.toList(reservationRepository.findAll(new Sort(Sort.Direction.DESC, "startDate")).iterator());
     }
 }
