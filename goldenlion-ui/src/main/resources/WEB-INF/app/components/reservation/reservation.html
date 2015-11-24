@@ -6,18 +6,18 @@
       <h2 class="md-headline">Reservierungen</h2>
       <md-card-content>
         <md-content layout="row" style="display:block">
-          <md-input-container style="float:right !important">
+          <md-input-container style="float:right !important"  disabled>
             <label>Kunde(n)</label>
-            <input ng-model="searchTextCustomer"/>
+            <input ng-model="searchTextCustomer" disabled />
           </md-input-container>
           <md-input-container style="float:right !important">
             <label>Raum</label>
-            <input ng-model="searchTextRoom"/>
+            <input ng-model="searchTextRoom" disabled />
           </md-input-container>
         </md-content>
         <md-content layout="row">
           <table width="100%" role="grid" class="reservation">
-            <thead  style="background-color: #5890AD">
+            <thead>
             <tr>
               <th width="18%">Von</th>
               <th width="18%">Bis</th>
@@ -26,11 +26,26 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="r in reservationCtrl.reservations">
-              <td class="center">{{r.startdate | date : "dd. MMM. yyyy"}}</td>
-              <td class="center">{{r.enddate | date : "dd. MMM. yyyy"}}</td>
-              <td class="center">-</td>
-              <td><span ng-repeat="cid in r.customerIds">{{cid}}, </span></td>
+            <tr ng-repeat="r in reservationCtrl.reservations | filter : {}" ng-class-odd="'odd'" ng-class-even="'even'">
+              <td class="center">{{r.startDate | date : "dd. MMM. yyyy"}}</td>
+              <td class="center">{{r.endDate | date : "dd. MMM. yyyy"}}</td>
+              <td class="center"><span ng-repeat="room in r.rooms">{{room.roomNumber}} <br /></span></td>
+              <td>
+                <ul style="float:left">
+                  <li ng-repeat="customer in r.customers">
+                    <span>{{customer.lastName}} {{customer.firstName}}<br /></span>
+                  </li>
+                </ul>
+                <md-button style="float:right" class="md-fab md-primary md-micro" aria-label="Reservierung löschen"
+                           ng-click="reservationCtrl.confirmDelete(r.id)">
+                  <md-icon md-svg-icon="assets/icons/minus.svg"></md-icon>
+                </md-button>
+              </td>
+            </tr>
+            <tr ng-show="!reservationCtrl.reservations.length">
+              <td colspan="4" class="center">
+                <p>Es sind keine Reservierungen gefunden.</p>
+              </td>
             </tr>
             </tbody>
           </table>

@@ -6,7 +6,7 @@
     .controller('ReservationController', ReservationController);
 
   /** @ngInject */
-  function ReservationController($scope, $state, $location, $filter, restService) {
+  function ReservationController($mdDialog, restService) {
     var vm = this;
     vm.reservations = [];
 
@@ -14,8 +14,6 @@
       restService.allReservation().then(
         function successCallback(response) {
           vm.reservations = response.data;
-
-          //TODO: call customerByIds and roomByIds
         },
         function errorCallback() {
           alert('Error: Could not receive customer data');
@@ -23,24 +21,20 @@
     };
     vm.allReservation();
 
-    vm.customerByIds = function (customerIds) {
-      restService.customerByIds(customerIds).then(
-        function successCallback(response) {
-          //TODO
-        },
-        function errorCallback() {
-          alert('Error: Could not receive customer data');
-        });
-    };
-
-    vm.roomByIds = function (roomIds) {
-      restService.roomByIds(roomIds).then(
-        function successCallback(response) {
-          //TODO
-        },
-        function errorCallback() {
-          alert('Error: Could not receive room data');
-        });
-    };
+    vm.confirmDelete = function(reservationId) {
+      console.log("delete: " + reservationId);
+      console.log($mdDialog);
+      var confirm = $mdDialog.confirm( {
+        title: "Reservierung löschen?",
+        content: "Möchten Sie diese Reservierung wirklich löschen?",
+        cancel: "Ähm, lieber nicht.",
+        ok: "Ja, unbedingt!"
+      });
+      $mdDialog.show(confirm).then(function() {
+        //TODO: delete
+      }, function() {
+        //cancel
+      });
+    }
   }
 })();
