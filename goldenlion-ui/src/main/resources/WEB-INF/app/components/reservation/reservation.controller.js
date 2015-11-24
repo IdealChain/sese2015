@@ -14,6 +14,19 @@
       restService.allReservation().then(
         function successCallback(response) {
           vm.reservations = response.data;
+          for (var i = 0; i < vm.reservations.length; i++) {
+            var roomsMerged = "";
+            for (var j = 0; j < vm.reservations[i].rooms.length; j++) {
+              roomsMerged += vm.reservations[i].rooms[j].roomNumber + " ";
+            }
+            vm.reservations[i].roomsMerged = roomsMerged;
+            var customerMerged = "";
+            for (var j = 0; j < vm.reservations[i].customers.length; j++) {
+              customerMerged += vm.reservations[i].customers[j].firstName + " ";
+              customerMerged += vm.reservations[i].customers[j].lastName + " ";
+            }
+            vm.reservations[i].customerMerged = customerMerged;
+          }
         },
         function errorCallback() {
           alert('Error: Could not receive customer data');
