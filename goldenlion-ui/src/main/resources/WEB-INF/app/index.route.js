@@ -47,7 +47,7 @@
         authenticate: true
       })
       .state('addreservation', {
-        url: '/reservation/addreservation',
+        url: '/reservation/add',
         templateUrl: 'app/components/reservation/addreservation.html',
         controller: 'AddReservationController',
         controllerAs: 'addReservationCtrl',

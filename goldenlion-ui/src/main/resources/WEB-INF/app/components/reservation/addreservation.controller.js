@@ -6,7 +6,7 @@
     .controller('AddReservationController', AddReservationController);
 
   /** @ngInject */
-  function AddReservationController($scope, $state, $location, $filter, restService) {
+  function AddReservationController($scope, $state, $location, $mdDialog, restService) {
     var vm = this;
     var roomid = parseInt($location.search().roomid);
     var startdate = new Date($location.search().startdate);
@@ -87,7 +87,14 @@
           $state.go("home");
         },
         function errorCallback() {
-          alert("Error: reservation couldn't be created!");
+          var errorDlg = $mdDialog.alert( {
+            title: "Fehler?",
+            content: "Die Reservierung konnte nicht erstellt werden.",
+            ok: "Zurück zur Übersicht"
+          });
+          $mdDialog.show(errorDlg).then(function() {
+            $state.go("reservation");
+          });
         });
     };
   }

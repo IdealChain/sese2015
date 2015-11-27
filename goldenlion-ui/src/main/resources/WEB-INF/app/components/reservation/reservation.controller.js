@@ -36,7 +36,6 @@
 
     vm.confirmDelete = function(reservationId) {
       console.log("delete: " + reservationId);
-      console.log($mdDialog);
       var confirm = $mdDialog.confirm( {
         title: "Reservierung löschen?",
         content: "Möchten Sie diese Reservierung wirklich löschen?",
