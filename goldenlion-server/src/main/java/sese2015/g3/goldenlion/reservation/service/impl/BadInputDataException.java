@@ -4,13 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class CreateReservationFailedException extends RuntimeException {
+public class BadInputDataException extends RuntimeException {
 
-    public CreateReservationFailedException() {
+    public BadInputDataException() {
         super();
     }
 
-    public CreateReservationFailedException(String message) {
+    public BadInputDataException(String message) {
         super(message);
     }
 }

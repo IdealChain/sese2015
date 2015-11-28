@@ -86,10 +86,17 @@
           $scope.$emit("reservationCreated", response.data);
           $state.go("home");
         },
-        function errorCallback() {
+        function errorCallback(response) {
+          console.log(response);
+          var errorMessage = "Die Reservierung konnte nicht erstellt werden. (" + response.data.message + ")";
+          if (response.status == 409)
+            errorMessage = "Für die gegebenen Daten (Raumnummer und Zeitraum) besteht bereits eine Reservierung.";
+          if (response.status == 400)
+            errorMessage = "Die übermittelten Daten (Raumnummer, Zeitraum, Kunden) sind fehlerhaft.";
+
           var errorDlg = $mdDialog.alert( {
-            title: "Fehler?",
-            content: "Die Reservierung konnte nicht erstellt werden.",
+            title: "Fehler",
+            content: errorMessage,
             ok: "Zurück zur Übersicht"
           });
           $mdDialog.show(errorDlg).then(function() {

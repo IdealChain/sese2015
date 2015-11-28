@@ -31,24 +31,24 @@ public class ReservationServiceImpl implements ReservationService {
 
     //TODO: Transaction
     @Override
-    public long createReservation(CreateReservationRequest request) throws CreateReservationFailedException {
+    public long createReservation(CreateReservationRequest request) throws BadInputDataException {
         Room room = roomRepository.findOne(request.getRoomId());
         List<Customer> customers = IteratorUtils.toList(customerRepository.findAll(request.getCustomerIds()).iterator());
 
         //
         // basic input validation
         if (room == null)
-            throw new CreateReservationFailedException(String.format("Given Room-Id %s not found", request.getRoomId()));
+            throw new BadInputDataException(String.format("Given Room-Id %s not found", request.getRoomId()));
         if (customers == null || customers.size() != request.getCustomerIds().size())
-            throw new CreateReservationFailedException(
+            throw new BadInputDataException(
                     String.format("Given number of customers (%s) does not match found number of customers (%s)",
                             request.getCustomerIds().size(), customers.size()));
         if (customers.size() == 0)
-            throw new CreateReservationFailedException("Reservation must at least contain one customer");
+            throw new BadInputDataException("Reservation must at least contain one customer");
         if (request.getStartDate() == null || request.getEndDate() == null)
-            throw new CreateReservationFailedException("Start date or end date is null");
+            throw new BadInputDataException("Start date or end date is null");
         if (request.getStartDate().after(request.getEndDate()) || request.getStartDate().equals(request.getEndDate()))
-            throw new CreateReservationFailedException("End date must be at least 1 day after the start date");
+            throw new BadInputDataException("End date must be at least 1 day after the start date");
 
         //
         // check if the room free within the given timespan
@@ -57,7 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
                 request.getEndDate(),
                 room.getId()).iterator());
         if (conflictingReservations.size() > 0)
-            throw new CreateReservationFailedException(String.format("Found %s conflicting reservations between %s and %s with Room-Id %s",
+            throw new ConflictingDataException(String.format("Found %s conflicting reservations between %s and %s with Room-Id %s",
                     conflictingReservations.size(), request.getStartDate(), request.getEndDate(), room.getId()));
 
         //
