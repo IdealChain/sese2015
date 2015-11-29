@@ -14,11 +14,11 @@ import java.util.*;
 @Table(name = "reservations")
 public class Reservation extends PersistentObject {
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "reservation_customers", joinColumns = {@JoinColumn(name = "reservation_id")}, inverseJoinColumns = {@JoinColumn(name = "customer_id")})
     private List<Customer> customers;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "reservation_rooms", joinColumns = {@JoinColumn(name = "reservation_id")}, inverseJoinColumns = {@JoinColumn(name = "room_id")})
     private List<Room> rooms;
 

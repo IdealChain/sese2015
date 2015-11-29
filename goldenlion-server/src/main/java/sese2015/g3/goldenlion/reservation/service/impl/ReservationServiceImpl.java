@@ -82,4 +82,15 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> getAllReservations() {
         return IteratorUtils.toList(reservationRepository.findAll(new Sort(Sort.Direction.DESC, "startDate")).iterator());
     }
+
+    @Override
+    public void cancelReservation(Long reservationid) {
+        Reservation reservation = reservationRepository.findOne(reservationid);
+        if (reservation == null)
+            throw new ReservationNotFoundException("The given reservation-id was not found");
+
+        //TODO Check if an invoice exists
+
+        reservationRepository.delete(reservation.getId());
+    }
 }
