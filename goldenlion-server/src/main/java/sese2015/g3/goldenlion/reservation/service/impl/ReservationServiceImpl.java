@@ -84,8 +84,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> getAllReservationsByCustomer(Long customerid) {
-        return IteratorUtils.toList(reservationRepository.findByCustomerId(customerid).iterator());
+    public List<Reservation> getAllReservationsWithoutInvoiceByCustomer(Long customerid) {
+        return IteratorUtils.toList(reservationRepository.findByCustomerIdWithoutInvoice(customerid).iterator());
     }
 
     @Override

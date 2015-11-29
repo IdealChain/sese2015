@@ -6,7 +6,7 @@
     .controller('CreateInvoiceController', CreateInvoiceController);
 
   /** @ngInject */
-  function CreateInvoiceController(restService) {
+  function CreateInvoiceController(restService, $mdDialog, $state) {
     var vm = this;
 
     vm.customers = [];
@@ -44,5 +44,33 @@
       );
 
     }
+
+    vm.createInvoice = function(reservationid) {
+      var confirm = $mdDialog.confirm( {
+        title: "Rechnung erstellen?",
+        content: "Möchten Sie für diese Reservierung eine Rechnung erstellen?",
+        cancel: "Nein (zurück)",
+        ok: "Ja (erstellen)"
+      });
+      $mdDialog.show(confirm).then(function() {
+          restService.createInvoice(reservationid).then(
+            function successCallback(response) {
+              //done. back to home
+              vm.reservationsbycustomer.splice(findReservation(reservationid), 1);
+            },
+            function errorCallback(response) {
+              alert('Error: Could not create Invoice')
+            }
+          );
+      });
+    }
+
+    var findReservation = function(reservationId) {
+      for (var i = 0; i < vm.reservationsbycustomer.length; i++) {
+        if (vm.reservationsbycustomer[i].id == reservationId) {
+          return i;
+        }
+      }
+    };
   }
 })();

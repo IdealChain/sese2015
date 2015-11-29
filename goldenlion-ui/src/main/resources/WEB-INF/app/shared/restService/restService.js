@@ -88,6 +88,13 @@
         method: 'DELETE',
         url: backend + "/api/reservation/" + reservationid
       });
-    }
+    };
+
+    vm.createInvoice = function(reservationid) {
+      return $http({
+        method: 'POST',
+        url: backend + "/api/invoice?reservationid=" + reservationid
+      });
+    };
   }
 })();

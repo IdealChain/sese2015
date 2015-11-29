@@ -1,8 +1,6 @@
 package sese2015.g3.goldenlion.reservation.rest.resource;
 
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +56,7 @@ public class ReservationResource {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Reservation> getAllReservations(@RequestParam(value="customerid", required=false) Long customerid) {
         if (customerid != null)
-            return reservationService.getAllReservationsByCustomer(customerid);
+            return reservationService.getAllReservationsWithoutInvoiceByCustomer(customerid);
         else
             return reservationService.getAllReservations();
     }

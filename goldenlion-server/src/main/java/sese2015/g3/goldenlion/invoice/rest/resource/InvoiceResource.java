@@ -20,7 +20,7 @@ public class InvoiceResource {
     @Autowired
     private InvoiceService invoiceService;
 
-    @RequestMapping(value = "/invoice", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/invoice", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Invoice createInvoice(@RequestParam(value="reservationid", required = true) Long reservationId) {
         log.info("Create invoice ...");
 

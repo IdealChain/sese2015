@@ -22,10 +22,14 @@
           </md-autocomplete>
         </md-content>
         <md-content ng-show="createInvoiceCtrl.selectedCustomer.id > 0">
-          <p>Reservierungen von <b>{{createInvoiceCtrl.selectedCustomer.lastname}} {{createInvoiceCtrl.selectedCustomer.firstname}}</b>:</p>
+          <p>Reservierungen von <b>{{createInvoiceCtrl.selectedCustomer.lastname}}
+            {{createInvoiceCtrl.selectedCustomer.firstname}}</b>:</p>
           <ul>
             <li ng-repeat="res in createInvoiceCtrl.reservationsbycustomer">
-              Zeitraum: {{res.startDate | date: 'dd.MM.yyyy'}} - {{res.endDate | date: 'dd.MM.yyyy'}}
+              <span>
+                Zeitraum: {{res.startDate | date: 'dd.MM.yyyy'}} - {{res.endDate | date: 'dd.MM.yyyy'}}
+              </span>
+              <md-button class="md-raised md-primary" ng-click="createInvoiceCtrl.createInvoice(res.id)">Rechnung erstellen</md-button>
             </li>
             <li ng-show="!createInvoiceCtrl.reservationsbycustomer.length">
               Keine Reservierungen gefunden.

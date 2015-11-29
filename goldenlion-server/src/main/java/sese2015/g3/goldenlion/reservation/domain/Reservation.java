@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import sese2015.g3.goldenlion.commons.entity.PersistentObject;
 import sese2015.g3.goldenlion.customer.domain.Customer;
+import sese2015.g3.goldenlion.invoice.domain.Invoice;
 import sese2015.g3.goldenlion.room.domain.Room;
 
 import javax.persistence.*;
@@ -21,6 +22,9 @@ public class Reservation extends PersistentObject {
     @ManyToMany()
     @JoinTable(name = "reservation_rooms", joinColumns = {@JoinColumn(name = "reservation_id")}, inverseJoinColumns = {@JoinColumn(name = "room_id")})
     private List<Room> rooms;
+
+    @OneToOne(mappedBy = "reservation")
+    private Invoice invoice;
 
     @Column
     private double discount;
