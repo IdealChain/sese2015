@@ -75,5 +75,12 @@
         url: backend + "/api/reservation/"
       })
     };
+
+    vm.deleteReservation = function(reservationid) {
+      return $http({
+        method: 'DELETE',
+        url: backend + "/api/reservation/" + reservationid
+      });
+    }
   }
 })();

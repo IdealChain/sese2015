@@ -6,7 +6,7 @@
     .controller('ReservationController', ReservationController);
 
   /** @ngInject */
-  function ReservationController($mdDialog, restService) {
+  function ReservationController($mdDialog, restService, $state) {
     var vm = this;
     vm.reservations = [];
 
@@ -35,18 +35,48 @@
     vm.allReservation();
 
     vm.confirmDelete = function(reservationId) {
-      console.log("delete: " + reservationId);
+      console.log("confirm deleting: " + reservationId);
       var confirm = $mdDialog.confirm( {
         title: "Reservierung löschen?",
         content: "Möchten Sie diese Reservierung wirklich löschen?",
-        cancel: "Ähm, lieber nicht.",
-        ok: "Ja, unbedingt!"
+        cancel: "Nein (zurück)",
+        ok: "Ja (löschen)"
       });
       $mdDialog.show(confirm).then(function() {
-        //TODO: delete
-      }, function() {
-        //cancel
-      });
-    }
+        restService.deleteReservation(reservationId).then(
+          function successCallback(response) {
+            //
+            // Success: reservation was deleted. Now update the client model
+            //
+            vm.reservations.splice(findReservation(reservationId), 1);
+          },
+          function errorCallback(response) {
+            //
+            // Error: reservation was not deleted. Show a meaningful error message
+            //
+            var errorMessage = "Die Reservierung nicht storniert werden. (" + response.data.message + ")";
+            if (response.status == 409)
+              errorMessage = "Diese Reservierung wurde bereits in Rechnung gestellt und kann deshalb nicht storniert werden.";
+
+            var errorDlg = $mdDialog.alert( {
+              title: "Fehler",
+              content: errorMessage,
+              ok: "Ok"
+            });
+            $mdDialog.show(errorDlg).then(function() {
+              $state.go("reservation");
+            });
+          }
+        );
+      }, function() {});
+    };
+
+    var findReservation = function(reservationId) {
+      for (var i = 0; i < vm.reservations.length; i++) {
+        if (vm.reservations[i].id == reservationId) {
+          return i;
+        }
+      }
+    };
   }
 })();
