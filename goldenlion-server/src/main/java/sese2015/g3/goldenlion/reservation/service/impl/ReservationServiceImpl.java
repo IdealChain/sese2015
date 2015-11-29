@@ -87,4 +87,15 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> getAllReservationsByCustomer(Long customerid) {
         return IteratorUtils.toList(reservationRepository.findByCustomerId(customerid).iterator());
     }
+
+    @Override
+    public void cancelReservation(Long reservationid) {
+        Reservation reservation = reservationRepository.findOne(reservationid);
+        if (reservation == null)
+            throw new ReservationNotFoundException("The given reservation-id was not found");
+
+        //TODO Check if an invoice exists
+
+        reservationRepository.delete(reservation.getId());
+    }
 }

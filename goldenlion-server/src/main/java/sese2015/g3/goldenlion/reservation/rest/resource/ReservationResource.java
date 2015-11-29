@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sese2015.g3.goldenlion.reservation.domain.Reservation;
@@ -60,5 +61,14 @@ public class ReservationResource {
             return reservationService.getAllReservationsByCustomer(customerid);
         else
             return reservationService.getAllReservations();
+    }
+
+    @RequestMapping(
+            value = "/reservation/{reservationid}",
+            method = RequestMethod.DELETE,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteReservation(@PathVariable Long reservationid) {
+        reservationService.cancelReservation(reservationid);
     }
 }
