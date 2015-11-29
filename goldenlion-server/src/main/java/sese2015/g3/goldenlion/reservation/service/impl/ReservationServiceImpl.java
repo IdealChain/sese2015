@@ -82,4 +82,9 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> getAllReservations() {
         return IteratorUtils.toList(reservationRepository.findAll(new Sort(Sort.Direction.DESC, "startDate")).iterator());
     }
+
+    @Override
+    public List<Reservation> getAllReservationsByCustomer(Long customerid) {
+        return IteratorUtils.toList(reservationRepository.findByCustomerId(customerid).iterator());
+    }
 }

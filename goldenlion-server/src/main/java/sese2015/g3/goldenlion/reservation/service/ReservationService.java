@@ -13,4 +13,6 @@ public interface ReservationService {
     boolean isAvailable(Long roomId, Date startDate, Date endDate);
 
     List<Reservation> getAllReservations();
+
+    List<Reservation> getAllReservationsByCustomer(Long customerid);
 }

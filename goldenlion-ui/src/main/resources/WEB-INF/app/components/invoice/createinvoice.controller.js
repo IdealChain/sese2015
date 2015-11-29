@@ -10,7 +10,8 @@
     var vm = this;
 
     vm.customers = [];
-    vm.createInvoiceCtrl = "";
+    vm.customerSearchText = "";
+    vm.selectedCustomer = null;
 
     restService.allCustomer().then(
       function successCallback(response) {
@@ -28,5 +29,20 @@
       }
     );
 
+    vm.reservationsbycustomer = [];
+    vm.selectedCustomerChange = function (customer) {
+      if (customer === undefined)
+        return;
+
+      restService.allReservationByCustomerId(customer.id).then(
+        function successCallback(response) {
+          vm.reservationsbycustomer = response.data;
+        },
+        function errorCallback() {
+          alert('Error: Could not receive reservation data');
+        }
+      );
+
+    }
   }
 })();

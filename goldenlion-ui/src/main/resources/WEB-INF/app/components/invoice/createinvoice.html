@@ -9,7 +9,9 @@
           <p>Wählen Sie einen Kunden aus:</p>
           <md-autocomplete
             md-no-cache="true"
+            md-selected-item="createInvoiceCtrl.selectedCustomer"
             md-search-text="createInvoiceCtrl.customerSearchText"
+            md-selected-item-change="createInvoiceCtrl.selectedCustomerChange(customer)"
             md-items="customer in createInvoiceCtrl.customers | filter: createInvoiceCtrl.customerSearchText"
             md-min-length="0"
             placeholder="<Vorname/Nachname>"
@@ -17,8 +19,18 @@
             <md-item-template md-highlight-text="createInvoiceCtrl.customerSearchText" md-highlight-flags="^i">
               <span>{{customer.lastname + " " + customer.firstname}}</span>
             </md-item-template>
-
           </md-autocomplete>
+        </md-content>
+        <md-content ng-show="createInvoiceCtrl.selectedCustomer.id > 0">
+          <p>Reservierungen von <b>{{createInvoiceCtrl.selectedCustomer.lastname}} {{createInvoiceCtrl.selectedCustomer.firstname}}</b>:</p>
+          <ul>
+            <li ng-repeat="res in createInvoiceCtrl.reservationsbycustomer">
+              Zeitraum: {{res.startDate | date: 'dd.MM.yyyy'}} - {{res.endDate | date: 'dd.MM.yyyy'}}
+            </li>
+            <li ng-show="!createInvoiceCtrl.reservationsbycustomer.length">
+              Keine Reservierungen gefunden.
+            </li>
+          </ul>
         </md-content>
       </md-card-content>
     </md-card>

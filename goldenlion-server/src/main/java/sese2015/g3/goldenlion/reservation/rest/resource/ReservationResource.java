@@ -55,7 +55,10 @@ public class ReservationResource {
             value = "/reservation",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Reservation> getAllReservations() {
-        return reservationService.getAllReservations();
+    public List<Reservation> getAllReservations(@RequestParam(value="customerid", required=false) Long customerid) {
+        if (customerid != null)
+            return reservationService.getAllReservationsByCustomer(customerid);
+        else
+            return reservationService.getAllReservations();
     }
 }

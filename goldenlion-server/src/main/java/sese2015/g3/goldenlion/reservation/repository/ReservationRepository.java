@@ -23,4 +23,9 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     Iterable<Reservation> findOverlappingReservations(Date startDate, Date endDate, long roomId);
 
     Iterable<Reservation> findAll(Sort sort);
+
+    @Query("select r from Reservation as r " +
+            "join r.customers customer where customer.id = ?1 " +
+            "order by r.startDate DESC")
+    Iterable<Reservation> findByCustomerId(Long customerid);
 }

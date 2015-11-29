@@ -68,6 +68,13 @@
       })
     };
 
+    vm.allReservationByCustomerId = function(customerid) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/reservation?customerid=" + customerid
+      })
+    };
+
     vm.createReservation = function(reservation) {
       return $http({
         method: 'POST',
