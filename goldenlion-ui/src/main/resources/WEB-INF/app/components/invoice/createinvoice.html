@@ -1,0 +1,26 @@
+<div class="rootDiv">
+  <navbar></navbar>
+  <div ncy-breadcrumb></div>
+  <div layout="row" layout-align="center">
+    <md-card class="md-whiteframe-24dp" style="width: 50%">
+      <h2 class="md-headline">Rechnung erstellen</h2>
+      <md-card-content>
+        <md-content layout-padding>
+          <p>Wählen Sie einen Kunden aus:</p>
+          <md-autocomplete
+            md-no-cache="true"
+            md-search-text="createInvoiceCtrl.customerSearchText"
+            md-items="customer in createInvoiceCtrl.customers | filter: createInvoiceCtrl.customerSearchText"
+            md-min-length="0"
+            placeholder="<Vorname/Nachname>"
+            md-item-text="customer.lastname + ' ' + customer.firstname">
+            <md-item-template md-highlight-text="createInvoiceCtrl.customerSearchText" md-highlight-flags="^i">
+              <span>{{customer.lastname + " " + customer.firstname}}</span>
+            </md-item-template>
+
+          </md-autocomplete>
+        </md-content>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

@@ -56,6 +56,17 @@
           parent: 'reservation'
         },
         authenticate: true
+      })
+      .state('createinvoice', {
+        url: '/invoice/create',
+        templateUrl: 'app/components/invoice/createinvoice.html',
+        controller: 'CreateInvoiceController',
+        controllerAs: 'createInvoiceCtrl',
+        ncyBreadcrumb: {
+          label: 'Rechnung erstellen',
+          parent: 'home'
+        },
+        authenticate: true
       });
     $urlRouterProvider.otherwise('/');
   }
