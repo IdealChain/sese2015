@@ -23,9 +23,6 @@ public class Reservation extends PersistentObject {
     @JoinTable(name = "reservation_rooms", joinColumns = {@JoinColumn(name = "reservation_id")}, inverseJoinColumns = {@JoinColumn(name = "room_id")})
     private List<Room> rooms;
 
-    @OneToOne(mappedBy = "reservation")
-    private Invoice invoice;
-
     @Column
     private double discount;
 

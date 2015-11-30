@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import sese2015.g3.goldenlion.reservation.domain.Reservation;
-import sese2015.g3.goldenlion.room.domain.Room;
 
 import java.util.Date;
 
@@ -25,9 +24,8 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     Iterable<Reservation> findAll(Sort sort);
 
     @Query("select r from Reservation as r " +
-            "join r.customers customer " +
-            "left outer join r.invoice as invoice " +
-            "where customer.id = ?1 and invoice is null " +
+            "join r.customers c " +
+            "where c.id = ?1 and (select count(i) from Invoice as i where i.reservation.id = r.id) = 0 " +
             "order by r.startDate DESC")
     Iterable<Reservation> findByCustomerIdWithoutInvoice(Long customerid);
 }
