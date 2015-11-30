@@ -7,4 +7,5 @@ import sese2015.g3.goldenlion.invoice.domain.Invoice;
 @Repository
 public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 
+    Invoice findByReservationId(Long reservationid);
 }

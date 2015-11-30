@@ -6,6 +6,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sese2015.g3.goldenlion.customer.domain.Customer;
 import sese2015.g3.goldenlion.customer.repository.CustomerRepository;
+import sese2015.g3.goldenlion.invoice.domain.Invoice;
+import sese2015.g3.goldenlion.invoice.repository.InvoiceRepository;
 import sese2015.g3.goldenlion.reservation.domain.Reservation;
 import sese2015.g3.goldenlion.reservation.repository.ReservationRepository;
 import sese2015.g3.goldenlion.reservation.rest.domain.request.CreateReservationRequest;
@@ -28,6 +30,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private InvoiceRepository invoiceRepository;
 
     //TODO: Transaction
     @Override
@@ -93,8 +98,10 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findOne(reservationid);
         if (reservation == null)
             throw new ReservationNotFoundException("The given reservation-id was not found");
-
-        //TODO Check if an invoice exists
+        
+        Invoice invoice = invoiceRepository.findByReservationId(reservationid);
+        if (invoice != null)
+            throw new ConflictingDataException("Cannot delete reservation which is already billed");
 
         reservationRepository.delete(reservation.getId());
     }
