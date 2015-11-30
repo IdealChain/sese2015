@@ -34,6 +34,18 @@
     };
     vm.allReservation();
 
+    vm.allInvoices = function() {
+      restService.allInvoices().then(
+        function successCallback(response) {
+          vm.invoices = response.data;
+        },
+        function errorCallback(response) {
+          alert('Error: Could not receive invoice data');
+        }
+      );
+    };
+    vm.allInvoices();
+
     vm.confirmDelete = function(reservationId) {
       console.log("confirm deleting: " + reservationId);
       var confirm = $mdDialog.confirm( {
@@ -78,5 +90,14 @@
         }
       }
     };
+
+    vm.isPaid = function(reservationId) {
+      for (var i = 0; i < vm.invoices.length; i++) {
+        if (vm.invoices[i].reservation.id == reservationId)
+          return true;
+      }
+      return false;
+    };
+
   }
 })();

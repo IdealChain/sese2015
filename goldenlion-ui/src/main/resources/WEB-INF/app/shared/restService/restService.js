@@ -96,5 +96,12 @@
         url: backend + "/api/invoice?reservationid=" + reservationid
       });
     };
+
+    vm.allInvoices = function() {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/invoice"
+      });
+    }
   }
 })();

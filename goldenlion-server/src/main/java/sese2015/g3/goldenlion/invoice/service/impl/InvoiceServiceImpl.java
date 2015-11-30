@@ -1,5 +1,6 @@
 package sese2015.g3.goldenlion.invoice.service.impl;
 
+import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sese2015.g3.goldenlion.invoice.domain.Invoice;
@@ -10,6 +11,7 @@ import sese2015.g3.goldenlion.reservation.repository.ReservationRepository;
 import sese2015.g3.goldenlion.reservation.service.impl.ReservationNotFoundException;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
@@ -35,5 +37,10 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoiceRepository.save(invoice);
 
         return invoice;
+    }
+
+    @Override
+    public List<Invoice> getAllInvoices() {
+        return IteratorUtils.toList(invoiceRepository.findAll().iterator());
     }
 }

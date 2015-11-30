@@ -37,9 +37,12 @@
                   </li>
                 </ul>
                 <md-button style="float:right" class="md-fab md-primary md-micro" aria-label="Reservierung löschen"
-                           ng-click="reservationCtrl.confirmDelete(r.id)">
+                           ng-click="reservationCtrl.confirmDelete(r.id)" ng-hide="reservationCtrl.isPaid(r.id)">
                   <md-icon md-svg-icon="assets/icons/minus.svg"></md-icon>
                 </md-button>
+                <div style="float:right; font-size: 0.85em;" ng-show="reservationCtrl.isPaid(r.id)">
+                  <i>Bezahlt</i>
+                </div>
               </td>
             </tr>
             <tr ng-show="!reservationCtrl.reservations.length">

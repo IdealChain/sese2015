@@ -98,7 +98,7 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findOne(reservationid);
         if (reservation == null)
             throw new ReservationNotFoundException("The given reservation-id was not found");
-        
+
         Invoice invoice = invoiceRepository.findByReservationId(reservationid);
         if (invoice != null)
             throw new ConflictingDataException("Cannot delete reservation which is already billed");

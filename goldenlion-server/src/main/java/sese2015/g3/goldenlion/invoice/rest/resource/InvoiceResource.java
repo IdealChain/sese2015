@@ -12,6 +12,8 @@ import sese2015.g3.goldenlion.invoice.domain.Invoice;
 import sese2015.g3.goldenlion.invoice.service.InvoiceService;
 import sese2015.g3.goldenlion.reservation.service.ReservationService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api")
 public class InvoiceResource {
@@ -29,5 +31,12 @@ public class InvoiceResource {
         log.info("Invoice creation successful...");
 
         return invoice;
+    }
+
+    @RequestMapping(value = "/invoice",
+            method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Invoice> getAllInvoices() {
+        return invoiceService.getAllInvoices();
     }
 }
