@@ -6,7 +6,7 @@
     .controller('AddReservationController', AddReservationController);
 
   /** @ngInject */
-  function AddReservationController($scope, $state, $location, $mdDialog, restService) {
+  function AddReservationController($scope, $state, $location, $mdDialog, restService, $log) {
     var vm = this;
     var roomid = parseInt($location.search().roomid);
     var startdate = new Date($location.search().startdate);
@@ -27,14 +27,14 @@
     vm.selectedCustomer = null;
 
     vm.selectedItemChange = function (item) {
-      if (item === undefined)
+      if (angular.isUndefined(item))
         return;
-      console.log("selectedItemChange(" + item + ")");
+      $log.log("selectedItemChange(" + item + ")");
       //vm.customers = $filter('filter')(vm.customers, {id: '!' + item.id});
     };
 
     vm.onAppend = function(chip) {
-      console.log("transform " + chip);
+      $log.log("transform " + chip);
       if (angular.isObject(chip)) {
         return chip;
       }
@@ -80,14 +80,14 @@
       for (var i = 0; i < vm.selectedCustomers.length; i++) {
         reservationRequest.customerIds.push(vm.selectedCustomers[i].id);
       }
-      console.log(JSON.stringify(reservationRequest));
+      $log.log(angular.toJson(reservationRequest));
       restService.createReservation(reservationRequest).then(
         function successCallback(response) {
           $scope.$emit("reservationCreated", response.data);
           $state.go("home");
         },
         function errorCallback(response) {
-          console.log(response);
+          $log.log(response);
           var errorMessage = "Die Reservierung konnte nicht erstellt werden. (" + response.data.message + ")";
           if (response.status == 409)
             errorMessage = "Für die gegebenen Daten (Raumnummer und Zeitraum) besteht bereits eine Reservierung.";

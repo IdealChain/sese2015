@@ -33,10 +33,10 @@
           <md-button ui-sref="customer" class="md-fab md-primary md-block">
             <md-icon md-svg-icon="assets/icons/plus.svg"></md-icon>
           </md-button>
-          <md-button class="md-fab md-primary md-block">
+          <md-button class="md-fab md-primary md-block" ng-disabled="true">
             <md-icon md-svg-icon="assets/icons/pencil.svg"></md-icon>
           </md-button>
-          <md-button class="md-fab md-primary md-block">
+          <md-button class="md-fab md-primary md-block" ng-disabled="true">
             <md-icon md-svg-icon="assets/icons/magnify.svg"></md-icon>
           </md-button>
         </md-card-actions>
@@ -48,6 +48,9 @@
         <md-card-actions layout="row">
           <md-button ui-sref="createinvoice" class="md-fab md-primary md-block">
             <md-icon md-svg-icon="assets/icons/plus.svg"></md-icon>
+          </md-button>
+          <md-button class="md-fab md-primary md-block" ng-disabled="true">
+            <md-icon md-svg-icon="assets/icons/minus.svg"></md-icon>
           </md-button>
         </md-card-actions>
       </md-card>

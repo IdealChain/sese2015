@@ -6,7 +6,7 @@
     .controller('ReservationController', ReservationController);
 
   /** @ngInject */
-  function ReservationController($mdDialog, restService, $state) {
+  function ReservationController($mdDialog, restService, $state, $log) {
     var vm = this;
     vm.reservations = [];
 
@@ -21,9 +21,9 @@
             }
             vm.reservations[i].roomsMerged = roomsMerged;
             var customerMerged = "";
-            for (var j = 0; j < vm.reservations[i].customers.length; j++) {
-              customerMerged += vm.reservations[i].customers[j].firstName + " ";
-              customerMerged += vm.reservations[i].customers[j].lastName + " ";
+            for (var k = 0; k < vm.reservations[i].customers.length; k++) {
+              customerMerged += vm.reservations[i].customers[k].firstName + " ";
+              customerMerged += vm.reservations[i].customers[k].lastName + " ";
             }
             vm.reservations[i].customerMerged = customerMerged;
           }
@@ -47,7 +47,7 @@
     vm.allInvoices();
 
     vm.confirmDelete = function(reservationId) {
-      console.log("confirm deleting: " + reservationId);
+      $log.log("confirm deleting: " + reservationId);
       var confirm = $mdDialog.confirm( {
         title: "Reservierung löschen?",
         content: "Möchten Sie diese Reservierung wirklich löschen?",

@@ -6,7 +6,7 @@
     .controller('CreateInvoiceController', CreateInvoiceController);
 
   /** @ngInject */
-  function CreateInvoiceController(restService, $mdDialog, $state) {
+  function CreateInvoiceController(restService, $mdDialog) {
     var vm = this;
 
     vm.customers = [];
@@ -20,7 +20,7 @@
           vm.customers.push({
             id: response.data[i].id,
             firstname: response.data[i].firstName,
-            lastname: response.data[i].lastName,
+            lastname: response.data[i].lastName
           });
         }
       },
@@ -31,7 +31,7 @@
 
     vm.reservationsbycustomer = [];
     vm.selectedCustomerChange = function (customer) {
-      if (customer === undefined)
+      if (angular.isUndefined(customer))
         return;
 
       restService.allReservationByCustomerId(customer.id).then(

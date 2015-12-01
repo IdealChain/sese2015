@@ -35,6 +35,17 @@
         },
         authenticate: true
       })
+      .state('room', {
+        url: '/room',
+        templateUrl: 'app/components/room/room.html',
+        controller: 'RoomController',
+        controllerAs: 'roomCtrl',
+        ncyBreadcrumb: {
+          label: 'Zimmer',
+          parent: 'home'
+        },
+        authenticate: true
+      })
       .state('reservation', {
         url: '/reservation',
         templateUrl: 'app/components/reservation/reservation.html',
