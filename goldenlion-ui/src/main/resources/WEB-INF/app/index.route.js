@@ -56,6 +56,16 @@
           parent: 'home'
         },
         authenticate: true
+      }).state('protocol', {
+        url: '/protocol',
+        templateUrl: 'app/components/protocol/protocol.html',
+        controller: 'ProtocolController',
+        controllerAs: 'protocolCtrl',
+        ncyBreadcrumb: {
+          label: 'Protokollierung',
+          parent: 'home'
+        },
+        authenticate: true
       })
       .state('addreservation', {
         url: '/reservation/add',

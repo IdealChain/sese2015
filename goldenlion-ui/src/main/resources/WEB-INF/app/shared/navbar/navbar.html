@@ -4,6 +4,8 @@
   </div>
 
 
+  <md-button class="acme-navbar-text" ui-sref="protocol" ng-if="navbarCtrl.hasRole('ADM')">Admin</md-button>
+  <a ng-if="navbarCtrl.hasRole('ADM')">|</a>
   <md-button class="acme-navbar-text" ng-click="navbarCtrl.logout()">Abmelden</md-button>
 
 </md-toolbar>

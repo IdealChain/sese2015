@@ -1,5 +1,6 @@
 package sese2015.g3.goldenlion.security.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
@@ -34,9 +35,11 @@ public class User extends PersistentObject implements UserDetails {
 
     @NotNull
     @Column(length = 500)
+    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<UserRole> userRoles;
 
     public User() {

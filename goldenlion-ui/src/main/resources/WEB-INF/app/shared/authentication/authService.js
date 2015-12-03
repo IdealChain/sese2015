@@ -37,6 +37,19 @@
       }
     }
 
+    vm.hasRole = function (roleName) {
+      if (checkToken()) {
+        var rolesObject = user.roles;
+        var hasRole = false;
+        Object.keys(rolesObject).forEach(function (key) {
+          if (key == roleName && rolesObject[key]) {
+            hasRole = true;
+          }
+        })
+        return hasRole;
+      }
+    }
+
     vm.getAuthToken = function () {
       if (checkToken() && tokenInfo != null) {
         return tokenInfo.token;

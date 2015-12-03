@@ -19,13 +19,15 @@
     /** @ngInject */
     function NavbarController(authService) {
       var vm = this;
-
       vm.username = authService.getUsername();
 
       vm.logout = function () {
         authService.logout();
       }
+
+      vm.hasRole = function (roleName) {
+        return authService.hasRole(roleName);
+      }
     }
   }
-
 })();

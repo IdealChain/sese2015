@@ -1,0 +1,33 @@
+<div class="rootDiv">
+  <navbar></navbar>
+  <div ncy-breadcrumb></div>
+  <div layout="row" layout-align="center">
+    <md-card class="md-whiteframe-24dp" style="width: 50%">
+      <div layout="row">
+        <h2 class="md-headline" flex="70">Protokollierung</h2>
+
+        <md-input-container flex class="md-block">
+          <label>Suche:</label>
+          <input flex required type="text" ng-model="protocolCtrl.searchText"/>
+        </md-input-container>
+      </div>
+
+
+      <md-list>
+        <md-list-item class="md-3-line"
+                      dir-paginate="protocolEntry in protocolCtrl.querySearch(protocolCtrl.searchText) | itemsPerPage: 10">
+          <div class="md-list-item-text">
+            <h3><b>Benutzer:</b> {{protocolEntry.user.firstName}} {{protocolEntry.user.lastName}}</h3>
+            <h4><b>Datum:</b> {{protocolCtrl.formatToReadableString(protocolEntry.logWriteTime) | date:'HH:mm:ss
+              dd.MM.yyyy'}}</h4>
+
+            <p><b>Nachricht:</b> {{protocolEntry.protocolMessage}}</p>
+          </div>
+        </md-list-item>
+      </md-list>
+      <div class="text-center">
+        <dir-pagination-controls template-url="app/shared/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+      </div>
+    </md-card>
+  </div>
+</div>

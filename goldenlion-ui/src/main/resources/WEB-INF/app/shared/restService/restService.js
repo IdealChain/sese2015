@@ -5,9 +5,10 @@
     .module('goldenlionUi')
     .service('restService', restService);
 
-  function restService($http, $location) {
+  function restService($http, $location, $resource) {
     var vm = this;
     var backend = $location.absUrl().substr(0,$location.absUrl().indexOf('/#'));
+    var protocol = $resource(backend + '/api/protocol');
 
     vm.login = function (credentials) {
       return $http({
@@ -116,6 +117,10 @@
         method: 'GET',
         url: backend + "/api/invoice"
       });
+    }
+
+    vm.getProtocols = function () {
+      return protocol.query();
     }
   }
 })();

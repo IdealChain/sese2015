@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/reservation").authenticated()
                 .antMatchers("/api/invoice").authenticated()
                 .antMatchers("/api/room").authenticated()
+                .antMatchers("/api/protocol").authenticated()
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/assets/images/**").permitAll()

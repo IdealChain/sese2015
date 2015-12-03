@@ -89,5 +89,20 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
         standardUser.setPassword(saltedSHA256PasswordEncoder.encode("test"));
         userRepository.save(standardUser);
+
+        User employeeUser = new User();
+        employeeUser.setFirstName("Tom");
+        employeeUser.setLastName("Mitarbeiter");
+        employeeUser.setEmail("tom.mitarbeiter@goldenlion.tk");
+
+        List<UserRole> employeeRoleList = new ArrayList<>();
+        UserRole employeeRole = new UserRole();
+        employeeRoleList.add(employeeRole);
+        employeeUser.setUserRoles(employeeRoleList);
+        employeeRole.setUser(employeeUser);
+        employeeRole.setRole(Role.EMP);
+
+        employeeUser.setPassword(saltedSHA256PasswordEncoder.encode("test"));
+        userRepository.save(employeeUser);
     }
 }
