@@ -1,6 +1,9 @@
 package sese2015.g3.goldenlion.protocol.service.impl;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.text.StrBuilder;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -33,20 +36,18 @@ public class ProtocolWriterServiceImpl implements ProtocolWriterService {
 
     @Before("execution(* sese2015.g3.goldenlion..*Repository.*(..)) && !bean(protocolEntryRepository)")
     public void logBeforeDatabaseAccess(JoinPoint joinPoint) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof User) {
-            User user = (User) authentication.getPrincipal();
-            protocolEntryRepository.save(new ProtocolEntry(user, "User " + user.getUsername() + " calls " + joinPoint.toShortString(), ProtocolEntryType.DATABASE));
-        }
+        this.writeJoinPointProtocolEntry(joinPoint);
     }
 
     @After("execution(* sese2015.g3.goldenlion..*Repository.*(..)) && !bean(protocolEntryRepository)")
     public void logAfterDatabaseAccess(JoinPoint joinPoint) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof User) {
-            User user = (User) authentication.getPrincipal();
-            protocolEntryRepository.save(new ProtocolEntry(user, "User " + user.getUsername() + " called " + joinPoint.toShortString(), ProtocolEntryType.DATABASE));
-        }
+        this.writeJoinPointProtocolEntry(joinPoint);
+    }
+
+    private void writeJoinPointProtocolEntry(JoinPoint joinPoint) {
+        StrBuilder strBuilder = new StrBuilder();
+        strBuilder.append("Database query called! ").append(joinPoint.toShortString()).append(" with Parameters: ").append(ToStringBuilder.reflectionToString(joinPoint.getArgs(), ToStringStyle.JSON_STYLE));
+        this.writeProtocolEntry(strBuilder.toString(), ProtocolEntryType.DATABASE);
     }
 
     @Override

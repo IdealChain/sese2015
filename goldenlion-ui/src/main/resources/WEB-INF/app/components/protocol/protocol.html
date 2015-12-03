@@ -17,7 +17,13 @@
         <md-list-item class="md-3-line"
                       dir-paginate="protocolEntry in protocolCtrl.querySearch(protocolCtrl.searchText) | itemsPerPage: 10">
           <div class="md-list-item-text">
-            <h3><b>Benutzer:</b> {{protocolEntry.user.firstName}} {{protocolEntry.user.lastName}}</h3>
+            <div layout="row">
+              <h3><b>Benutzer:</b> {{protocolEntry.user.firstName}} {{protocolEntry.user.lastName}}</h3>
+
+              <div flex>
+                <h3 align="right"><b>{{protocolEntry.protocolEntryType}}</b></h3>
+              </div>
+            </div>
             <h4><b>Datum:</b> {{protocolCtrl.formatToReadableString(protocolEntry.logWriteTime) | date:'HH:mm:ss
               dd.MM.yyyy'}}</h4>
 

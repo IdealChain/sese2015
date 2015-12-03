@@ -20,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/api/customers")
+@PreAuthorize("hasAnyAuthority('ADM','EMP')")
 public class CustomerResource {
     private Log log = LogFactory.getLog(getClass());
     private CustomerService customerService;
@@ -40,7 +41,6 @@ public class CustomerResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('ADM')")
     public ResponseEntity<CustomerDto> create(@RequestBody @Valid CustomerDto dto, BindingResult result) {
         CustomerDto response = new CustomerDto();
         this.customerService.createCustomer(dto);

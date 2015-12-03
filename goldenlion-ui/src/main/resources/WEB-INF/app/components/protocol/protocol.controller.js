@@ -25,7 +25,7 @@
     function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
       return function filterFn(item) {
-        var searchableString = item.user.firstName + " " + item.user.lastName + " " + item.protocolMessage;
+        var searchableString = item.user.firstName + " " + item.user.lastName + " " + item.protocolMessage + " " + vm.formatToReadableString(item.logWriteTime) + " " + item.protocolEntryType;
         searchableString = angular.lowercase(searchableString);
         var splitBySpace = lowercaseQuery.split(" ");
         var result = true;

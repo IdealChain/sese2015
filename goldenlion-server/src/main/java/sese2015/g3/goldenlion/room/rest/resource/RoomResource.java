@@ -5,10 +5,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sese2015.g3.goldenlion.commons.service.impl.ResourceNotFoundException;
 import sese2015.g3.goldenlion.room.domain.Room;
-import sese2015.g3.goldenlion.room.repository.RoomRepository;
 import sese2015.g3.goldenlion.room.service.RoomService;
 
 import java.util.Date;
@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
+@PreAuthorize("hasAnyAuthority('ADM','EMP')")
 public class RoomResource {
     private Log log = LogFactory.getLog(getClass());
 

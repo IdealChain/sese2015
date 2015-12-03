@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sese2015.g3.goldenlion.reservation.domain.Reservation;
 import sese2015.g3.goldenlion.reservation.rest.domain.request.CreateReservationRequest;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
+@PreAuthorize("hasAnyAuthority('ADM','EMP')")
 public class ReservationResource {
     private Log log = LogFactory.getLog(getClass());
 
