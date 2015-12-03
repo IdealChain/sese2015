@@ -47,17 +47,31 @@
       })
     };
 
+    vm.allRooms = function() {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/rooms"
+      })
+    };
+
+    vm.freeRooms = function(from, to) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/rooms?freefrom=" + from + "&freeto=" + to
+      })
+    };
+
     vm.roomById = function (roomid) {
       return $http({
         method: 'GET',
-        url: backend + "/api/room/" + roomid
+        url: backend + "/api/rooms/" + roomid
       })
     };
 
     vm.roomByIds = function (roomids) {
       return $http({
         method: 'GET',
-        url: backend + "/api/room/" + roomids.join(",")
+        url: backend + "/api/rooms/" + roomids.join(",")
       })
     };
 
