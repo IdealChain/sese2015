@@ -8,13 +8,30 @@
   /** @ngInject */
   function CustomerReservationController($mdDialog, restService, $state, $log) {
     var vm = this;
+    initializeCustomerReservation();
+
+    function initializeCustomerReservation() {
+      vm.fromDate = new Date();
+      vm.toDate = new Date();
+      vm.adults = 2;
+      vm.children = 2;
+    }
+
 
     vm.searchAvailableRooms = function () {
       vm.searched = true;
     }
 
+    vm.submitRoomReservation = function () {
+
+    }
+
     vm.selectRoom = function (room) {
       vm.selectedRoom = room;
+    }
+
+    vm.unselectRoom = function () {
+      vm.selectedRoom = null;
     }
 
 
