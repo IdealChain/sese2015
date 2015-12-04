@@ -27,6 +27,7 @@ public class ProtocolEntry extends PersistentObject {
     private LocalDateTime logWriteTime;
 
     @NotNull
+    @Lob
     private String protocolMessage;
 
     public ProtocolEntry() {
