@@ -14,6 +14,12 @@
         controller: 'MainController',
         controllerAs: 'mainCtrl'
       })
+      .state('customerReservation', {
+        url: '/customerReservation',
+        templateUrl: 'app/components/reservation/customerReservation.html',
+        controller: 'CustomerReservationController',
+        controllerAs: 'customerReservationCtrl'
+      })
       .state('home', {
         url: '/home',
         templateUrl: 'app/components/home/home.html',
