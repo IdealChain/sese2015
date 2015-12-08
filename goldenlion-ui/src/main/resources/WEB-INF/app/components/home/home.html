@@ -1,13 +1,13 @@
 <div class="rootDiv">
   <navbar></navbar>
   <div ncy-breadcrumb></div>
-  <div class="verticalAlign">
+  <div class="verticalAlign homescreen">
     <div class="techs" layout-align="center">
       <!-- Reservierung -->
       <md-card class="md-whiteframe-24dp" layout="column" layout-align="center center">
         <h1>Reservierung</h1>
         <md-card-actions layout="row">
-          <md-button ui-sref="reservation" class="md-fab md-primary md-block">
+          <md-button aria-label="Reservierungen" ui-sref="reservation" class="md-fab md-primary md-block">
             <md-icon md-svg-icon="assets/icons/magnify.svg"></md-icon>
           </md-button>
         </md-card-actions>
@@ -17,7 +17,7 @@
       <md-card class="md-whiteframe-24dp" layout="column" layout-align="center center">
         <h1>Zimmer</h1>
         <md-card-actions layout="row">
-          <md-button ui-sref="room" class="md-fab md-primary md-block">
+          <md-button aria-label="Zimmer" ui-sref="room" class="md-fab md-primary md-block">
             <md-icon md-svg-icon="assets/icons/magnify.svg"></md-icon>
           </md-button>
         </md-card-actions>
@@ -30,13 +30,13 @@
       <md-card class="md-whiteframe-24dp" layout="column" layout-align="center center">
         <h1>Kunden</h1>
         <md-card-actions layout="row">
-          <md-button ui-sref="customer" class="md-fab md-primary md-block">
+          <md-button aria-label="Kunde hinzufügen" ui-sref="customer" class="md-fab md-primary md-block">
             <md-icon md-svg-icon="assets/icons/plus.svg"></md-icon>
           </md-button>
-          <md-button class="md-fab md-primary md-block" ng-disabled="true">
+          <md-button aria-label="Kunde bearbeiten" class="md-fab md-primary md-block" ng-disabled="true">
             <md-icon md-svg-icon="assets/icons/pencil.svg"></md-icon>
           </md-button>
-          <md-button class="md-fab md-primary md-block" ng-disabled="true">
+          <md-button aria-label="Kunden" class="md-fab md-primary md-block" ng-disabled="true">
             <md-icon md-svg-icon="assets/icons/magnify.svg"></md-icon>
           </md-button>
         </md-card-actions>
@@ -46,10 +46,10 @@
       <md-card class="md-whiteframe-24dp" layout="column" layout-align="center center">
         <h1>Rechnungen</h1>
         <md-card-actions layout="row">
-          <md-button ui-sref="createinvoice" class="md-fab md-primary md-block">
+          <md-button aria-label="Rechnung erstellen" ui-sref="createinvoice" class="md-fab md-primary md-block">
             <md-icon md-svg-icon="assets/icons/plus.svg"></md-icon>
           </md-button>
-          <md-button class="md-fab md-primary md-block" ng-disabled="true">
+          <md-button aria-label="Rechnung stornieren" class="md-fab md-primary md-block" ng-disabled="true">
             <md-icon md-svg-icon="assets/icons/minus.svg"></md-icon>
           </md-button>
         </md-card-actions>
