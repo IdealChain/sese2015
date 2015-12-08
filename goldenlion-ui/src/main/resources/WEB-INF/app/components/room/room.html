@@ -2,6 +2,66 @@
   <navbar></navbar>
   <div ncy-breadcrumb></div>
   <div layout="row" layout-align="center">
-    Will be implemented soon!
+    <md-card class="md-whiteframe-24dp" style="width: 50%">
+      <h2 class="md-headline">Zimmer</h2>
+      <md-card-content>
+        <md-content layout="row">
+          <md-input-container>
+            <md-checkbox ng-model="roomCtrl.freeRoomsOnly" aria-label="Nur freie Zimmer" class="md-primary">
+              Nur freie Zimmer:
+            </md-checkbox>
+          </md-input-container>
+        </md-content>
+        <md-content ng-show="roomCtrl.freeRoomsOnly" layout="row">
+          <div layout="row" layout-align="center center">
+            <md-datepicker ng-model="roomCtrl.startDate"/>
+          </div>
+          <div layout="row" layout-align="center center">
+            <md-datepicker ng-model="roomCtrl.endDate" md-min-date="roomCtrl.startDate" formatDate="yyyy"/>
+          </div>
+          <div layout="row" layout-align="center center">
+            <md-button class="md-primary" >Suchen</md-button>
+          </div>
+        </md-content>
+        <hr />
+        <md-content layout="row">
+          <table width="100%" role="grid" class="room">
+            <thead>
+            <tr>
+              <th width="15%">Name/Nr.</th>
+              <th width="15%">Max.<br/>Belegzahl</th>
+              <th width="10%">Preis<br/>1P</th>
+              <th width="10%">Preis<br/>2P</th>
+              <th width="10%">Preis<br/>3P</th>
+              <th width="10%">Preis<br/>1P+1K</th>
+              <th width="10%">Preis<br/>1P+2K</th>
+              <th width="10%">Preis<br/>2P+1K</th>
+              <th width="10%">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+              ng-repeat="r in roomCtrl.rooms"
+              ng-class-odd="'odd'" ng-class-even="'even'">
+              <td class="center">{{r.roomNumber}}</td>
+              <td class="center">{{r.maxPersons}}</td>
+              <td class="center">{{r.price1P | currency : "€ " : 0}}</td>
+              <td class="center">{{r.price2P | currency : "€ " : 0}}</td>
+              <td class="center">{{r.price3P | currency : "€ " : 0}}</td>
+              <td class="center">{{r.price1P1K | currency : "€ " : 0}}</td>
+              <td class="center">{{r.price1P2K | currency : "€ " : 0}}</td>
+              <td class="center">{{r.price2P1K | currency : "€ " : 0}}</td>
+              <td class="center">-</td>
+            </tr>
+            <tr ng-show="!roomCtrl.rooms.length">
+              <td colspan="9" class="center">
+                <p>Keine Zimmer im System eingetragen</p>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </md-content>
+      </md-card-content>
+    </md-card>
   </div>
 </div>
