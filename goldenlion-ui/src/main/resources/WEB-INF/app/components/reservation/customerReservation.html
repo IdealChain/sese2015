@@ -7,62 +7,58 @@
     </div>
   </md-toolbar>
 
-  <div layout="row" layout-align="center">
-    <md-card class="md-whiteframe-24dp" style="width: 50%">
+  <div  class="customerReservation" layout="row" layout-align="center">
+    <md-card class="md-whiteframe-24dp" style="width: 60%">
       <form ng-submit="customerReservationCtrl.searchAvailableRooms()">
         <md-card-content>
           <div layout="row">
-            <h1 class="md-subhead" flex>Sie möchten eine unvergessliche Zeit bei uns verbringen? Reservieren Sie am
-              besten
-              gleich!</h1>
+            <h1 class="md-subhead" flex>
+              Sie möchten eine unvergessliche Zeit bei uns verbringen? Reservieren Sie am besten gleich!
+            </h1>
           </div>
 
           <div layout="row">
             <div layout="column" flex>
-              <p>Wählen Sie den gewünschten Zeitraum :</p>
+              <p>Wählen Sie den gewünschten Zeitraum:</p>
 
-              <div layout="row">
-                <div layout="column" layout-align="center center" flex="30">
-                  <div layout="row" layout-align="center center">
-                    <b>Von</b>
-                    <md-datepicker ng-model="customerReservationCtrl.fromDate"
-                    "></md-datepicker>
+              <md-card>
+                <div layout="row" layout-padding="0" layout-wrap>
+                  <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45">
+                    <b flex="15">Von</b>
+                    <md-datepicker ng-model="customerReservationCtrl.fromDate"></md-datepicker>
                   </div>
-                </div>
-                <div layout="column" layout-align="center center" flex="30">
-                  <div layout="row" layout-align="center center">
-                    <b>Bis</b>
+                  <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45" flex-offset-gt-sm="5">
+                    <b flex="15">Bis</b>
                     <md-datepicker ng-model="customerReservationCtrl.toDate"></md-datepicker>
                   </div>
-                </div>
-                <div layout="column" layout-align="center center" flex="20">
-                  <div layout="row" layout-align="center center" flex>
-                    <b flex="70">Erwachsene</b>
-                    <input type=number flex="20" ng-model="customerReservationCtrl.adults" required>
+                  <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45">
+                    <b>Erwachsene</b>
+                    <input type=number flex="30" flex-offset="5" ng-model="customerReservationCtrl.adults" required>
+                  </div>
+                  <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45" flex-offset-gt-sm="5">
+                    <b>Kinder</b>
+                    <input type=number flex="30" flex-offset="5" ng-model="customerReservationCtrl.children" required>
                   </div>
                 </div>
-                <div layout="column" layout-align="center center" flex="20">
-                  <div layout="row" layout-align="center center" flex>
-                    <b flex="40">Kinder</b>
-                    <input type=number flex="20" ng-model="customerReservationCtrl.children" required>
-                  </div>
-                </div>
-              </div>
+              </md-card>
 
             </div>
           </div>
+
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
           <md-button type="submit" class="md-primary" ng-click="">Suchen</md-button>
         </md-card-actions>
       </form>
 
-      <md-card-content ng-if="customerReservationCtrl.searched">
-        <h1 class="md-subhead" flex>Wählen Sie ein Zimmer aus :</h1>
+      <md-card-content ng-if="customerReservationCtrl.searched" class="roomSelection">
+        <h1 class="md-subhead" flex>Wählen Sie ein Zimmer aus:</h1>
 
-        <div class="md-padding" layout="row" layout-wrap layout-align="center start">
-          <md-card flex="45" ng-repeat="room in customerReservationCtrl.rooms"
-                   ng-click="customerReservationCtrl.selectRoom(room)" ng-if="!customerReservationCtrl.selectedRoom">
+        <div class="md-padding" layout="column" layout-gt-sm="row" layout-align="center start">
+          <md-card flex="45"
+                   ng-repeat="room in customerReservationCtrl.rooms"
+                   ng-click="customerReservationCtrl.selectRoom(room)"
+                   ng-if="!customerReservationCtrl.selectedRoom">
             <md-card-content>
               <md-card-title>
                 <div layout="row">
@@ -93,7 +89,7 @@
               </md-card-title>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button class="md-primary" ng-click="customerReservationCtrl.unselectRoom()">Abwählen</md-button>
+              <md-button class="md-primary" ng-click="customerReservationCtrl.unselectRoom()">Ändern</md-button>
             </md-card-actions>
           </md-card>
         </div>
