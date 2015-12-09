@@ -104,7 +104,6 @@
         }
         toastr.error("Folgende Fehler sind aufgetreten: " + errorMsg, "Reservierung fehlgeschlagen!");
       });
-      ;
     }
 
     vm.selectRoom = function (room) {
