@@ -96,7 +96,13 @@
         toastr.success("Ihre Reservierung konnte erfolgreich im System eingetragen werden!", "Reservierung erfolgreich!");
         initializeCustomerReservation();
       }, function errorCallback(response) {
-        toastr.error("Ihre Reservierung konnte im System leider nicht eingetragen werden - überprüfen Sie Ihre Eingaben!", "Reservierung fehlgeschlagen!");
+        var errorMsg = '';
+        if (!angular.isUndefinedOrNull(response.data) && !angular.isUndefinedOrNull(response.data.errors)) {
+          response.data.errors.forEach(function (error) {
+            errorMsg += error.defaultMessage;
+          })
+        }
+        toastr.error("Folgende Fehler sind aufgetreten: " + errorMsg, "Reservierung fehlgeschlagen!");
       });
       ;
     }

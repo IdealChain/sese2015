@@ -54,7 +54,7 @@
       <md-card-content ng-if="customerReservationCtrl.searched" class="roomSelection">
         <h1 class="md-subhead" flex>Wählen Sie ein Zimmer aus:</h1>
 
-        <div class="md-padding" layout="column" layout-gt-sm="row" layout-align="center start">
+        <div class="md-padding" layout-wrap layout="column" layout-gt-sm="row" layout-align="center start">
           <md-card flex="45"
                    ng-repeat="room in customerReservationCtrl.rooms"
                    ng-click="customerReservationCtrl.selectRoom(room)"

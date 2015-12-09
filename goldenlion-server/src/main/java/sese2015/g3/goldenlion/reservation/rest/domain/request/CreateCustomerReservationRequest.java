@@ -17,7 +17,7 @@ public class CreateCustomerReservationRequest {
     @NotNull
     private Date endDate;
 
-    @Min(1)
+    @Min(value = 1, message = "Für die Reservierung muss eine Mindestanzahl von 1 Person angegeben werden!")
     private int personCount;
 
     @NotNull
