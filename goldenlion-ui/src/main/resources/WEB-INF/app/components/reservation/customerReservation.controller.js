@@ -6,7 +6,7 @@
     .controller('CustomerReservationController', CustomerReservationController);
 
   /** @ngInject */
-  function CustomerReservationController($mdDialog, restService, $state, $log) {
+  function CustomerReservationController($mdDialog, restService, $state) {
     var vm = this;
     initializeCustomerReservation();
 
