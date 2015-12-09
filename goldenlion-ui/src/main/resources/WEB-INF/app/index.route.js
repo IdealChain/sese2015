@@ -47,8 +47,19 @@
         controller: 'RoomController',
         controllerAs: 'roomCtrl',
         ncyBreadcrumb: {
-          label: 'Zimmer',
+          label: 'Zimmerübersicht',
           parent: 'home'
+        },
+        authenticate: true
+      })
+      .state('roomdetail', {
+        url: '/room/:roomid',
+        templateUrl: 'app/components/room/roomdetail.html',
+        controller: 'RoomDetailController',
+        controllerAs: 'roomDetailCtrl',
+        ncyBreadcrumb: {
+          label: 'Zimmer',
+          parent: 'room'
         },
         authenticate: true
       })
@@ -74,7 +85,7 @@
         authenticate: true
       })
       .state('addreservation', {
-        url: '/reservation/add',
+        url: '/reservation/add?roomid&startdate&enddate',
         templateUrl: 'app/components/reservation/addreservation.html',
         controller: 'AddReservationController',
         controllerAs: 'addReservationCtrl',
