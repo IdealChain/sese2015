@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import sese2015.g3.goldenlion.commons.entity.PersistentObject;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -47,7 +46,6 @@ public class Customer extends PersistentObject {
     @Column(length = 65535)
     private String note;
 
-    @NotNull
     @Column(columnDefinition = "DOUBLE DEFAULT 0.0")
     private Double discount;
 

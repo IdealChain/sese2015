@@ -5,7 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sese2015.g3.goldenlion.commons.service.impl.ResourceNotFoundException;
 import sese2015.g3.goldenlion.room.domain.Room;
@@ -13,10 +12,10 @@ import sese2015.g3.goldenlion.room.service.RoomService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api")
-@PreAuthorize("hasAnyAuthority('ADM','EMP')")
 public class RoomResource {
     private Log log = LogFactory.getLog(getClass());
 
@@ -39,12 +38,16 @@ public class RoomResource {
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Room> getRooms(
-            @RequestParam(value = "freefrom", required = false)@DateTimeFormat(pattern = "yyyy-MM-dd")Date freeFromDate,
-            @RequestParam(value = "freeto", required = false)@DateTimeFormat(pattern = "yyyy-MM-dd")Date freeToDate) {
+            @RequestParam(value = "freefrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date freeFromDate,
+            @RequestParam(value = "freeto", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date freeToDate,
+            @RequestParam(value = "maxPersons", required = false) Integer maxPersons) {
 
-        if (freeFromDate != null && freeToDate != null)
-            return roomService.getFreeRooms(freeFromDate, freeToDate);
-        else
+
+        if (freeFromDate != null && freeToDate != null) {
+            List<Room> freeRooms = roomService.getFreeRooms(freeFromDate, freeToDate);
+            return freeRooms.stream().filter(room -> maxPersons != null ? room.getMaxPersons() >= maxPersons : true).collect(Collectors.toList());
+        } else {
             return roomService.getAllRooms();
+        }
     }
 }

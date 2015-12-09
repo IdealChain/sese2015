@@ -6,7 +6,7 @@
     .controller('CustomerController', CustomerController);
 
   /** @ngInject */
-  function CustomerController($scope, $state, restService) {
+  function CustomerController($scope, $state, restService, toastr) {
     var vm = this;
 
     vm.customer = {
@@ -36,6 +36,10 @@
       {
         short: 'FEMALE',
         text: 'Weiblich'
+      },
+      {
+        short: 'NAN',
+        text: 'Keine Angabe'
       }
     ]
 
@@ -46,7 +50,7 @@
           $state.go("home");
         },
         function errorCallback() {
-          alert("Error: customer couldn't be created!");
+          toastr.error("Der Kunde konnte nicht erstellt werden!", "Kundendaten ungültig");
         });
     }
   }

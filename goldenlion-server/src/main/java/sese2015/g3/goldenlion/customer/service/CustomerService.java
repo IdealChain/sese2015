@@ -10,6 +10,9 @@ import java.util.List;
  * Updated by Fabian on 23.11.2015.
  */
 public interface CustomerService {
-    void createCustomer(CustomerDto customerDto);
+    long createCustomer(CustomerDto customerDto);
+
+    CustomerDto getCustomerByEmail(String email);
+
     List<Customer> getAllCustomers();
 }
