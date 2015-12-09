@@ -24,8 +24,7 @@
                 <h3 align="right"><b>{{protocolEntry.protocolEntryType}}</b></h3>
               </div>
             </div>
-            <h4><b>Datum:</b> {{protocolCtrl.formatToReadableString(protocolEntry.logWriteTime) | date:'HH:mm:ss
-              dd.MM.yyyy'}}</h4>
+            <h4><b>Datum:</b> {{protocolCtrl.formatToReadableString(protocolEntry.logWriteTime) | date : 'HH:mm:ss dd.MM.yyyy'}}</h4>
 
             <p><b>Nachricht:</b> {{protocolEntry.protocolMessage}}</p>
           </div>

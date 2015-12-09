@@ -53,7 +53,7 @@
           </div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button class="md-primary" ng-click="">Suchen</md-button>
+          <md-button type="submit" class="md-primary" ng-click="">Suchen</md-button>
         </md-card-actions>
       </form>
 
@@ -101,81 +101,81 @@
 
       <md-card-content ng-if="customerReservationCtrl.searched && customerReservationCtrl.selectedRoom">
         <form ng-submit="customerReservationCtrl.submitRoomReservation()">
-        <div layout="row">
-          <div layout="column" layout-align="top" class="customercolumn">
-            <md-input-container>
-              <label>Vorname</label>
-              <input required ng-model="customerCtrl.customer.firstName">
-            </md-input-container>
-            <md-input-container>
-              <label>Nachname</label>
-              <input required ng-model="customerCtrl.customer.lastName">
-            </md-input-container>
-            <md-input-container>
-              <label>Geburtsdatum</label>
-              <input required type="date" ng-model="customerCtrl.customer.birthday" min="1900-01-01"
-                     placeholder="Geburtsdatum">
-            </md-input-container>
-            <md-input-container>
-              <label>Geschlecht</label>
-              <md-select required ng-model="customerCtrl.customer.gender">
-                <md-option ng-repeat="gender in customerCtrl.genders" value="{{gender.short}}">
-                  {{gender.text}}
-                </md-option>
-              </md-select>
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>Straße</label>
-              <input required ng-model="customerCtrl.customer.street">
-            </md-input-container>
-            <md-input-container layout-align="end" md-no-float class="md-block">
-              <input required ng-model="customerCtrl.customer.streetExtension" placeholder="Hausnummer/Stiege/Tür">
-            </md-input-container>
-            <md-input-container>
-              <label>Land</label>
-              <input required ng-model="customerCtrl.customer.state">
-            </md-input-container>
-            <div layout layout-sm="column">
+          <div layout="row">
+            <div layout="column" layout-align="top" class="customercolumn">
               <md-input-container>
-                <label>Postleitzahl</label>
-                <input name="postalCode" ng-model="customerCtrl.customer.postalCode" placeholder="1010"
-                       required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+                <label>Vorname</label>
+                <input required ng-model="customerCtrl.customer.firstName">
               </md-input-container>
               <md-input-container>
-                <label>Stadt</label>
-                <input required ng-model="customerCtrl.customer.city">
+                <label>Nachname</label>
+                <input required ng-model="customerCtrl.customer.lastName">
               </md-input-container>
+              <md-input-container>
+                <label>Geburtsdatum</label>
+                <input required type="date" ng-model="customerCtrl.customer.birthday" min="1900-01-01"
+                       placeholder="Geburtsdatum">
+              </md-input-container>
+              <md-input-container>
+                <label>Geschlecht</label>
+                <md-select required ng-model="customerCtrl.customer.gender">
+                  <md-option ng-repeat="gender in customerCtrl.genders" value="{{gender.short}}">
+                    {{gender.text}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container class="md-block">
+                <label>Straße</label>
+                <input required ng-model="customerCtrl.customer.street">
+              </md-input-container>
+              <md-input-container layout-align="end" md-no-float class="md-block">
+                <input required ng-model="customerCtrl.customer.streetExtension" placeholder="Hausnummer/Stiege/Tür">
+              </md-input-container>
+              <md-input-container>
+                <label>Land</label>
+                <input required ng-model="customerCtrl.customer.state">
+              </md-input-container>
+              <div layout layout-sm="column">
+                <md-input-container>
+                  <label>Postleitzahl</label>
+                  <input name="postalCode" ng-model="customerCtrl.customer.postalCode" placeholder="1010"
+                         required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+                </md-input-container>
+                <md-input-container>
+                  <label>Stadt</label>
+                  <input required ng-model="customerCtrl.customer.city">
+                </md-input-container>
+              </div>
+            </div>
+
+            <div layout="column" layout-align="top" class="customercolumn">
+              <md-input-container class="md-block">
+                <label>Firmenname</label>
+                <input ng-model="customerCtrl.customer.companyName">
+              </md-input-container>
+              <md-input-container class="md-block">
+                <label>Telefonnummer</label>
+                <input required ng-model="customerCtrl.customer.telephone">
+              </md-input-container>
+              <md-input-container class="md-block">
+                <label>Fax</label>
+                <input required ng-model="customerCtrl.customer.fax">
+              </md-input-container>
+              <md-input-container class="md-block">
+                <label>E-Mail</label>
+                <input required type="email" ng-model="customerCtrl.customer.email">
+              </md-input-container>
+              <md-input-container class="md-block">
+                <label>Web</label>
+                <input required type="url" ng-model="customerCtrl.customer.web">
+              </md-input-container>
+
+
             </div>
           </div>
-
-          <div layout="column" layout-align="top" class="customercolumn">
-            <md-input-container class="md-block">
-              <label>Firmenname</label>
-              <input ng-model="customerCtrl.customer.companyName">
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>Telefonnummer</label>
-              <input required ng-model="customerCtrl.customer.telephone">
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>Fax</label>
-              <input required ng-model="customerCtrl.customer.fax">
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>E-Mail</label>
-              <input required type="email" ng-model="customerCtrl.customer.email">
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>Web</label>
-              <input required type="url" ng-model="customerCtrl.customer.web">
-            </md-input-container>
-
-
-          </div>
-        </div>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button class="md-primary" ng-click="">Reservierung bestätigen</md-button>
-        </md-card-actions>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button type="submit" class="md-primary">Reservierung bestätigen</md-button>
+          </md-card-actions>
         </form>
       </md-card-content>
     </md-card>
