@@ -2,8 +2,8 @@ package sese2015.g3.goldenlion.room.domain;
 
 import sese2015.g3.goldenlion.commons.entity.PersistentObject;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -29,8 +29,16 @@ public class Room extends PersistentObject {
 
     private Double price2P1K;
 
-    public Room() {
+    @NotNull
+    private double pricePerNight;
 
+    @Lob
+    private String roomImage;
+
+    @Lob
+    private String description;
+
+    public Room() {
     }
 
     public String getRoomNumber() {
@@ -95,5 +103,29 @@ public class Room extends PersistentObject {
 
     public void setPrice2P1K(Double price2P1K) {
         this.price2P1K = price2P1K;
+    }
+
+    public double getPricePerNight() {
+        return pricePerNight;
+    }
+
+    public void setPricePerNight(double pricePerNight) {
+        this.pricePerNight = pricePerNight;
+    }
+
+    public String getRoomImage() {
+        return roomImage;
+    }
+
+    public void setRoomImage(String roomImage) {
+        this.roomImage = roomImage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

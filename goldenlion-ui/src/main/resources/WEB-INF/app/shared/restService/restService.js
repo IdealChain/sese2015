@@ -62,6 +62,13 @@
       })
     };
 
+    vm.freeRoomsForPersons = function (from, to, maxPerson) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/rooms?freefrom=" + from + "&freeto=" + to + "&maxPersons=" + maxPerson
+      })
+    };
+
     vm.roomById = function (roomid) {
       return $http({
         method: 'GET',
@@ -122,5 +129,13 @@
     vm.getProtocols = function () {
       return protocol.query();
     }
+
+    vm.createCustomerReservation = function (customerReservation) {
+      return $http({
+        method: 'POST',
+        data: customerReservation,
+        url: backend + "/api/customerReservation"
+      })
+    };
   }
 })();

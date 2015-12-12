@@ -16,7 +16,11 @@
     .
     config(function ($httpProvider) {
       $httpProvider.interceptors.push('authInterceptor');
-    });
+    })
+  
+  angular.isUndefinedOrNull = function (val) {
+    return angular.isUndefined(val) || val === null
+  };
 
   /** @ngInject */
   function config($logProvider, $mdThemingProvider) {

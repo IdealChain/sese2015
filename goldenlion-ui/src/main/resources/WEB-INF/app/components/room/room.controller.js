@@ -20,7 +20,6 @@
     restService.allRooms().then(
       function successCallback(response) {
         vm.rooms = response.data;
-        console.log(JSON.stringify(vm.rooms[0]));
       },
       function errorCallback(response) {
         alert('Error: Could not receive room data');

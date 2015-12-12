@@ -6,7 +6,7 @@
     .controller('CustomerReservationController', CustomerReservationController);
 
   /** @ngInject */
-  function CustomerReservationController($mdDialog, restService, $state, $log) {
+  function CustomerReservationController($mdDialog, restService, $state, $log, $filter, toastr) {
     var vm = this;
     initializeCustomerReservation();
 
@@ -15,15 +15,95 @@
       vm.toDate = new Date();
       vm.adults = 2;
       vm.children = 2;
+      vm.searched = false;
+      vm.rooms = [];
+      vm.selectedRoom = null;
+      vm.customer = null;
     }
 
+    vm.customer = {
+      firstName: '',
+      lastName: '',
+      birthday: '',
+      gender: '',
+      street: '',
+      streetExtension: '',
+      state: '',
+      postalCode: '',
+      city: '',
+      companyName: '',
+      discount: '',
+      telephone: '',
+      fax: '',
+      email: '',
+      web: '',
+      notes: ''
+    };
+
+    vm.genders = [
+      {
+        short: 'MALE',
+        text: 'Männlich'
+      },
+      {
+        short: 'FEMALE',
+        text: 'Weiblich'
+      },
+      {
+        short: 'NAN',
+        text: 'Keine Angabe'
+      }
+    ]
+
+    vm.maxDate = new Date(
+      vm.fromDate.getFullYear() + 1,
+      vm.fromDate.getMonth(),
+      vm.fromDate.getDate());
+    vm.minDate = vm.fromDate;
 
     vm.searchAvailableRooms = function () {
-      vm.searched = true;
+      vm.rooms = [];
+      vm.selectedRoom = null;
+      vm.searched = false;
+      var personCount = vm.adults + vm.children;
+      var formattedFromDate = $filter('date')(new Date(vm.fromDate), 'yyyy-MM-dd');
+      var formattedToDate = $filter('date')(new Date(vm.toDate), 'yyyy-MM-dd');
+
+      if (angular.isUndefinedOrNull(vm.fromDate) || angular.isUndefinedOrNull(vm.toDate) || vm.fromDate < vm.minDate || vm.toDate < vm.minDate || vm.toDate <= vm.fromDate || vm.fromDate > vm.maxDate || vm.toDate > vm.maxDate) {
+        toastr.error("Der eingegebene Datumsbereich ist nicht gültig!", "Datumsbereich ungültig");
+      } else {
+        restService.freeRoomsForPersons(formattedFromDate, formattedToDate, personCount).then(function (response) {
+          vm.rooms = response.data;
+          if (vm.rooms.length == 0) {
+            vm.searched = false;
+            toastr.info("Für dieses Datum und diese Personenzahl wurde kein Raum gefunden!", "Keine Räume gefunden!");
+          } else {
+            vm.searched = true;
+          }
+        })
+      }
     }
 
     vm.submitRoomReservation = function () {
-
+      vm.reservation = {
+        roomId: vm.selectedRoom.id,
+        startDate: vm.fromDate.toISOString(),
+        endDate: vm.toDate.toISOString(),
+        personCount: vm.adults + vm.children,
+        customer: vm.customer
+      }
+      restService.createCustomerReservation(vm.reservation).then(function successCallback(response) {
+        toastr.success("Ihre Reservierung konnte erfolgreich im System eingetragen werden!", "Reservierung erfolgreich!");
+        initializeCustomerReservation();
+      }, function errorCallback(response) {
+        var errorMsg = '';
+        if (!angular.isUndefinedOrNull(response.data) && !angular.isUndefinedOrNull(response.data.errors)) {
+          response.data.errors.forEach(function (error) {
+            errorMsg += error.defaultMessage;
+          })
+        }
+        toastr.error("Folgende Fehler sind aufgetreten: " + errorMsg, "Reservierung fehlgeschlagen!");
+      });
     }
 
     vm.selectRoom = function (room) {
@@ -33,22 +113,5 @@
     vm.unselectRoom = function () {
       vm.selectedRoom = null;
     }
-
-
-    vm.rooms = [
-      {
-        name: "Doppelzimmer Superior",
-        imgSrc: "assets/images/room1.jpeg",
-        price: "125",
-        description: "Die Zimmer der Economy-Class befinden sich zum Teil im straßenseitigen Trakt des Hotelvordergebäudes und sind teilrenoviert. Jedes Zimmer hat selbstverständlich Bad oder Dusche. Die Zimmer sind in harmonischen Farben eingerichtet und verfügen über Flat-Screen-TVs, Radio, hochwertige Matratzen, Minibar, Telefon sowie freien Internetzugang."
-      },
-      {
-        name: "Einzelzimmer lounge",
-        imgSrc: "assets/images/room2.jpg",
-        price: "75",
-        description: "Die 106 elegant eingerichteten Zimmer mit je 30m2 sind mit Badewanne oder Erlebnisdusche ausgestattet. In 14 unserer Superior-Zimmer sind zwei getrennte Betten vorhanden, in den übrigen finden Sie für Ihren Schlafkomfort ein Doppelbett vor. Einige Zimmer sind durch eine Verbindungstür flexibel kombinierbar – perfekt für Familien mit Kindern."
-      }
-    ]
-
   }
 })();

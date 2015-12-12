@@ -3,7 +3,18 @@
   <div ncy-breadcrumb></div>
   <div layout="row" layout-align="center">
     <md-card class="md-whiteframe-24dp" style="width: 50%">
-      <h2 class="md-headline">Zimmer ##id##</h2>
+      <md-card-title>
+        <div layout="row">
+          <md-card-title-text layout="column" flex>
+            <h2 class="md-headline" style="padding-left: 0">Zimmer {{ roomDetailCtrl.room.roomNumber }}</h2>
+            <span class="md-subhead">Kapazität: {{ roomDetailCtrl.room.maxPersons }} {{ roomDetailCtrl.room.maxPersons == 1 ? "Person" : "Personen" }}</span>
+            {{ roomDetailCtrl.room.description | limitTo:150 }}{{ roomDetailCtrl.room.description.length > 150 ? '...' : '' }}
+          </md-card-title-text>
+          <md-card-title-media flex="50">
+            <img data-ng-src="data:image/jpg;base64,{{roomDetailCtrl.room.roomImage}}" class="md-card-image">
+          </md-card-title-media>
+        </div>
+      </md-card-title>
       <md-card-content>
         <md-content layout="row">
           <p>Will be implemented soon.</p>

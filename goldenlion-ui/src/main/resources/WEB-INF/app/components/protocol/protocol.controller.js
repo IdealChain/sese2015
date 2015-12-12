@@ -6,7 +6,7 @@
     .controller('ProtocolController', CreateProtocolController);
 
   /** @ngInject */
-  function CreateProtocolController(restService, $mdDialog) {
+  function CreateProtocolController(restService) {
     var vm = this;
 
     //Load protocolEntries from Server

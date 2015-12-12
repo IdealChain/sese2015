@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import sese2015.g3.goldenlion.customer.domain.Address;
 import sese2015.g3.goldenlion.customer.domain.Customer;
 import sese2015.g3.goldenlion.customer.dto.CustomerDto;
-import sese2015.g3.goldenlion.customer.repository.AddressRepository;
 import sese2015.g3.goldenlion.customer.repository.CustomerRepository;
 import sese2015.g3.goldenlion.customer.service.CustomerService;
+import sese2015.g3.goldenlion.reservation.mapper.CustomerMapper;
 
 import java.time.ZoneId;
 import java.util.Date;
@@ -23,12 +23,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    private AddressRepository addressRepository;
     private CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerServiceImpl(AddressRepository addressRepository, CustomerRepository customerRepository) {
-        this.addressRepository = addressRepository;
+    public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
@@ -38,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void createCustomer(CustomerDto customerCreateRequest) {
+    public long createCustomer(CustomerDto customerCreateRequest) {
         checkNotNull(customerCreateRequest, "CustomerCreateRequest must not be null!");
         checkArgument(!doesCustomerExist(customerCreateRequest.getEmail()), "Customer with this email address allready exists!");
 
@@ -63,7 +61,18 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setPhoneNumber(customerCreateRequest.getTelephone());
         customer.setWebsite(customerCreateRequest.getWeb());
 
-        this.customerRepository.save(customer);
+        Customer savedCustomer = this.customerRepository.save(customer);
+        customerCreateRequest.setId(savedCustomer.getId());
+
+        return savedCustomer.getId();
+    }
+
+    @Override
+    public CustomerDto getCustomerByEmail(String email) {
+        checkNotNull(email);
+        checkArgument(StringUtils.isNotBlank(email), "Email address must not be null or blank!");
+        Customer searchedCustomer = this.customerRepository.findByEmail(email);
+        return searchedCustomer != null ? CustomerMapper.INSTANCE.customerToCustomerDto(searchedCustomer) : null;
     }
 
     private boolean doesCustomerExist(String email) {

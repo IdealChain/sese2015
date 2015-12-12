@@ -1,4 +1,4 @@
-package sese2015.g3.goldenlion.customer.dto;
+package sese2015.g3.goldenlion.reservation.rest.domain.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.hibernate.validator.constraints.Email;
@@ -10,10 +10,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
- * Created by Mario on 22.11.2015.
+ * Created by Mario on 06.12.2015.
  */
-public class CustomerDto {
-    private Long id;
+public class ReservationCustomer {
     @NotBlank
     private String firstName;
     @NotBlank
@@ -34,8 +33,6 @@ public class CustomerDto {
     @NotBlank
     private String city;
     private String companyName;
-    @NotNull
-    private Double discount;
     @NotBlank
     private String telephone;
     @NotBlank
@@ -45,16 +42,6 @@ public class CustomerDto {
     private String email;
     @NotBlank
     private String web;
-    @NotBlank
-    private String notes;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -136,14 +123,6 @@ public class CustomerDto {
         this.companyName = companyName;
     }
 
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
     public String getTelephone() {
         return telephone;
     }
@@ -174,13 +153,5 @@ public class CustomerDto {
 
     public void setWeb(String web) {
         this.web = web;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 }

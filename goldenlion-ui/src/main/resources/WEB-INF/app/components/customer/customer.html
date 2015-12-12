@@ -17,11 +17,8 @@
                 <label>Nachname</label>
                 <input required ng-model="customerCtrl.customer.lastName">
               </md-input-container>
-              <md-input-container>
-                <label>Geburtsdatum</label>
-                <input required type="date" ng-model="customerCtrl.customer.birthday" min="1900-01-01"
-                       placeholder="Geburtsdatum">
-              </md-input-container>
+              <md-datepicker required ng-model="customerCtrl.customer.birthday" md-placeholder="Geburtsdatum"
+              ></md-datepicker>
               <md-input-container>
                 <label>Geschlecht</label>
                 <md-select required ng-model="customerCtrl.customer.gender">
@@ -44,8 +41,8 @@
               <div layout layout-sm="column">
                 <md-input-container>
                   <label>Postleitzahl</label>
-                  <input name="postalCode" ng-model="customerCtrl.customer.postalCode" placeholder="1010"
-                         required ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+                  <input name="postalCode" ng-model="customerCtrl.customer.postalCode" placeholder="2100"
+                         required ng-pattern="/^[a-zA-Z0-9]{4,16}$/" md-maxlength="16">
                 </md-input-container>
                 <md-input-container>
                   <label>Stadt</label>
@@ -61,15 +58,15 @@
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Rabatt</label>
-                <input required type="number" ng-model="customerCtrl.customer.discount">
+                <input type="number" ng-model="customerCtrl.customer.discount">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Telefonnummer</label>
-                <input required ng-model="customerCtrl.customer.telephone">
+                <input ng-model="customerCtrl.customer.telephone">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Fax</label>
-                <input required ng-model="customerCtrl.customer.fax">
+                <input ng-model="customerCtrl.customer.fax">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>E-Mail</label>
@@ -77,13 +74,12 @@
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Web</label>
-                <input required type="url" ng-model="customerCtrl.customer.web">
+                <input ng-model="customerCtrl.customer.web" pattern="(https?://)?(www\.).+">
               </md-input-container>
 
               <md-input-container class="md-block">
                 <label>Notizen</label>
-                <textarea ng-model="customerCtrl.customer.notes" columns="1" md-maxlength="150" rows="5"
-                          required></textarea>
+                <textarea ng-model="customerCtrl.customer.notes" columns="1" md-maxlength="150" rows="5"></textarea>
               </md-input-container>
             </div>
           </div>
