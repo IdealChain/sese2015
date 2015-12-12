@@ -94,11 +94,14 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> getAllReservationsOfRoom(Long roomid) {
+    public List<Reservation> getAllReservationsOfRoom(Long roomid, Date startDate, Date endDate) {
         if(roomid == null)
             throw new BadInputDataException("Room-ID is null");
 
-        return IteratorUtils.toList(reservationRepository.findByRoomId(roomid).iterator());
+        if(startDate != null && endDate != null)
+            return IteratorUtils.toList(reservationRepository.findOverlappingReservations(startDate, endDate, roomid).iterator());
+        else
+            return IteratorUtils.toList(reservationRepository.findByRoomId(roomid).iterator());
     }
 
     @Override

@@ -59,14 +59,16 @@ public class ReservationResource {
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Reservation> getAllReservations(@RequestParam(value="customerid", required=false) Long customerid,
-                                                @RequestParam(value="roomid", required=false) Long roomid) {
+                                                @RequestParam(value="roomid", required=false) Long roomid,
+                                                @RequestParam(value="startdate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd")Date startDate,
+                                                @RequestParam(value="enddate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd")Date endDate)
+    {
         if (customerid != null) {
             log.info("Get all reservations of customer with ID: " + customerid);
             return reservationService.getAllReservationsWithoutInvoiceByCustomer(customerid);
-        }
-        else if (roomid != null) {
-            log.info("Get all reservations of room with ID: " + roomid);
-            return reservationService.getAllReservationsOfRoom(roomid);
+        } else if (roomid != null) {
+            log.info(String.format("Get all reservations of room with ID: %s %s", roomid, (startDate != null && endDate != null) ? String.format("in the period %s - %s", startDate, endDate) : ""));
+            return reservationService.getAllReservationsOfRoom(roomid, startDate, endDate);
         }
         else {
             return reservationService.getAllReservations();
