@@ -16,5 +16,7 @@ public interface ReservationService {
 
     List<Reservation> getAllReservationsWithoutInvoiceByCustomer(Long customerid);
 
+    List<Reservation> getAllReservationsOfRoom(Long roomid);
+
     void cancelReservation(Long reservationid);
 }

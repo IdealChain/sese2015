@@ -94,6 +94,14 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<Reservation> getAllReservationsOfRoom(Long roomid) {
+        if(roomid == null)
+            throw new BadInputDataException("Room-ID is null");
+
+        return IteratorUtils.toList(reservationRepository.findByRoomId(roomid).iterator());
+    }
+
+    @Override
     public void cancelReservation(Long reservationid) {
         Reservation reservation = reservationRepository.findOne(reservationid);
         if (reservation == null)

@@ -28,4 +28,9 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
             "where c.id = ?1 and (select count(i) from Invoice as i where i.reservation.id = r.id) = 0 " +
             "order by r.startDate DESC")
     Iterable<Reservation> findByCustomerIdWithoutInvoice(Long customerid);
+
+    @Query("select r from Reservation as r " +
+            "join r.rooms room where room.id = ?1 " +
+            "order by r.startDate DESC")
+    Iterable<Reservation> findByRoomId(Long roomid);
 }
