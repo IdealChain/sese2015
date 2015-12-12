@@ -14,6 +14,7 @@ import sese2015.g3.goldenlion.reservation.rest.domain.request.CreateReservationR
 import sese2015.g3.goldenlion.reservation.rest.domain.response.CreateReservationResponse;
 import sese2015.g3.goldenlion.reservation.service.ReservationService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,18 +41,19 @@ public class ReservationResource {
         return new CreateReservationResponse(reservationId);
     }
 
-    @RequestMapping(
-            value = "/reservation",
-            method = RequestMethod.GET,
-            produces = {MediaType.TEXT_PLAIN_VALUE})
-    public String isAvailableForReservation(@RequestParam(value="roomid", required=true) Long roomId,
-                                            @RequestParam(value="startdate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd")Date startDate,
-                                            @RequestParam(value="enddate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd")Date endDate) {
-        log.info("Incoming Reservation Availability Request... ");
-        boolean available = reservationService.isAvailable(roomId, startDate, endDate);
+//    @RequestMapping(
+//            value = "/reservation",
+//            method = RequestMethod.GET,
+//            produces = {MediaType.TEXT_PLAIN_VALUE})
+//    public String isAvailableForReservation(@RequestParam(value="roomid", required=true) Long roomId,
+//                                            @RequestParam(value="startdate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd")Date startDate,
+//                                            @RequestParam(value="enddate", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd")Date endDate) {
+//        log.info("Incoming Reservation Availability Request... ");
+//        boolean available = reservationService.isAvailable(roomId, startDate, endDate);
+//
+//        return BooleanUtils.toStringTrueFalse(available);
+//    }
 
-        return BooleanUtils.toStringTrueFalse(available);
-    }
     @RequestMapping(
             value = "/reservation",
             method = RequestMethod.GET,
