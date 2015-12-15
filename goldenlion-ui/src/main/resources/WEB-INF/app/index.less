@@ -155,6 +155,15 @@ md-content {
   }
 }
 
+.protocol {
+  p.message {
+    word-wrap: break-word;
+    max-height: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 md-tooltip.eventTooltip {
   font-size: 100%;
 }
@@ -248,6 +257,10 @@ md-input-container .md-char-counter {
   background-color: #5AADD6;
 }
 
+md-list > md-list-item {
+  display: block;
+}
+
 md-list-item {
   border-bottom-width: 0px;
   border-top-width: 1px;
@@ -295,10 +308,6 @@ md-list-item {
   background-color: #fff;
   border: 1px solid #ddd;
   margin-left: -1px;
-}
-
-md-list > md-list-item {
-  word-wrap: break-word;
 }
 
 div.homescreen .md-button {

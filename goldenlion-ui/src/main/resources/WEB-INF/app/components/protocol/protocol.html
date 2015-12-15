@@ -1,10 +1,10 @@
 <div class="rootDiv">
   <navbar></navbar>
   <div ncy-breadcrumb></div>
-  <div layout="row" layout-align="center">
+  <div layout="row" layout-align="center" class="protocol">
     <md-card class="md-whiteframe-24dp" style="width: 50%">
       <div layout="row">
-        <h2 class="md-headline" flex="70">Protokollierung</h2>
+        <h2 class="md-headline" flex="70">Protokoll</h2>
 
         <md-input-container flex class="md-block">
           <label>Suche:</label>
@@ -26,7 +26,7 @@
             </div>
             <h4><b>Datum:</b> {{protocolCtrl.formatToReadableString(protocolEntry.logWriteTime) | date : 'HH:mm:ss dd.MM.yyyy'}}</h4>
 
-            <p><b>Nachricht:</b> {{protocolEntry.protocolMessage}}</p>
+            <p class="message"><b>Nachricht:</b> {{protocolEntry.protocolMessage}}</p>
           </div>
         </md-list-item>
       </md-list>

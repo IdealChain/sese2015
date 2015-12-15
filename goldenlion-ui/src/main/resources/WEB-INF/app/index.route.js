@@ -79,7 +79,7 @@
         controller: 'ProtocolController',
         controllerAs: 'protocolCtrl',
         ncyBreadcrumb: {
-          label: 'Protokollierung',
+          label: 'Protokoll',
           parent: 'home'
         },
         authenticate: true
