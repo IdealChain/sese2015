@@ -97,6 +97,13 @@
       })
     };
 
+    vm.allReservationByRoomId = function(roomid, start, end) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/reservation?roomid=" + roomid + "&startdate=" + start + "&enddate=" + end
+      })
+    };
+
     vm.createReservation = function(reservation) {
       return $http({
         method: 'POST',
@@ -124,11 +131,11 @@
         method: 'GET',
         url: backend + "/api/invoice"
       });
-    }
+    };
 
     vm.getProtocols = function () {
       return protocol.query();
-    }
+    };
 
     vm.createCustomerReservation = function (customerReservation) {
       return $http({
