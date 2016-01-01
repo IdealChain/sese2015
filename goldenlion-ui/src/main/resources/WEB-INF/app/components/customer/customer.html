@@ -8,20 +8,31 @@
           <h2 class="md-headline" style="padding-left: 1em;">Kunde hinzufügen</h2>
 
           <div layout="row">
-            <div layout="column" layout-align="top" class="customercolumn">
+            <div layout="column" layout-align="top" class="customercolumn" flex="50">
               <md-input-container>
                 <label>Vorname</label>
-                <input required ng-model="customerCtrl.customer.firstName">
+                <input required ng-model="customerCtrl.customer.firstName"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier den Vornamen ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <md-input-container>
                 <label>Nachname</label>
-                <input required ng-model="customerCtrl.customer.lastName">
+                <input required ng-model="customerCtrl.customer.lastName"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier den Nachnamen ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
-              <md-datepicker required ng-model="customerCtrl.customer.birthday" md-placeholder="Geburtsdatum"
-              ></md-datepicker>
-              <md-input-container>
+              <div class="md-input-datepicker-wrapper">
+                <label class="datepicker-label">Geburtsdatum:</label>
+                <md-datepicker required ng-model="customerCtrl.customer.birthday" md-placeholder="Geburtsdatum"
+                               oninvalid="this.setCustomValidity ('Bitte wählen Sie hier ihr Geburtsdatum aus!')"
+                               oninput="setCustomValidity('')"
+                ></md-datepicker>
+              </div>
+              <md-input-container class="md-input-datepicker-wrapper">
                 <label>Geschlecht</label>
-                <md-select required ng-model="customerCtrl.customer.gender">
+                <md-select required ng-model="customerCtrl.customer.gender"
+                           oninvalid="this.setCustomValidity ('Bitte wählen Sie ein Geschlecht aus!')"
+                           oninput="setCustomValidity('')">
                   <md-option ng-repeat="gender in customerCtrl.genders" value="{{gender.short}}">
                     {{gender.text}}
                   </md-option>
@@ -29,40 +40,50 @@
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Straße</label>
-                <input required ng-model="customerCtrl.customer.street">
+                <input required ng-model="customerCtrl.customer.street"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Straße ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <md-input-container layout-align="end" md-no-float class="md-block">
-                <input required ng-model="customerCtrl.customer.streetExtension" placeholder="Hausnummer/Stiege/Tür">
+                <input required ng-model="customerCtrl.customer.streetExtension" placeholder="Hausnummer/Stiege/Tür"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier Hausnummer/Stiege/Tür ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <md-input-container>
                 <label>Land</label>
-                <input required ng-model="customerCtrl.customer.state">
+                <input required ng-model="customerCtrl.customer.state"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihr Land ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <div layout layout-sm="column">
                 <md-input-container>
                   <label>Postleitzahl</label>
                   <input name="postalCode" ng-model="customerCtrl.customer.postalCode" placeholder="2100"
-                         required ng-pattern="/^[a-zA-Z0-9]{4,16}$/" md-maxlength="16">
+                         required ng-pattern="/^[a-zA-Z0-9]{4,16}$/" md-maxlength="16"
+                         oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Postleitzahl ein!')"
+                         oninput="setCustomValidity('')">
                 </md-input-container>
                 <md-input-container>
                   <label>Stadt</label>
-                  <input required ng-model="customerCtrl.customer.city">
+                  <input required ng-model="customerCtrl.customer.city"
+                         oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Stadt ein!')"
+                         oninput="setCustomValidity('')">
                 </md-input-container>
               </div>
             </div>
 
-            <div layout="column" layout-align="top" class="customercolumn">
+            <div layout="column" layout-align="top" class="customercolumn" flex="50">
               <md-input-container class="md-block">
                 <label>Firmenname</label>
                 <input ng-model="customerCtrl.customer.companyName">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Rabatt</label>
-                <input type="number" ng-model="customerCtrl.customer.discount">
+                <input type="number" ng-model="customerCtrl.customer.discount" min="0">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Telefonnummer</label>
-                <input ng-model="customerCtrl.customer.telephone">
+                <input ng-model="customerCtrl.customer.telephone" type="number" min="0">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Fax</label>
@@ -70,7 +91,8 @@
               </md-input-container>
               <md-input-container class="md-block">
                 <label>E-Mail</label>
-                <input required type="email" ng-model="customerCtrl.customer.email">
+                <input required type="email" ng-model="customerCtrl.customer.email"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Email-Adresse ein! \nBeispiel max.mustermann@test.at')">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Web</label>

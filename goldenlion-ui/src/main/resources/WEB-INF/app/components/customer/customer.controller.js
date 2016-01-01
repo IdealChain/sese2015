@@ -12,7 +12,7 @@
     vm.customer = {
       firstName: '',
       lastName: '',
-      birthday: '',
+      birthday: new Date(),
       gender: '',
       street: '',
       streetExtension: '',
