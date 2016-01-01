@@ -92,7 +92,8 @@
               <md-input-container class="md-block">
                 <label>E-Mail</label>
                 <input required type="email" ng-model="customerCtrl.customer.email"
-                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Email-Adresse ein! \nBeispiel max.mustermann@test.at')">
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Email-Adresse ein! \nBeispiel max.mustermann@test.at')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Web</label>

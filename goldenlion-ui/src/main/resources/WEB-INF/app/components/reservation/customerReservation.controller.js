@@ -12,7 +12,10 @@
 
     function initializeCustomerReservation() {
       vm.fromDate = new Date();
-      vm.toDate = new Date();
+      vm.toDate = new Date(
+        vm.fromDate.getFullYear(),
+        vm.fromDate.getMonth(),
+        vm.fromDate.getDate() + 1);
       vm.adults = 2;
       vm.children = 2;
       vm.searched = false;
@@ -24,7 +27,7 @@
     vm.customer = {
       firstName: '',
       lastName: '',
-      birthday: '',
+      birthday: new Date(),
       gender: '',
       street: '',
       streetExtension: '',

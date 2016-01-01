@@ -33,11 +33,13 @@
                   </div>
                   <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45">
                     <b>Erwachsene</b>
-                    <input type=number flex="30" flex-offset="5" ng-model="customerReservationCtrl.adults" required>
+                    <input type=number flex="30" flex-offset="5" ng-model="customerReservationCtrl.adults" required
+                           min="0">
                   </div>
                   <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45" flex-offset-gt-sm="5">
                     <b>Kinder</b>
-                    <input type=number flex="30" flex-offset="5" ng-model="customerReservationCtrl.children" required>
+                    <input type=number flex="30" flex-offset="5" ng-model="customerReservationCtrl.children" required
+                           min="0">
                   </div>
                 </div>
               </md-card>
@@ -100,20 +102,32 @@
       <md-card-content ng-if="customerReservationCtrl.searched && customerReservationCtrl.selectedRoom">
         <form ng-submit="customerReservationCtrl.submitRoomReservation()">
           <div layout="row">
-            <div layout="column" layout-align="top" class="customercolumn">
+            <div layout="column" layout-align="top" class="customercolumn" flex="50">
               <md-input-container>
                 <label>Vorname</label>
-                <input required ng-model="customerReservationCtrl.customer.firstName">
+                <input required ng-model="customerReservationCtrl.customer.firstName"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier den Vornamen ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <md-input-container>
                 <label>Nachname</label>
-                <input required ng-model="customerReservationCtrl.customer.lastName">
+                <input required ng-model="customerReservationCtrl.customer.lastName"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier den Nachnamen ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
-              <md-datepicker required ng-model="customerReservationCtrl.customer.birthday" md-placeholder="Geburtsdatum"
-              ></md-datepicker>
-              <md-input-container>
+              <div class="md-input-datepicker-wrapper">
+                <label class="datepicker-label">Geburtsdatum:</label>
+                <md-datepicker required ng-model="customerReservationCtrl.customer.birthday"
+                               md-placeholder="Geburtsdatum"
+                               oninvalid="this.setCustomValidity ('Bitte wählen Sie hier ihr Geburtsdatum aus!')"
+                               oninput="setCustomValidity('')"
+                ></md-datepicker>
+              </div>
+              <md-input-container class="md-input-datepicker-wrapper">
                 <label>Geschlecht</label>
-                <md-select required ng-model="customerReservationCtrl.customer.gender">
+                <md-select required ng-model="customerReservationCtrl.customer.gender"
+                           oninvalid="this.setCustomValidity ('Bitte wählen Sie ein Geschlecht aus!')"
+                           oninput="setCustomValidity('')">
                   <md-option ng-repeat="gender in customerReservationCtrl.genders" value="{{gender.short}}">
                     {{gender.text}}
                   </md-option>
@@ -121,37 +135,47 @@
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Straße</label>
-                <input required ng-model="customerReservationCtrl.customer.street">
+                <input required ng-model="customerReservationCtrl.customer.street"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Straße ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <md-input-container layout-align="end" md-no-float class="md-block">
                 <input required ng-model="customerReservationCtrl.customer.streetExtension"
-                       placeholder="Hausnummer/Stiege/Tür">
+                       placeholder="Hausnummer/Stiege/Tür"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier Hausnummer/Stiege/Tür ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <md-input-container>
                 <label>Land</label>
-                <input required ng-model="customerReservationCtrl.customer.state">
+                <input required ng-model="customerReservationCtrl.customer.state"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihr Land ein!')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <div layout layout-sm="column">
                 <md-input-container>
                   <label>Postleitzahl</label>
                   <input name="postalCode" ng-model="customerReservationCtrl.customer.postalCode" placeholder="2100"
-                         required ng-pattern="/^[a-zA-Z0-9]{4,16}$/" md-maxlength="16">
+                         required ng-pattern="/^[a-zA-Z0-9]{4,16}$/" md-maxlength="16"
+                         oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Postleitzahl ein!')"
+                         oninput="setCustomValidity('')">
                 </md-input-container>
                 <md-input-container>
                   <label>Stadt</label>
-                  <input required ng-model="customerReservationCtrl.customer.city">
+                  <input required ng-model="customerReservationCtrl.customer.city"
+                         oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Stadt ein!')"
+                         oninput="setCustomValidity('')">
                 </md-input-container>
               </div>
             </div>
 
-            <div layout="column" layout-align="top" class="customercolumn">
+            <div layout="column" layout-align="top" class="customercolumn" flex="50">
               <md-input-container class="md-block">
                 <label>Firmenname</label>
                 <input ng-model="customerReservationCtrl.customer.companyName">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Telefonnummer</label>
-                <input ng-model="customerReservationCtrl.customer.telephone">
+                <input ng-model="customerReservationCtrl.customer.telephone" type="number" min="0">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Fax</label>
@@ -159,7 +183,9 @@
               </md-input-container>
               <md-input-container class="md-block">
                 <label>E-Mail</label>
-                <input required type="email" ng-model="customerReservationCtrl.customer.email">
+                <input required type="email" ng-model="customerReservationCtrl.customer.email"
+                       oninvalid="this.setCustomValidity ('Bitte geben Sie hier ihre Email-Adresse ein! \nBeispiel max.mustermann@test.at')"
+                       oninput="setCustomValidity('')">
               </md-input-container>
               <md-input-container class="md-block">
                 <label>Web</label>
@@ -170,7 +196,7 @@
             </div>
           </div>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button class="md-primary" ng-click="">Reservierung bestätigen</md-button>
+            <md-button type="submit" class="md-primary" ng-click="">Reservierung bestätigen</md-button>
           </md-card-actions>
         </form>
       </md-card-content>
