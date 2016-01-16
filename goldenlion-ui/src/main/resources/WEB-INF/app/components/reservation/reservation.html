@@ -45,9 +45,16 @@
                 </div>
               </td>
             </tr>
-            <tr ng-show="!reservationCtrl.reservations.length">
+            <tr>
+              <td colspan="4" ng-show="reservationCtrl.loading">
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                  <md-progress-circular md-mode="indeterminate" md-diameter="60px" class="md-hue-2"></md-progress-circular>
+                </div>
+              </td>
+            </tr>
+            <tr ng-show="!reservationCtrl.loading && !reservationCtrl.reservations.length">
               <td colspan="4" class="center">
-                <p>Es sind keine Reservierungen gefunden.</p>
+                <p>Keine Reservierungen gefunden.</p>
               </td>
             </tr>
             </tbody>

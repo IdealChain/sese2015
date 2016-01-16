@@ -9,8 +9,10 @@
   function ReservationController($mdDialog, restService, $state, $log) {
     var vm = this;
     vm.reservations = [];
+    vm.loading = 0;
 
-    vm.allReservation = function() {
+    vm.allReservation = function () {
+      vm.loading++;
       restService.allReservation().then(
         function successCallback(response) {
           vm.reservations = response.data;
@@ -30,11 +32,15 @@
         },
         function errorCallback() {
           alert('Error: Could not receive customer data');
-        });
+        }
+      ).finally(function () {
+        vm.loading--;
+      });
     };
     vm.allReservation();
 
-    vm.allInvoices = function() {
+    vm.allInvoices = function () {
+      vm.loading++;
       restService.allInvoices().then(
         function successCallback(response) {
           vm.invoices = response.data;
@@ -42,19 +48,21 @@
         function errorCallback(response) {
           alert('Error: Could not receive invoice data');
         }
-      );
+      ).finally(function () {
+        vm.loading--;
+      });
     };
     vm.allInvoices();
 
-    vm.confirmDelete = function(reservationId) {
+    vm.confirmDelete = function (reservationId) {
       $log.log("confirm deleting: " + reservationId);
-      var confirm = $mdDialog.confirm( {
+      var confirm = $mdDialog.confirm({
         title: "Reservierung löschen?",
         content: "Möchten Sie diese Reservierung wirklich löschen?",
         cancel: "Nein (zurück)",
         ok: "Ja (löschen)"
       });
-      $mdDialog.show(confirm).then(function() {
+      $mdDialog.show(confirm).then(function () {
         restService.deleteReservation(reservationId).then(
           function successCallback(response) {
             //
@@ -70,20 +78,21 @@
             if (response.status == 409)
               errorMessage = "Diese Reservierung wurde bereits in Rechnung gestellt und kann deshalb nicht storniert werden.";
 
-            var errorDlg = $mdDialog.alert( {
+            var errorDlg = $mdDialog.alert({
               title: "Fehler",
               content: errorMessage,
               ok: "Ok"
             });
-            $mdDialog.show(errorDlg).then(function() {
+            $mdDialog.show(errorDlg).then(function () {
               $state.go("reservation");
             });
           }
         );
-      }, function() {});
+      }, function () {
+      });
     };
 
-    var findReservation = function(reservationId) {
+    var findReservation = function (reservationId) {
       for (var i = 0; i < vm.reservations.length; i++) {
         if (vm.reservations[i].id == reservationId) {
           return i;
@@ -91,7 +100,7 @@
       }
     };
 
-    vm.isPaid = function(reservationId) {
+    vm.isPaid = function (reservationId) {
       for (var i = 0; i < vm.invoices.length; i++) {
         if (vm.invoices[i].reservation.id == reservationId)
           return true;

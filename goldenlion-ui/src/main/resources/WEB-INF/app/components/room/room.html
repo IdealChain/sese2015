@@ -58,14 +58,21 @@
                    enddate: (roomCtrl.endDate | date : 'yyyy-MM-dd')})">+Res</a>
               </td>
             </tr>
-            <tr ng-show="!roomCtrl.getRooms().length && !roomCtrl.freeRoomsOnly">
-              <td colspan="9" class="center">
-                <p>Keine Zimmer im System eingetragen</p>
+            <tr>
+              <td colspan="9" ng-show="roomCtrl.loading">
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                  <md-progress-circular md-mode="indeterminate" md-diameter="60px" class="md-hue-2"></md-progress-circular>
+                </div>
               </td>
             </tr>
-            <tr ng-show="!roomCtrl.getRooms().length && roomCtrl.freeRoomsOnly">
+            <tr ng-show="!roomCtrl.loading && !roomCtrl.getRooms().length && !roomCtrl.freeRoomsOnly">
               <td colspan="9" class="center">
-                <p>Keine freien Zimmer gefunden</p>
+                <p>Keine Zimmer im System eingetragen.</p>
+              </td>
+            </tr>
+            <tr ng-show="!roomCtrl.loading && !roomCtrl.getRooms().length && roomCtrl.freeRoomsOnly">
+              <td colspan="9" class="center">
+                <p>Keine freien Zimmer gefunden!</p>
               </td>
             </tr>
             </tbody>
