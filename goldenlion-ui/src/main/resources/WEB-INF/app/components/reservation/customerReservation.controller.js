@@ -17,7 +17,7 @@
         vm.fromDate.getMonth(),
         vm.fromDate.getDate() + 1);
       vm.adults = 2;
-      vm.children = 2;
+      vm.children = 0;
       vm.searched = false;
       vm.rooms = [];
       vm.selectedRoom = null;
