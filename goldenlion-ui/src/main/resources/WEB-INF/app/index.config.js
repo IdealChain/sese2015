@@ -26,7 +26,9 @@
   function config($logProvider, $mdThemingProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
-    $mdThemingProvider.theme('default');
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue')
+      .accentPalette('orange');
   }
 
 })();
