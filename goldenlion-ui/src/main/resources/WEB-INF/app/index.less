@@ -80,9 +80,21 @@ section.jumbotron {
   flex-flow: row wrap;
 
   md-card {
-    width: 30%;
+    min-width: 300px;
     margin: 2em;
     padding: 2em;
+
+    @media screen and (max-width: 300px) {
+      min-width: inherit;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 10px;
+
+      h1 {
+        font-size: 20px;
+      }
+    }
 
     img.pull-right {
       float: right;
@@ -226,6 +238,16 @@ html {
   height: 100%;
   margin: 0px;
   padding: 0px;
+}
+
+md-card.page {
+  min-width: 700px;
+  width: 50%;
+
+  @media screen and (max-width: 700px) {
+    min-width: inherit;
+    width: 100%;
+  }
 }
 
 md-input-container .md-input {
