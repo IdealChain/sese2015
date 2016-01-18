@@ -133,6 +133,13 @@
       });
     };
 
+    vm.getHotel = function() {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/hotel"
+      });
+    };
+
     vm.getProtocols = function () {
       return protocol.query();
     };
