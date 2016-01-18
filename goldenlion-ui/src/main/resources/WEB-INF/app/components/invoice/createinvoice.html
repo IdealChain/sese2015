@@ -22,19 +22,24 @@
           </md-autocomplete>
         </md-content>
         <md-content ng-show="createInvoiceCtrl.selectedCustomer.id > 0">
-          <p>Reservierungen von <b>{{createInvoiceCtrl.selectedCustomer.lastname}}
+          <p>Unverrechnete Reservierungen von <b>{{createInvoiceCtrl.selectedCustomer.lastname}}
             {{createInvoiceCtrl.selectedCustomer.firstname}}</b>:</p>
           <ul>
             <li ng-repeat="res in createInvoiceCtrl.reservationsbycustomer">
               <span>
                 Zeitraum: {{res.startDate | date: 'dd.MM.yyyy'}} - {{res.endDate | date: 'dd.MM.yyyy'}}
+                —
+                Zimmer: <span ng-repeat="room in res.rooms">{{room.roomNumber}}{{$last ? '' : ', '}}</span>
               </span>
-              <md-button class="md-raised md-primary" ng-click="createInvoiceCtrl.createInvoice(res.id)">Rechnung erstellen</md-button>
+              <md-button class="md-raised md-primary" ng-click="createInvoiceCtrl.createInvoice(res.id, createInvoiceCtrl.selectedCustomer.id)">Rechnung erstellen</md-button>
             </li>
-            <li ng-show="!createInvoiceCtrl.reservationsbycustomer.length">
-              Keine Reservierungen gefunden.
+            <li ng-show="!createInvoiceCtrl.reservationsloading && !createInvoiceCtrl.reservationsbycustomer.length">
+              Keine unverrechneten Reservierungen gefunden.
             </li>
           </ul>
+          <div layout="row" layout-sm="column" layout-align="space-around" ng-show="createInvoiceCtrl.reservationsloading">
+            <md-progress-circular md-mode="indeterminate" md-diameter="60px" class="md-hue-2"></md-progress-circular>
+          </div>
         </md-content>
       </md-card-content>
     </md-card>

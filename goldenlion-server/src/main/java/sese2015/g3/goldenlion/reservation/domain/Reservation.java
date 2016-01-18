@@ -4,12 +4,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import sese2015.g3.goldenlion.commons.entity.PersistentObject;
 import sese2015.g3.goldenlion.customer.domain.Customer;
-import sese2015.g3.goldenlion.invoice.domain.Invoice;
 import sese2015.g3.goldenlion.room.domain.Room;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "reservations")
@@ -22,12 +27,6 @@ public class Reservation extends PersistentObject {
     @ManyToMany()
     @JoinTable(name = "reservation_rooms", joinColumns = {@JoinColumn(name = "reservation_id")}, inverseJoinColumns = {@JoinColumn(name = "room_id")})
     private List<Room> rooms;
-
-    @Column
-    private double discount;
-
-    @Column
-    private double price;
 
     @NotNull
     @Temporal(TemporalType.DATE)
@@ -74,22 +73,6 @@ public class Reservation extends PersistentObject {
         return rooms.remove(r);
     }
 
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public Date getStartDate() {
         return startDate;
     }
@@ -104,6 +87,12 @@ public class Reservation extends PersistentObject {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Long getNights() {
+        LocalDate startDate = Instant.ofEpochMilli(getStartDate().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate endDate = Instant.ofEpochMilli(getEndDate().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        return ChronoUnit.DAYS.between(startDate, endDate);
     }
 
     @Override

@@ -1,0 +1,90 @@
+<div class="rootDiv">
+  <navbar></navbar>
+  <div ncy-breadcrumb class="noprint"></div>
+  <div layout="row" layout-align="center">
+    <md-card class="page md-whiteframe-24dp">
+      <h2 class="md-headline noprint">
+        Rechnung
+        <md-button class="md-raised md-primary" ng-click="showInvoiceCtrl.print()" ng-disabled="showInvoiceCtrl.loading">Drucken</md-button>
+      </h2>
+
+      <md-card-content class="invoice">
+
+        <md-content layout="column" ng-show="showInvoiceCtrl.invoice && showInvoiceCtrl.hotel">
+
+          <!-- hotel address -->
+          <md-content layout="row" layout-align="space-between space-around">
+            <div layout="column" flex="70">
+              <div>{{showInvoiceCtrl.hotel.name}}</div>
+              <div>{{showInvoiceCtrl.hotel.address.street}} {{showInvoiceCtrl.hotel.address.streetNumber}}</div>
+              <div>{{showInvoiceCtrl.hotel.address.zipCode}} {{showInvoiceCtrl.hotel.address.city}}</div>
+              <div>{{showInvoiceCtrl.hotel.address.country}}</div>
+            </div>
+            <div>
+              <img data-ng-src="{{showInvoiceCtrl.hotel.logo}}">
+            </div>
+          </md-content>
+
+          <!-- customer address -->
+          <md-content layout="column">
+            <div>{{showInvoiceCtrl.invoice.billedCustomer.companyName}}</div>
+            <div>{{showInvoiceCtrl.invoice.billedCustomer.firstName}} {{showInvoiceCtrl.invoice.billedCustomer.lastName}}</div>
+            <div>{{showInvoiceCtrl.invoice.billedCustomer.billingAddress.street}} {{showInvoiceCtrl.invoice.billedCustomer.billingAddress.streetNumber}}</div>
+            <div>{{showInvoiceCtrl.invoice.billedCustomer.billingAddress.zipCode}} {{showInvoiceCtrl.invoice.billedCustomer.billingAddress.city}}</div>
+            <div>{{showInvoiceCtrl.invoice.billedCustomer.billingAddress.country}}</div>
+          </md-content>
+
+          <!-- invoice number and date -->
+          <md-content layout="row" layout-align="end">
+            <div layout="column" class="right">
+              <div>Datum: {{ showInvoiceCtrl.invoice.invoiceDate | date: 'dd.MM.yyyy' }}</div>
+              <div>Rechnungsnummer: {{ showInvoiceCtrl.invoice.id }}</div>
+            </div>
+          </md-content>
+
+          <md-content>
+            <h2>Rechnung</h2>
+          </md-content>
+
+          <!-- reserved rooms -->
+          <md-content>
+            <table width="100%">
+              <thead>
+              <tr>
+                <th>Zimmer</th>
+                <th>Von</th>
+                <th>Bis</th>
+                <th>Nächte</th>
+                <th>Preis / Nacht</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr data-ng-repeat="room in showInvoiceCtrl.invoice.reservation.rooms">
+                <td>{{ room.roomNumber }}</td>
+                <td>{{ showInvoiceCtrl.invoice.reservation.startDate | date: 'dd.MM.yyyy' }}</td>
+                <td>{{ showInvoiceCtrl.invoice.reservation.endDate | date: 'dd.MM.yyyy' }}</td>
+                <td>{{ showInvoiceCtrl.invoice.reservation.nights | number : 0 }}</td>
+                <td>{{ room.pricePerNight | currency : "€ " : 2 }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </md-content>
+
+          <!-- discount and sum -->
+          <md-content layout="row" layout-align="end">
+            <div layout="column" class="right">
+              <div ng-show="showInvoiceCtrl.invoice.billedCustomer.discount > 0">Rabatt: {{ showInvoiceCtrl.invoice.billedCustomer.discount * 100 | number : 0 }} %</div>
+              <div>Gesamt (Netto): {{ showInvoiceCtrl.invoice.netPrice | currency : "€ " : 2 }}</div>
+              <div>MWSt. {{ showInvoiceCtrl.invoice.vatRate * 100 | number : 0 }} %: {{ showInvoiceCtrl.invoice.grossPrice-showInvoiceCtrl.invoice.netPrice | currency : "€ " : 2 }}</div>
+              <div>Gesamt: <b>{{ showInvoiceCtrl.invoice.grossPrice | currency : "€ " : 2 }}</b></div>
+            </div>
+          </md-content>
+
+          <div layout="row" layout-sm="column" layout-align="space-around" ng-show="showInvoiceCtrl.loading">
+            <md-progress-circular md-mode="indeterminate" md-diameter="60px"></md-progress-circular>
+          </div>
+        </md-content>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

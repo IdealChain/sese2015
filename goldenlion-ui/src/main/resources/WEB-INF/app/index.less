@@ -227,6 +227,24 @@ md-card.page {
   }
 }
 
+md-card-content.invoice {
+  md-content {
+    margin-top: 3ex;
+    margin-bottom: 3ex;
+
+    @media screen {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  }
+  md-content div.right {
+    text-align: right;
+  }
+  td {
+    text-align: center;
+  }
+}
+
 md-input-container .md-input {
   border-color: rgba(0, 0, 0, 0.30);
 }
@@ -333,6 +351,29 @@ div.homescreen .md-button {
 
 .md-select-menu-container.md-active, .md-datepicker-calendar-pane.md-pane-open {
   background-color: white;
+}
+
+@media print {
+  navbar {
+    display: none;
+  }
+
+  .noprint {
+    display: none;
+  }
+
+  .md-whiteframe-24dp {
+    box-shadow: none;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+
+    thead th {
+      font-weight: bold;
+    }
+  }
 }
 
 /**

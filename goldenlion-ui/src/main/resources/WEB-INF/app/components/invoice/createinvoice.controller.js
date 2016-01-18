@@ -6,7 +6,7 @@
     .controller('CreateInvoiceController', CreateInvoiceController);
 
   /** @ngInject */
-  function CreateInvoiceController(restService, $mdDialog) {
+  function CreateInvoiceController(restService, $mdDialog, $state) {
     var vm = this;
 
     vm.customers = [];
@@ -30,10 +30,12 @@
     );
 
     vm.reservationsbycustomer = [];
+    vm.reservationsloading = 0;
     vm.selectedCustomerChange = function (customer) {
       if (angular.isUndefined(customer))
         return;
 
+      vm.reservationsloading++;
       restService.allReservationByCustomerId(customer.id).then(
         function successCallback(response) {
           vm.reservationsbycustomer = response.data;
@@ -41,11 +43,13 @@
         function errorCallback() {
           alert('Error: Could not receive reservation data');
         }
-      );
+      ).finally(function(){
+        vm.reservationsloading--;
+      });
 
-    }
+    };
 
-    vm.createInvoice = function(reservationid) {
+    vm.createInvoice = function(reservationid, customerid) {
       var confirm = $mdDialog.confirm( {
         title: "Rechnung erstellen?",
         content: "Möchten Sie für diese Reservierung eine Rechnung erstellen?",
@@ -53,17 +57,20 @@
         ok: "Ja (erstellen)"
       });
       $mdDialog.show(confirm).then(function() {
-          restService.createInvoice(reservationid).then(
+          restService.createInvoice(reservationid, customerid).then(
             function successCallback(response) {
               //done. back to home
               vm.reservationsbycustomer.splice(findReservation(reservationid), 1);
+
+              //show newly created invoice
+              $state.go('showinvoice', { invoiceid: response.data.id });
             },
             function errorCallback(response) {
               alert('Error: Could not create Invoice')
             }
           );
       });
-    }
+    };
 
     var findReservation = function(reservationId) {
       for (var i = 0; i < vm.reservationsbycustomer.length; i++) {

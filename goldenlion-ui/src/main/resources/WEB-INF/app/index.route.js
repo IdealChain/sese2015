@@ -105,6 +105,17 @@
           parent: 'home'
         },
         authenticate: true
+      })
+      .state('showinvoice', {
+        url: '/invoice/:invoiceid',
+        templateUrl: 'app/components/invoice/showinvoice.html',
+        controller: 'ShowInvoiceController',
+        controllerAs: 'showInvoiceCtrl',
+        ncyBreadcrumb: {
+          label: 'Rechnung',
+          parent: 'home'
+        },
+        authenticate: true
       });
     $urlRouterProvider.otherwise('/');
   }

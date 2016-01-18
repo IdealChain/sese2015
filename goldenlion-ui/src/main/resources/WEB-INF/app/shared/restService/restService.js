@@ -119,10 +119,17 @@
       });
     };
 
-    vm.createInvoice = function(reservationid) {
+    vm.createInvoice = function(reservationid, billedcustomerid) {
       return $http({
         method: 'POST',
-        url: backend + "/api/invoice?reservationid=" + reservationid
+        url: backend + "/api/invoice?reservationid=" + reservationid + "&billedcustomerid=" + billedcustomerid
+      });
+    };
+
+    vm.getInvoice = function(reservationid) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/invoice/" + reservationid
       });
     };
 

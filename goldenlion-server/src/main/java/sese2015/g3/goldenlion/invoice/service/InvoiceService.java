@@ -1,13 +1,15 @@
 package sese2015.g3.goldenlion.invoice.service;
 
+import sese2015.g3.goldenlion.hotel.domain.Hotel;
 import sese2015.g3.goldenlion.invoice.domain.Invoice;
-import sese2015.g3.goldenlion.reservation.domain.Reservation;
 
 import java.util.List;
 
 public interface InvoiceService {
 
-    Invoice createInvoice(Long reservationId);
+    Invoice createInvoice(Long reservationId, Long billedCustomerId);
+
+    Invoice getInvoice(Long reservationId);
 
     List<Invoice> getAllInvoices();
 }
