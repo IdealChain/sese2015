@@ -11,14 +11,18 @@
     var roomid = parseInt($location.search().roomid);
     var startdate = new Date($location.search().startdate);
     var enddate = new Date($location.search().enddate);
+    var adults = parseInt($location.search().adults);
+    var children = parseInt($location.search().children);
 
-    if (isNaN(roomid) || isNaN(startdate.getTime()) || isNaN(enddate.getTime())) {
+    if (isNaN(roomid) || isNaN(startdate.getTime()) || isNaN(enddate.getTime()) || isNaN(adults) || isNaN(children)) {
       alert('Error: Invalid input');
       return;
     }
 
     vm.startdate = startdate;
     vm.enddate = enddate;
+    vm.adults = adults;
+    vm.children = children;
     vm.duration = dateDiffInDays(startdate, enddate);
     if (vm.duration == 1) vm.duration += " Tag";
     else vm.duration += " Tage";
@@ -75,6 +79,8 @@
         roomId: vm.room.id,
         startDate: vm.startdate,
         endDate: vm.enddate,
+        numberOfAdults: vm.adults,
+        numberOfChildren: vm.children,
         customerIds: []
       };
       for (var i = 0; i < vm.selectedCustomers.length; i++) {

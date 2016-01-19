@@ -66,6 +66,18 @@ public class ReservationServiceImpl implements ReservationService {
                     conflictingReservations.size(), request.getStartDate(), request.getEndDate(), room.getId()));
 
         //
+        // total number of adults must be greater or equal than number of customers
+        if(customers.size() > request.getNumberOfAdults())
+            throw new BadInputDataException(String.format("Total number of adults %s must be greater or equal than number of customers %s",
+                    request.getNumberOfAdults(), customers.size()));
+
+        //
+        // check if the room has the capacity for the requested amount of people
+        if(request.getNumberOfAdults() + request.getNumberOfChildren() > room.getMaxPersons())
+            throw new RoomCapacityExceededException(String.format("%d persons exceed the room capacity of %d",
+                    customers.size() + request.getNumberOfChildren(), room.getMaxPersons()));
+
+        //
         // everything seems fine. Save Reservation
         Reservation r = new Reservation();
         r.setStartDate(request.getStartDate());
@@ -74,6 +86,8 @@ public class ReservationServiceImpl implements ReservationService {
             add(room);
         }});
         r.setCustomers(customers);
+        r.setNumberOfAdults(request.getNumberOfAdults());
+        r.setNumberOfChildren(request.getNumberOfChildren());
 
         return reservationRepository.save(r).getId();
     }

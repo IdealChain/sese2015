@@ -55,6 +55,8 @@ public class CustomerReservationResource {
         createReservationRequest.setStartDate(request.getStartDate());
         createReservationRequest.setEndDate(request.getEndDate());
         createReservationRequest.setCustomerIds(Arrays.asList(searchedCustomer.getId()));
+        createReservationRequest.setNumberOfAdults(request.getNumberOfAdults());
+        createReservationRequest.setNumberOfChildren(request.getNumberOfChildren());
 
         long reservationId = reservationService.createReservation(createReservationRequest);
         log.info("Success");

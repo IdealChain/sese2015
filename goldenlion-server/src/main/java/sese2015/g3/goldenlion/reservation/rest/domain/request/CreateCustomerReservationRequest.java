@@ -18,7 +18,9 @@ public class CreateCustomerReservationRequest {
     private Date endDate;
 
     @Min(value = 1, message = "Für die Reservierung muss eine Mindestanzahl von 1 Person angegeben werden!")
-    private int personCount;
+    private int numberOfAdults;
+
+    private int numberOfChildren;
 
     @NotNull
     private ReservationCustomer customer;
@@ -47,14 +49,6 @@ public class CreateCustomerReservationRequest {
         this.endDate = endDate;
     }
 
-    public int getPersonCount() {
-        return personCount;
-    }
-
-    public void setPersonCount(int personCount) {
-        this.personCount = personCount;
-    }
-
     public ReservationCustomer getCustomer() {
         return customer;
     }
@@ -62,4 +56,12 @@ public class CreateCustomerReservationRequest {
     public void setCustomer(ReservationCustomer customer) {
         this.customer = customer;
     }
+
+    public int getNumberOfChildren() { return numberOfChildren; }
+
+    public void setNumberOfChildren(int numberOfChildren) { this.numberOfChildren = numberOfChildren; }
+
+    public int getNumberOfAdults() { return numberOfAdults; }
+
+    public void setNumberOfAdults(int numberOfAdults) { this.numberOfAdults = numberOfAdults; }
 }

@@ -128,4 +128,30 @@ public class Room extends PersistentObject {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public double getRate(int numberOfAdults, int numberOfChildren)
+    {
+        if(numberOfAdults == 1 && numberOfChildren == 0) {
+            return this.getPrice1P();
+        }
+        else if(numberOfAdults == 1 && numberOfChildren == 1) {
+            return this.getPrice1P1K();
+        }
+        else if(numberOfAdults == 1 && numberOfChildren == 2) {
+            return this.getPrice1P2K();
+        }
+        else if(numberOfAdults == 2 && numberOfChildren == 0) {
+            return this.getPrice2P();
+        }
+        else if(numberOfAdults == 2 && numberOfChildren == 1) {
+            return this.getPrice2P1K();
+        }
+        else if(numberOfAdults == 3 && numberOfChildren == 0) {
+            return this.getPrice3P();
+        }
+        else{
+            throw new IllegalArgumentException(String.format("Rate for %d adult and %d children not defined",
+                    numberOfAdults, numberOfChildren));
+        }
+    }
 }

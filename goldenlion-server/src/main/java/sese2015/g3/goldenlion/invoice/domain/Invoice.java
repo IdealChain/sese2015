@@ -25,10 +25,10 @@ public class Invoice extends PersistentObject {
         this.billedCustomer = billedCustomer;
 
         Long nights = this.reservation.getNights();
-        Double price = 0.0;
+        double price = 0.0;
 
         for (Room room : reservation.getRooms()) {
-            price += room.getPricePerNight() * nights;
+            price += room.getRate(reservation.getNumberOfAdults(), reservation.getNumberOfChildren()) * nights;
         }
 
         setGrossPrice(price);
@@ -48,10 +48,10 @@ public class Invoice extends PersistentObject {
     private Date invoiceDate;
 
     @Column
-    private Double grossPrice;
+    private double grossPrice;
 
     @Column
-    private Double vatRate = 0.20;
+    private double vatRate = 0.20;
 
     @NotNull
     @OneToOne
@@ -77,19 +77,19 @@ public class Invoice extends PersistentObject {
         this.invoiceDate = invoiceDate;
     }
 
-    public Double getGrossPrice() {
+    public double getGrossPrice() {
         return grossPrice;
     }
 
-    public Double getVatRate() {
+    public double getVatRate() {
         return vatRate;
     }
 
-    public void setVatRate(Double vatRate) {
+    public void setVatRate(double vatRate) {
         this.vatRate = vatRate;
     }
 
-    public void setGrossPrice(Double grossPrice) {
+    public void setGrossPrice(double grossPrice) {
         this.grossPrice = grossPrice;
     }
 
@@ -101,11 +101,11 @@ public class Invoice extends PersistentObject {
         this.billedCustomer = billedCustomer;
     }
 
-    public Double getNetPrice() {
+    public double getNetPrice() {
         return getGrossPrice() / (1.0 + getVatRate());
     }
 
-    public void setNetPrice(Double netPrice) {
+    public void setNetPrice(double netPrice) {
         setGrossPrice(netPrice * (1.0 + vatRate));
     }
 

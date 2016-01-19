@@ -12,6 +12,10 @@ public class CreateReservationRequest {
 
     private Date endDate;
 
+    private int numberOfAdults;
+
+    private int numberOfChildren;
+
     private List<Long> customerIds;
 
     public CreateReservationRequest() {
@@ -41,6 +45,14 @@ public class CreateReservationRequest {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    public int getNumberOfAdults() { return numberOfAdults; }
+
+    public void setNumberOfAdults(int numberOfAdults) { this.numberOfAdults = numberOfAdults; }
+
+    public int getNumberOfChildren() { return numberOfChildren; }
+
+    public void setNumberOfChildren(int numberOfChildren) { this.numberOfChildren = numberOfChildren; }
 
     public List<Long> getCustomerIds() {
         return customerIds;

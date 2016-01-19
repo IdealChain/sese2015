@@ -36,6 +36,12 @@ public class Reservation extends PersistentObject {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
+    @Column
+    private int numberOfAdults;
+
+    @Column
+    private int numberOfChildren;
+
     public Reservation() {
         customers = new LinkedList<>();
         rooms = new LinkedList<>();
@@ -88,6 +94,14 @@ public class Reservation extends PersistentObject {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    public int getNumberOfAdults() { return numberOfAdults; }
+
+    public void setNumberOfAdults(int numberOfAdults) { this.numberOfAdults = numberOfAdults; }
+
+    public int getNumberOfChildren() { return numberOfChildren; }
+
+    public void setNumberOfChildren(int numberOfChildren) { this.numberOfChildren = numberOfChildren; }
 
     public Long getNights() {
         LocalDate startDate = Instant.ofEpochMilli(getStartDate().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();

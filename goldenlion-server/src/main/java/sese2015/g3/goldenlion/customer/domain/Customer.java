@@ -47,7 +47,7 @@ public class Customer extends PersistentObject {
     private String note;
 
     @Column(columnDefinition = "DOUBLE DEFAULT 0.0")
-    private Double discount;
+    private double discount = 0.0;
 
     @Column
     private String phoneNumber;
@@ -130,7 +130,7 @@ public class Customer extends PersistentObject {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

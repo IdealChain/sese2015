@@ -1,7 +1,7 @@
 <div class="rootDiv">
   <navbar></navbar>
   <div ncy-breadcrumb></div>
-  <div layout="row" layout-align="center">
+  <div class="room" layout="row" layout-align="center">
     <md-card class="page md-whiteframe-24dp">
       <h2 class="md-headline">Zimmerübersicht</h2>
       <md-card-content>
@@ -12,13 +12,43 @@
             </md-checkbox>
           </md-input-container>
         </md-content>
-        <md-content ng-show="roomCtrl.freeRoomsOnly" layout="row">
+
+        <md-content class="freeRoomParameters" ng-show="roomCtrl.freeRoomsOnly" layout="column">
+          <md-card>
+            <div layout="row" layout-padding="0" layout-wrap>
+              <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45">
+                <b flex="15">Von</b>
+                <md-datepicker ng-model="roomCtrl.startDate" ng-change="roomCtrl.onStartDateChange()"></md-datepicker>
+              </div>
+              <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45" flex-offset-gt-sm="5">
+                <b flex="15">Bis</b>
+                <md-datepicker ng-model="roomCtrl.endDate"></md-datepicker>
+              </div>
+              <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45">
+                <b>Erwachsene</b>
+                <input type=number flex="30" flex-offset="5" ng-model="roomCtrl.adults" required
+                       min="0">
+              </div>
+              <div layout="row" layout-align="space-between center" flex="95" flex-gt-sm="45" flex-offset-gt-sm="5">
+                <b>Kinder</b>
+                <input type=number flex="30" flex-offset="5" ng-model="roomCtrl.children" required
+                       min="0">
+              </div>
+            </div>
+          </md-card>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-primary" ng-click="roomCtrl.filter()">Suchen</md-button>
+          </md-card-actions>
+      </md-content>
+
+       <!-- <md-content ng-show="roomCtrl.freeRoomsOnly" layout="row">
           <div layout layout-sm="column">
             <md-datepicker ng-model="roomCtrl.startDate" md-min-date="roomCtrl.minStartDate" ng-change="roomCtrl.onStartDateChange()"></md-datepicker>
             <md-datepicker ng-model="roomCtrl.endDate" md-min-date="roomCtrl.minEndDate"></md-datepicker>
             <md-button class="md-primary" ng-click="roomCtrl.filter()" style="margin-left:4em">Suchen</md-button>
           </div>
-        </md-content>
+        </md-content>-->
+
         <hr/>
         <md-content layout="row">
           <table width="100%" role="grid" class="room">
@@ -55,7 +85,9 @@
                    ui-sref="addreservation({
                    roomid: r.id,
                    startdate: (roomCtrl.startDate | date : 'yyyy-MM-dd'),
-                   enddate: (roomCtrl.endDate | date : 'yyyy-MM-dd')})">+Res</a>
+                   enddate: (roomCtrl.endDate | date : 'yyyy-MM-dd'),
+                   adults: roomCtrl.adults,
+                   children: roomCtrl.children})">+Res</a>
               </td>
             </tr>
             <tr>

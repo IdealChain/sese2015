@@ -39,7 +39,7 @@ public class CustomerDto {
     private String city;
     private String companyName;
     @NotNull
-    private Double discount;
+    private double discount;
     @NotBlank
     private String telephone;
     @NotBlank
@@ -140,11 +140,11 @@ public class CustomerDto {
         this.companyName = companyName;
     }
 
-    public Double getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

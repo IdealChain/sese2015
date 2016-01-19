@@ -19,6 +19,16 @@
             <input readonly type="text" value="{{addReservationCtrl.enddate | date: 'dd.MM.yyyy'}}"/>
           </md-input-container>
         </md-content>
+        <md-content layout="row">
+          <md-input-container>
+            <label>Erwachsene</label>
+            <input readonly type="text" value="{{addReservationCtrl.adults}}"/>
+          </md-input-container>
+          <md-input-container>
+            <label>Kinder</label>
+            <input readonly type="text" value="{{addReservationCtrl.children}}"/>
+          </md-input-container>
+        </md-content>
         <md-content layout-padding>
           <form ng-submit="$event.preventDefault()">
             <p>Geben Sie die Namen der Kunden ein und wählen Sie diesen aus.</p>
