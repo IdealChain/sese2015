@@ -36,7 +36,29 @@
         controller: 'CustomerController',
         controllerAs: 'customerCtrl',
         ncyBreadcrumb: {
-          label: 'Kunde',
+          label: 'Kunden hinzufügen',
+          parent: 'home'
+        },
+        authenticate: true
+      })
+      .state('customerDetail', {
+        url: '/customerDetail/:customerId',
+        templateUrl: 'app/components/customer/customer.html',
+        controller: 'CustomerController',
+        controllerAs: 'customerCtrl',
+        ncyBreadcrumb: {
+          label: 'Kunden bearbeiten',
+          parent: 'customerList'
+        },
+        authenticate: true
+      })
+      .state('customerList', {
+        url: '/customerList',
+        templateUrl: 'app/components/customer/customerList.html',
+        controller: 'CustomerListController',
+        controllerAs: 'customerListCtrl',
+        ncyBreadcrumb: {
+          label: 'Kundenübersicht',
           parent: 'home'
         },
         authenticate: true

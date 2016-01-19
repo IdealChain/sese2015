@@ -4,10 +4,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import sese2015.g3.goldenlion.commons.rest.StringToLocalDateDeserializer;
+import sese2015.g3.goldenlion.customer.domain.Address;
+import sese2015.g3.goldenlion.customer.domain.Customer;
 import sese2015.g3.goldenlion.customer.domain.Gender;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 /**
  * Created by Mario on 22.11.2015.
@@ -182,5 +186,30 @@ public class CustomerDto {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Customer toCustomer() {
+        Address address = new Address();
+        address.setCity(this.getCity());
+        address.setCountry(this.getState());
+        address.setStreet(this.getStreet());
+        address.setStreetNumber(this.getStreetExtension());
+        address.setZipCode(String.valueOf(this.getPostalCode()));
+
+        Customer customer = new Customer();
+        customer.setBillingAddress(address);
+        customer.setFirstName(this.getFirstName());
+        customer.setLastName(this.getLastName());
+        customer.setBirthday(Date.from(this.getBirthday().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+        customer.setCompanyName(this.getCompanyName());
+        customer.setDiscount(this.getDiscount());
+        customer.setEmail(this.getEmail());
+        customer.setFaxNumber(this.getFax());
+        customer.setGender(this.getGender());
+        customer.setNote(this.getNotes());
+        customer.setPhoneNumber(this.getTelephone());
+        customer.setWebsite(this.getWeb());
+
+        return customer;
     }
 }

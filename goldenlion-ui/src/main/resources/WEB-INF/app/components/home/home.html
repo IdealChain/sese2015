@@ -30,14 +30,11 @@
       <md-card class="md-whiteframe-24dp" layout="column" layout-align="center center">
         <h1>Kunden</h1>
         <md-card-actions layout="row">
+          <md-button aria-label="Kunden" ui-sref="customerList" class="md-fab md-primary md-block">
+            <md-icon md-svg-icon="assets/icons/magnify.svg"></md-icon>
+          </md-button>
           <md-button aria-label="Kunde hinzufügen" ui-sref="customer" class="md-fab md-primary md-block">
             <md-icon md-svg-icon="assets/icons/plus.svg"></md-icon>
-          </md-button>
-          <md-button aria-label="Kunde bearbeiten" class="md-fab md-primary md-block" ng-disabled="true">
-            <md-icon md-svg-icon="assets/icons/pencil.svg"></md-icon>
-          </md-button>
-          <md-button aria-label="Kunden" class="md-fab md-primary md-block" ng-disabled="true">
-            <md-icon md-svg-icon="assets/icons/magnify.svg"></md-icon>
           </md-button>
         </md-card-actions>
       </md-card>

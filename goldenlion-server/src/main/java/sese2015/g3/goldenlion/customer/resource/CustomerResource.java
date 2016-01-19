@@ -36,8 +36,8 @@ public class CustomerResource {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<CustomerDto> getById(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<Customer> getById(@PathVariable Long id) {
+        return new ResponseEntity<Customer>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -49,7 +49,8 @@ public class CustomerResource {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
     public ResponseEntity<CustomerDto> update(@PathVariable Long id, @Valid @RequestBody CustomerDto dto, BindingResult result) {
-        return null;
+        CustomerDto updatedCustomer = this.customerService.updateCustomer(dto);
+        return new ResponseEntity<CustomerDto>(updatedCustomer, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

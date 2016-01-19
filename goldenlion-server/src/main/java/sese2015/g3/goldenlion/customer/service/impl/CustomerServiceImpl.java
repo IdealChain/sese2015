@@ -36,6 +36,43 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer getCustomerById(Long id) {
+        return customerRepository.findOne(id);
+    }
+
+    @Override
+    public CustomerDto updateCustomer(CustomerDto customerToUpdate) {
+        checkNotNull(customerToUpdate, "CustomerToUpdate must not be null!");
+        Customer currentCustomer = this.customerRepository.findOne(customerToUpdate.getId());
+
+        if (currentCustomer == null) {
+            throw new IllegalStateException("Customer not found!");
+        }
+
+        Address currentCustomerAddress = currentCustomer.getBillingAddress();
+        currentCustomerAddress.setCity(customerToUpdate.getCity());
+        currentCustomerAddress.setCountry(customerToUpdate.getState());
+        currentCustomerAddress.setStreet(customerToUpdate.getStreet());
+        currentCustomerAddress.setStreetNumber(customerToUpdate.getStreetExtension());
+        currentCustomerAddress.setZipCode(String.valueOf(customerToUpdate.getPostalCode()));
+
+        currentCustomer.setFirstName(customerToUpdate.getFirstName());
+        currentCustomer.setLastName(customerToUpdate.getLastName());
+        currentCustomer.setBirthday(Date.from(customerToUpdate.getBirthday().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+        currentCustomer.setCompanyName(customerToUpdate.getCompanyName());
+        currentCustomer.setDiscount(customerToUpdate.getDiscount());
+        currentCustomer.setEmail(customerToUpdate.getEmail());
+        currentCustomer.setFaxNumber(customerToUpdate.getFax());
+        currentCustomer.setGender(customerToUpdate.getGender());
+        currentCustomer.setNote(customerToUpdate.getNotes());
+        currentCustomer.setPhoneNumber(customerToUpdate.getTelephone());
+        currentCustomer.setWebsite(customerToUpdate.getWeb());
+
+        this.customerRepository.save(currentCustomer);
+        return CustomerMapper.INSTANCE.customerToCustomerDto(currentCustomer);
+    }
+
+    @Override
     public long createCustomer(CustomerDto customerCreateRequest) {
         checkNotNull(customerCreateRequest, "CustomerCreateRequest must not be null!");
         checkArgument(!doesCustomerExist(customerCreateRequest.getEmail()), "Customer with this email address allready exists!");
@@ -63,7 +100,6 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer savedCustomer = this.customerRepository.save(customer);
         customerCreateRequest.setId(savedCustomer.getId());
-
         return savedCustomer.getId();
     }
 

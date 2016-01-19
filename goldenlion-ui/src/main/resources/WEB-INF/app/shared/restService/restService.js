@@ -7,7 +7,7 @@
 
   function restService($http, $location, $resource) {
     var vm = this;
-    var backend = $location.absUrl().substr(0,$location.absUrl().indexOf('/#'));
+    var backend = $location.absUrl().substr(0, $location.absUrl().indexOf('/#'));
     var protocol = $resource(backend + '/api/protocol');
 
     vm.login = function (credentials) {
@@ -34,6 +34,14 @@
       })
     };
 
+    vm.updateCustomer = function (customer) {
+      return $http({
+        method: 'PUT',
+        data: customer,
+        url: backend + "/api/customers/" + customer.id
+      })
+    };
+
     vm.customerByIds = function (customerids) {
       return $http({
         method: 'GET',
@@ -41,21 +49,28 @@
       })
     };
 
-    vm.allCustomer = function() {
+    vm.customerById = function (customerId) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/customers/" + customerId
+      })
+    };
+
+    vm.allCustomer = function () {
       return $http({
         method: 'GET',
         url: backend + "/api/customers"
       })
     };
 
-    vm.allRooms = function() {
+    vm.allRooms = function () {
       return $http({
         method: 'GET',
         url: backend + "/api/rooms"
       })
     };
 
-    vm.freeRooms = function(from, to) {
+    vm.freeRooms = function (from, to) {
       return $http({
         method: 'GET',
         url: backend + "/api/rooms?freefrom=" + from + "&freeto=" + to
@@ -83,28 +98,28 @@
       })
     };
 
-    vm.allReservation = function() {
+    vm.allReservation = function () {
       return $http({
         method: 'GET',
         url: backend + "/api/reservation/"
       })
     };
 
-    vm.allReservationByCustomerId = function(customerid) {
+    vm.allReservationByCustomerId = function (customerid) {
       return $http({
         method: 'GET',
         url: backend + "/api/reservation?customerid=" + customerid
       })
     };
 
-    vm.allReservationByRoomId = function(roomid, start, end) {
+    vm.allReservationByRoomId = function (roomid, start, end) {
       return $http({
         method: 'GET',
         url: backend + "/api/reservation?roomid=" + roomid + "&startdate=" + start + "&enddate=" + end
       })
     };
 
-    vm.createReservation = function(reservation) {
+    vm.createReservation = function (reservation) {
       return $http({
         method: 'POST',
         data: reservation,
@@ -112,42 +127,42 @@
       })
     };
 
-    vm.deleteReservation = function(reservationid) {
+    vm.deleteReservation = function (reservationid) {
       return $http({
         method: 'DELETE',
         url: backend + "/api/reservation/" + reservationid
       });
     };
 
-    vm.createInvoice = function(reservationid, billedcustomerid) {
+    vm.createInvoice = function (reservationid, billedcustomerid) {
       return $http({
         method: 'POST',
         url: backend + "/api/invoice?reservationid=" + reservationid + "&billedcustomerid=" + billedcustomerid
       });
     };
 
-    vm.getInvoice = function(invoiceid) {
+    vm.getInvoice = function (invoiceid) {
       return $http({
         method: 'GET',
         url: backend + "/api/invoice/" + invoiceid
       });
     };
 
-    vm.invalidateInvoice = function(invoiceid) {
+    vm.invalidateInvoice = function (invoiceid) {
       return $http({
         method: 'DELETE',
         url: backend + "/api/invoice/" + invoiceid
       });
     };
 
-    vm.allInvoices = function() {
+    vm.allInvoices = function () {
       return $http({
         method: 'GET',
         url: backend + "/api/invoice"
       });
     };
 
-    vm.getHotel = function() {
+    vm.getHotel = function () {
       return $http({
         method: 'GET',
         url: backend + "/api/hotel"
