@@ -126,10 +126,17 @@
       });
     };
 
-    vm.getInvoice = function(reservationid) {
+    vm.getInvoice = function(invoiceid) {
       return $http({
         method: 'GET',
-        url: backend + "/api/invoice/" + reservationid
+        url: backend + "/api/invoice/" + invoiceid
+      });
+    };
+
+    vm.invalidateInvoice = function(invoiceid) {
+      return $http({
+        method: 'DELETE',
+        url: backend + "/api/invoice/" + invoiceid
       });
     };
 

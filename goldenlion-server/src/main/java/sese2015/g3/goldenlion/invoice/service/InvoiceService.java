@@ -11,5 +11,7 @@ public interface InvoiceService {
 
     Invoice getInvoice(Long reservationId);
 
-    List<Invoice> getAllInvoices();
+    void invalidateInvoice(Long reservationId);
+
+    List<Invoice> getAllInvoices(boolean includeInvalidated);
 }

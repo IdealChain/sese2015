@@ -53,9 +53,22 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getAllInvoices() {
-        return IteratorUtils.toList(invoiceRepository.findAll().iterator());
+    public void invalidateInvoice(Long reservationId) {
+        Invoice invoice = invoiceRepository.findOne(reservationId);
+
+        if (invoice == null) {
+            throw new ReservationNotFoundException("Invoice not found: " + reservationId);
+        }
+
+        invoice.setInvalidated(true);
+        invoiceRepository.save(invoice);
     }
 
-
+    @Override
+    public List<Invoice> getAllInvoices(boolean includeInvalidated) {
+        if (includeInvalidated)
+            return IteratorUtils.toList(invoiceRepository.findAll().iterator());
+        else
+            return IteratorUtils.toList(invoiceRepository.findValid().iterator());
+    }
 }

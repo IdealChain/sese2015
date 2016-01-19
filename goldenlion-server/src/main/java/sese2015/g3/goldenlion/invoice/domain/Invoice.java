@@ -58,6 +58,9 @@ public class Invoice extends PersistentObject {
     @JoinColumn(name = "billed_customer")
     private Customer billedCustomer;
 
+    @Column
+    private boolean invalidated = false;
+
     public Reservation getReservation() {
         return reservation;
     }
@@ -104,5 +107,13 @@ public class Invoice extends PersistentObject {
 
     public void setNetPrice(Double netPrice) {
         setGrossPrice(netPrice * (1.0 + vatRate));
+    }
+
+    public boolean isInvalidated() {
+        return invalidated;
+    }
+
+    public void setInvalidated(boolean invalidated) {
+        this.invalidated = invalidated;
     }
 }

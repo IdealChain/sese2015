@@ -53,6 +53,26 @@
 
     vm.print = function() {
       window.print();
-    }
+    };
+
+    vm.invalidateInvoice = function(invoiceid) {
+      var confirm = $mdDialog.confirm( {
+        title: "Rechnung stornieren?",
+        content: "Soll diese Rechnung wirklich storniert werden?",
+        cancel: "Nein (zurück)",
+        ok: "Ja (stornieren)"
+      });
+      $mdDialog.show(confirm).then(function() {
+        restService.invalidateInvoice(invoiceid).then(
+          function successCallback(response) {
+            //back to invoice creation (TODO: back to invoice list?)
+            $state.go('createinvoice');
+          },
+          function errorCallback(response) {
+            alert('Fehler: Diese Rechnung konnte nicht storniert werden.')
+          }
+        );
+      });
+    };
   }
 })();

@@ -3,13 +3,23 @@
   <div ncy-breadcrumb class="noprint"></div>
   <div layout="row" layout-align="center">
     <md-card class="page md-whiteframe-24dp">
-      <h2 class="md-headline noprint">
-        Rechnung
-        <md-button class="md-raised md-primary" ng-click="showInvoiceCtrl.print()" ng-disabled="showInvoiceCtrl.loading">Drucken</md-button>
-      </h2>
+
+      <md-toolbar class="noprint">
+        <div class="md-toolbar-tools">
+          <span>Rechnung {{showInvoiceCtrl.invoice.id}}</span>
+          <span flex></span>
+          <md-button class="md-raised md-accent" ng-click="showInvoiceCtrl.print()" ng-disabled="showInvoiceCtrl.loading">
+            <md-icon md-svg-icon="assets/icons/print.svg"></md-icon>
+            Drucken
+          </md-button>
+          <md-button class="md-raised md-warn" ng-click="showInvoiceCtrl.invalidateInvoice(showInvoiceCtrl.invoice.id)" ng-disabled="showInvoiceCtrl.loading">
+            <md-icon md-svg-icon="assets/icons/delete_white.svg"></md-icon>
+            Stornieren
+          </md-button>
+        </div>
+      </md-toolbar>
 
       <md-card-content class="invoice">
-
         <md-content layout="column" ng-show="showInvoiceCtrl.invoice && showInvoiceCtrl.hotel">
 
           <!-- hotel address -->
