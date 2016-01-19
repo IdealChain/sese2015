@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sese2015.g3.goldenlion.commons.service.impl.ResourceNotFoundException;
+import sese2015.g3.goldenlion.reservation.service.impl.BadInputDataException;
 import sese2015.g3.goldenlion.room.domain.Room;
 import sese2015.g3.goldenlion.room.service.RoomService;
 
@@ -55,7 +56,7 @@ public class RoomResource {
             value = "/rooms/{roomid}/rate",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public double getRoomRate(
+    public Double getRoomRate(
             @PathVariable Long roomid,
             @RequestParam(value = "numberOfAdults", defaultValue = "0") int numberOfAdults,
             @RequestParam(value = "numberOfChildren", defaultValue = "0") int numberOfChildren) {
@@ -64,6 +65,11 @@ public class RoomResource {
         if (room == null)
             throw new ResourceNotFoundException(String.format("Room with given room-id %s not found", roomid));
 
-        return room.getRate(numberOfAdults, numberOfChildren);
+        Double rate = room.getRate(numberOfAdults, numberOfChildren);
+        if(null == rate)
+            throw new BadInputDataException(String.format("Room %d: There is no rate defined for %d adults and %d children",
+                    roomid, numberOfAdults, numberOfChildren));
+
+        return rate;
     }
 }

@@ -129,7 +129,7 @@ public class Room extends PersistentObject {
         this.description = description;
     }
 
-    public double getRate(int numberOfAdults, int numberOfChildren)
+    public Double getRate(int numberOfAdults, int numberOfChildren)
     {
         if(numberOfAdults == 1 && numberOfChildren == 0) {
             return this.getPrice1P();
