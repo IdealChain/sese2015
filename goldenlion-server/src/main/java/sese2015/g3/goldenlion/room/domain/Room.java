@@ -150,8 +150,8 @@ public class Room extends PersistentObject {
             return this.getPrice3P();
         }
         else{
-            throw new IllegalArgumentException(String.format("Rate for %d adult and %d children not defined",
-                    numberOfAdults, numberOfChildren));
+            // simply return the max rate
+            return this.getPrice3P();
         }
     }
 }

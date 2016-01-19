@@ -50,4 +50,20 @@ public class RoomResource {
             return roomService.getAllRooms();
         }
     }
+
+    @RequestMapping(
+            value = "/rooms/{roomid}/rate",
+            method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public double getRoomRate(
+            @PathVariable Long roomid,
+            @RequestParam(value = "numberOfAdults", defaultValue = "0") int numberOfAdults,
+            @RequestParam(value = "numberOfChildren", defaultValue = "0") int numberOfChildren) {
+
+        Room room = roomService.getRoomById(roomid);
+        if (room == null)
+            throw new ResourceNotFoundException(String.format("Room with given room-id %s not found", roomid));
+
+        return room.getRate(numberOfAdults, numberOfChildren);
+    }
 }

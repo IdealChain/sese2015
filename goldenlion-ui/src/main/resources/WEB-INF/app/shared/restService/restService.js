@@ -91,6 +91,13 @@
       })
     };
 
+    vm.roomRate = function (roomid, numberOfAdults, numberOfChildren) {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/rooms/" + roomid + "/rate?numberOfAdults=" + numberOfAdults + "&numberOfChildren=" + numberOfChildren
+      })
+    };
+
     vm.roomByIds = function (roomids) {
       return $http({
         method: 'GET',
