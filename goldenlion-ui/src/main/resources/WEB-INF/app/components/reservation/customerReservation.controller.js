@@ -56,7 +56,7 @@
         short: 'NAN',
         text: 'Keine Angabe'
       }
-    ]
+    ];
 
     vm.maxDate = new Date(
       vm.fromDate.getFullYear() + 1,
@@ -85,16 +85,17 @@
           }
         })
       }
-    }
+    };
 
     vm.submitRoomReservation = function () {
       vm.reservation = {
         roomId: vm.selectedRoom.id,
         startDate: vm.fromDate.toISOString(),
         endDate: vm.toDate.toISOString(),
-        personCount: vm.adults + vm.children,
+        numberOfAdults: vm.adults,
+        numberOfChildren: vm.children,
         customer: vm.customer
-      }
+      };
       restService.createCustomerReservation(vm.reservation).then(function successCallback(response) {
         toastr.success("Ihre Reservierung konnte erfolgreich im System eingetragen werden!", "Reservierung erfolgreich!");
         initializeCustomerReservation();
@@ -107,14 +108,14 @@
         }
         toastr.error("Folgende Fehler sind aufgetreten: " + errorMsg, "Reservierung fehlgeschlagen!");
       });
-    }
+    };
 
     vm.selectRoom = function (room) {
       vm.selectedRoom = room;
-    }
+    };
 
     vm.unselectRoom = function () {
       vm.selectedRoom = null;
-    }
+    };
   }
 })();

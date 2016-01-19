@@ -6,7 +6,7 @@
     .controller('ShowInvoiceController', ShowInvoiceController);
 
   /** @ngInject */
-  function ShowInvoiceController(restService, $state, $stateParams, $mdDialog) {
+  function ShowInvoiceController(restService, $state, $stateParams, $mdDialog, toastr) {
     var vm = this;
     vm.loading = 0;
 
@@ -65,6 +65,8 @@
       $mdDialog.show(confirm).then(function() {
         restService.invalidateInvoice(invoiceid).then(
           function successCallback(response) {
+            toastr.success("Rechnung wurde erfolgreich storniert!", "Stornierung erfolgreich!");
+
             //back to invoice creation (TODO: back to invoice list?)
             $state.go('createinvoice');
           },

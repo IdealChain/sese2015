@@ -85,7 +85,7 @@
         authenticate: true
       })
       .state('addreservation', {
-        url: '/reservation/add?roomid&startdate&enddate',
+        url: '/reservation/add?roomid&startdate&enddate&adults&children',
         templateUrl: 'app/components/reservation/addreservation.html',
         controller: 'AddReservationController',
         controllerAs: 'addReservationCtrl',

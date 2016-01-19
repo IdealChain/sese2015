@@ -18,6 +18,9 @@
     vm.minStartDate = moment().add(-1, 'days').toDate();
     vm.minEndDate = vm.startDate;
 
+    vm.adults = 2;
+    vm.children = 0;
+
     vm.loading++;
     restService.allRooms().then(
       function successCallback(response) {
@@ -41,7 +44,8 @@
       vm.displayAll = false;
       vm.roomsFiltered = [];
       vm.loading++;
-      restService.freeRooms(moment(vm.startDate).format("YYYY-MM-DD"), moment(vm.endDate).format("YYYY-MM-DD")).then(
+      var persons = vm.adults + vm.children;
+      restService.freeRoomsForPersons(moment(vm.startDate).format("YYYY-MM-DD"), moment(vm.endDate).format("YYYY-MM-DD"), persons).then(
         function successCallback(response) {
           vm.roomsFiltered = response.data;
         },
