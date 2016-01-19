@@ -12,7 +12,8 @@ import java.time.LocalDate;
 /**
  * Created by Mario on 06.12.2015.
  */
-public class ReservationCustomer {
+public class ReservationCustomer
+{
     @NotBlank
     private String firstName;
     @NotBlank
