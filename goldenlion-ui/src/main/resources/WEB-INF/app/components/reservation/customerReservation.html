@@ -92,12 +92,18 @@
               </md-card-title>
             </md-card-content>
             <md-card-actions layout="column" layout-align="end end">
-              <span class="md-subhead" layout-margin="1em">{{customerReservationCtrl.selectedRoom.pricePerNight}} € / pro Nacht </span>
+              <span class="md-subhead" layout-margin="1em" ng-show="customerReservationCtrl.selectedRoom.rate > 0">
+                {{ customerReservationCtrl.selectedRoom.rate | currency : "€ " : 2 }} pro Nacht
+              </span>
               <md-button class="md-primary" ng-click="customerReservationCtrl.unselectRoom()">Ändern</md-button>
             </md-card-actions>
           </md-card>
         </div>
       </md-card-content>
+
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="customerReservationCtrl.searching">
+        <md-progress-circular md-mode="indeterminate" md-diameter="60px"></md-progress-circular>
+      </div>
 
       <md-card-content ng-if="customerReservationCtrl.searched && customerReservationCtrl.selectedRoom">
         <form ng-submit="customerReservationCtrl.submitRoomReservation()">
