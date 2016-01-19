@@ -19,6 +19,10 @@
         vm.customer.postalCode = response.data.billingAddress.zipCode;
         vm.customer.city = response.data.billingAddress.city;
         vm.customer.birthday = new Date(response.data.birthday);
+        vm.customer.web = response.data.website;
+        vm.customer.notes = response.data.note;
+        vm.customer.fax = response.data.faxNumber;
+        vm.customer.telephone = response.data.phoneNumber;
       });
     } else {
       vm.customer = {
