@@ -28,7 +28,7 @@ public class Invoice extends PersistentObject {
         Double price = 0.0;
 
         for (Room room : reservation.getRooms()) {
-            price += room.getPricePerNight() * nights;
+            price += room.getRate(reservation.getNumberOfAdults(), reservation.getNumberOfChildren()) * nights;
         }
 
         setGrossPrice(price);
