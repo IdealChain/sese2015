@@ -65,6 +65,7 @@
                 <th>Von</th>
                 <th>Bis</th>
                 <th>Nächte</th>
+                <th>Gäste</th>
                 <th>Preis / Nacht</th>
               </tr>
               </thead>
@@ -74,7 +75,13 @@
                 <td>{{ showInvoiceCtrl.invoice.reservation.startDate | date: 'dd.MM.yyyy' }}</td>
                 <td>{{ showInvoiceCtrl.invoice.reservation.endDate | date: 'dd.MM.yyyy' }}</td>
                 <td>{{ showInvoiceCtrl.invoice.reservation.nights | number : 0 }}</td>
-                <td>{{ room.pricePerNight | currency : "€ " : 2 }}</td>
+                <td>
+                  {{ showInvoiceCtrl.invoice.reservation.numberOfAdults + 'E' }}
+                  <span ng-show="showInvoiceCtrl.invoice.reservation.numberOfChildren">
+                    / {{ showInvoiceCtrl.invoice.reservation.numberOfChildren + 'K' }}
+                  </span>
+                </td>
+                <td>{{ room.rate > 0 ? (room.rate | currency : "€ " : 2) : '—' }}</td>
               </tr>
               </tbody>
             </table>
@@ -90,11 +97,12 @@
             </div>
           </md-content>
 
-          <div layout="row" layout-sm="column" layout-align="space-around" ng-show="showInvoiceCtrl.loading">
-            <md-progress-circular md-mode="indeterminate" md-diameter="60px"></md-progress-circular>
-          </div>
         </md-content>
       </md-card-content>
+
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="showInvoiceCtrl.loading">
+        <md-progress-circular md-mode="indeterminate" md-diameter="60px"></md-progress-circular>
+      </div>
     </md-card>
   </div>
 </div>
