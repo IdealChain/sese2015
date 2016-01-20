@@ -68,6 +68,8 @@
       vm.rooms = [];
       vm.selectedRoom = null;
       vm.searched = false;
+      vm.searching = 0;
+
       var personCount = vm.adults + vm.children;
       var formattedFromDate = $filter('date')(new Date(vm.fromDate), 'yyyy-MM-dd');
       var formattedToDate = $filter('date')(new Date(vm.toDate), 'yyyy-MM-dd');
@@ -75,6 +77,7 @@
       if (angular.isUndefinedOrNull(vm.fromDate) || angular.isUndefinedOrNull(vm.toDate) || vm.fromDate < vm.minDate || vm.toDate < vm.minDate || vm.toDate <= vm.fromDate || vm.fromDate > vm.maxDate || vm.toDate > vm.maxDate) {
         toastr.error("Der eingegebene Datumsbereich ist nicht gültig!", "Datumsbereich ungültig");
       } else {
+        vm.searching++;
         restService.freeRoomsForPersons(formattedFromDate, formattedToDate, personCount).then(function (response) {
           vm.rooms = response.data;
           if (vm.rooms.length == 0) {
@@ -82,7 +85,22 @@
             toastr.info("Für dieses Datum und diese Personenzahl wurde kein Raum gefunden!", "Keine Räume gefunden!");
           } else {
             vm.searched = true;
+
+            // fetch room rates
+            vm.rooms.forEach(function(room) {
+              room.rate = 0;
+              restService.roomRate(room.id, vm.adults, vm.children).then(
+                function successCallback(response) {
+                  room.rate = response.data;
+                },
+                function errorCallback(response) {
+                  $log.warn(response);
+                }
+              );
+            });
           }
+        }).finally(function() {
+          vm.searching--;
         })
       }
     };

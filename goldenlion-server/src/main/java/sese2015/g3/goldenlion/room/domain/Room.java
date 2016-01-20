@@ -29,9 +29,6 @@ public class Room extends PersistentObject {
 
     private Double price2P1K;
 
-    @NotNull
-    private double pricePerNight;
-
     @Lob
     private String roomImage;
 
@@ -103,14 +100,6 @@ public class Room extends PersistentObject {
 
     public void setPrice2P1K(Double price2P1K) {
         this.price2P1K = price2P1K;
-    }
-
-    public double getPricePerNight() {
-        return pricePerNight;
-    }
-
-    public void setPricePerNight(double pricePerNight) {
-        this.pricePerNight = pricePerNight;
     }
 
     public String getRoomImage() {
