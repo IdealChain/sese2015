@@ -37,7 +37,7 @@
         controllerAs: 'customerCtrl',
         ncyBreadcrumb: {
           label: 'Kunden hinzufügen',
-          parent: 'home'
+          parent: 'customerList'
         },
         authenticate: true
       })
@@ -124,7 +124,7 @@
         controllerAs: 'createInvoiceCtrl',
         ncyBreadcrumb: {
           label: 'Rechnung erstellen',
-          parent: 'home'
+          parent: 'invoices'
         },
         authenticate: true
       })

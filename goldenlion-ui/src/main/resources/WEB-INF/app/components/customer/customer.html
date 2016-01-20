@@ -5,7 +5,7 @@
     <md-card class="page md-whiteframe-24dp">
       <form ng-submit="customerCtrl.createCustomer()">
         <md-card-content>
-          <h2 class="md-headline" style="padding-left: 1em;">Kunde hinzufügen</h2>
+          <h2 class="md-headline" style="padding-left: 1em;">{{ customerCtrl.customerId ? "Kunden bearbeiten" : "Kunden hinzufügen" }}</h2>
 
           <div layout="row">
             <div layout="column" layout-align="top" class="customercolumn" flex="50">
