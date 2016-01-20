@@ -80,8 +80,7 @@
           function successCallback(response) {
             toastr.success("Rechnung wurde erfolgreich storniert!", "Stornierung erfolgreich!");
 
-            //back to invoice creation (TODO: back to invoice list?)
-            $state.go('createinvoice');
+            $state.go('invoices');
           },
           function errorCallback(response) {
             alert('Fehler: Diese Rechnung konnte nicht storniert werden.')

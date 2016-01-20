@@ -2,6 +2,7 @@ package sese2015.g3.goldenlion.invoice.service.impl;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sese2015.g3.goldenlion.customer.domain.Address;
 import sese2015.g3.goldenlion.customer.domain.Customer;
@@ -67,7 +68,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public List<Invoice> getAllInvoices(boolean includeInvalidated) {
         if (includeInvalidated)
-            return IteratorUtils.toList(invoiceRepository.findAll().iterator());
+            return IteratorUtils.toList(invoiceRepository.findAllByOrderByInvoiceDateDesc().iterator());
         else
             return IteratorUtils.toList(invoiceRepository.findValid().iterator());
     }

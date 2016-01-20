@@ -60,9 +60,10 @@ public class InvoiceResource {
     @RequestMapping(value = "/invoice",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Invoice> getAllInvoices() {
-        return invoiceService.getAllInvoices(false);
+    public List<Invoice> getAllInvoices(@RequestParam(value="includeInvalidated", required = false) Boolean includeInvalidated) {
+        if (includeInvalidated != null)
+            return invoiceService.getAllInvoices(includeInvalidated);
+        else
+            return invoiceService.getAllInvoices(false);
     }
-
-
 }

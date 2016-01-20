@@ -169,6 +169,13 @@
       });
     };
 
+    vm.allInvoicesIncludeInvalidated = function() {
+      return $http({
+        method: 'GET',
+        url: backend + "/api/invoice?includeInvalidated=true"
+      });
+    };
+
     vm.getHotel = function () {
       return $http({
         method: 'GET',

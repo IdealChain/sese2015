@@ -135,6 +135,17 @@
         controllerAs: 'showInvoiceCtrl',
         ncyBreadcrumb: {
           label: 'Rechnung',
+          parent: 'invoices'
+        },
+        authenticate: true
+      })
+      .state('invoices', {
+        url: '/invoices',
+        templateUrl: 'app/components/invoice/invoices.html',
+        controller: 'InvoicesController',
+        controllerAs: 'invoicesCtrl',
+        ncyBreadcrumb: {
+          label: 'Rechnungen',
           parent: 'home'
         },
         authenticate: true

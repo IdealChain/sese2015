@@ -13,4 +13,6 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 
     @Query("select i from Invoice as i where i.invalidated <> true")
     Iterable<Invoice> findValid();
+
+    Iterable<Invoice> findAllByOrderByInvoiceDateDesc();
 }

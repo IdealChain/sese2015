@@ -1,0 +1,63 @@
+<div class="rootDiv">
+  <navbar></navbar>
+  <div ncy-breadcrumb></div>
+  <div class="room" layout="row" layout-align="center">
+    <md-card class="page md-whiteframe-24dp">
+      <h2 class="md-headline">Rechnungen</h2>
+      <md-card-content>
+        <table width="100%" role="grid" class="invoices">
+          <thead>
+          <tr>
+            <th width="5%">RNr.</th>
+            <th width="10%">Rechnungs-<br/>datum</th>
+            <th width="*">Kunde</th>
+            <th width="*">Zeitraum</th>
+            <th width="5%">Gesamt-<br/>preis</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            ng-repeat="i in invoicesCtrl.invoices"
+            ng-class="i.invalidated ? 'invalid' : ''"
+            ng-class-odd="'odd'" ng-class-even="'even'">
+            <td class="center">
+              <a ng-show="!i.invalidated" ui-sref="showinvoice({invoiceid: i.id})">{{i.id}}</a>
+              <span ng-show="i.invalidated">{{i.id}}</span>
+            </td>
+            <td class="center">{{i.invoiceDate | date : "dd.MM.yyyy"}}</td>
+            <td class="center">{{i.billedCustomer.firstName}} {{i.billedCustomer.lastName}}</td>
+
+            <td class="center" ng-if="!i.invalidated">
+              {{i.reservation.startDate | date : "dd.MM.yyyy"}} -
+              {{i.reservation.endDate | date : "dd.MM.yyyy"}}
+              <br />
+              {{i.reservation.nights}} {{(i.reservation.nights == 1 ? "Nacht" : "Nächte")}}
+            </td>
+
+            <td class="center" ng-if="i.invalidated">
+              <s>{{i.reservation.startDate | date : "dd.MM.yyyy"}} -
+              {{i.reservation.endDate | date : "dd.MM.yyyy"}}</s>
+              <br />
+              <b>Storniert</b>
+            </td>
+
+            <td class="center">{{i.grossPrice | currency : "€ " : 0}}</td>
+          </tr>
+          <tr>
+            <td colspan="5" ng-show="roomCtrl.loading">
+              <div layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate" md-diameter="60px" class="md-hue-2"></md-progress-circular>
+              </div>
+            </td>
+          </tr>
+          <tr ng-show="!invoicesCtrl.loading && !invoicesCtrl.invoices.length">
+            <td colspan="5" class="center">
+              <p>Keine Rechnungen gefunden.</p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
