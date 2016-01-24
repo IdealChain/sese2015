@@ -9,7 +9,7 @@
   function InvoicesController(restService) {
     var vm = this;
 
-    vm.loading = 0;
+    vm.loading = true;
     restService.allInvoicesIncludeInvalidated().then(
       function successCallback(response) {
         vm.invoices = response.data;
